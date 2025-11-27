@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReinForge - Reshaping Your Reality</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: black;
+            line-height: 1.6;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-left: 1px solid #ddd;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border: 2px solid #f1f1f1;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Firefox scrollbar */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: #888 #f1f1f1;
+        }
+
+        header {
+            background-color: white;
+            border-bottom: 2px solid black;
+            padding: 20px 40px;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .logo-section h1 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .logo-section p {
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        nav {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            margin: 0 20px;
+            font-size: 16px;
+            border: 2px solid black;
+            padding: 8px 20px;
+            display: inline-block;
+            background-color: white;
+        }
+
+        nav a:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 2px solid black;
+            padding-bottom: 10px;
+        }
+
+        .mod-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .mod-card {
+            border: 2px solid black;
+            padding: 15px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mod-card:hover {
+            background-color: #f5f5f5;
+        }
+
+        .mod-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border: 1px solid black;
+            margin-bottom: 10px;
+        }
+
+        .mod-card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .mod-card p {
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .mod-card button {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid black;
+            background-color: white;
+            color: black;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .mod-card button:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .donation-section {
+            text-align: center;
+        }
+
+        .donation-section img {
+            max-width: 400px;
+            width: 100%;
+            border: 2px solid black;
+            margin: 20px 0;
+        }
+
+        .donation-section a {
+            display: inline-block;
+            padding: 12px 30px;
+            border: 2px solid black;
+            background-color: white;
+            color: black;
+            text-decoration: none;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .donation-section a:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .about-content {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .about-content h2 {
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .about-content p {
+            margin-bottom: 15px;
+        }
+
+        .policy-content {
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .policy-content h2 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 22px;
+            border-bottom: 2px solid black;
+            padding-bottom: 8px;
+        }
+
+        .policy-content h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .policy-content p {
+            margin-bottom: 12px;
+        }
+
+        .policy-content ul {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        .policy-content li {
+            margin-bottom: 8px;
+        }
+
+        .policy-date {
+            font-style: italic;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 2px solid black;
+            margin-top: 60px;
+            font-size: 14px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .thank-you-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .thank-you-modal.active {
+            display: flex;
+        }
+
+        .thank-you-content {
+            text-align: center;
+            padding: 40px;
+            border: 3px solid black;
+            background-color: white;
+            max-width: 500px;
+        }
+
+        .thank-you-content h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .thank-you-content p {
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        .thank-you-content button {
+            padding: 12px 30px;
+            border: 2px solid black;
+            background-color: white;
+            color: black;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .thank-you-content button:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .filter-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid black;
+            background-color: white;
+        }
+
+        .filter-section h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid black;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .filter-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        .filter-btn.active {
+            background-color: black;
+            color: white;
+        }
+
+        .mod-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .mod-detail-modal.active {
+            display: block;
+        }
+
+        .mod-detail-content {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: white;
+            border: 3px solid black;
+            padding: 30px;
+        }
+
+        .mod-detail-content h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid black;
+            padding-bottom: 10px;
+        }
+
+        .mod-detail-content img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border: 2px solid black;
+            margin-bottom: 20px;
+        }
+
+        .mod-info-section {
+            margin-bottom: 25px;
+        }
+
+        .mod-info-section h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid black;
+            padding-bottom: 5px;
+        }
+
+        .mod-info-section p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .mod-info-section ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .mod-info-section li {
+            margin-bottom: 8px;
+        }
+
+        .mod-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .mod-meta-item {
+            padding: 10px 15px;
+            border: 2px solid black;
+            background-color: white;
+        }
+
+        .mod-meta-item strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .close-detail-btn {
+            padding: 12px 30px;
+            border: 2px solid black;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .close-detail-btn:hover {
+            background-color: black;
+            color: white;
+        }
+
+        /* Search Section Styles */
+        .search-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 2px solid black;
+            background-color: white;
+        }
+
+        .search-section h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 2px solid black;
+            font-size: 16px;
+        }
+
+        .search-btn {
+            padding: 10px 20px;
+            border: 2px solid black;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .search-btn:hover {
+            background-color: black;
+            color: white;
+        }
+
+        /* Download button in mod detail */
+        .mod-detail-download-btn {
+            padding: 12px 30px;
+            border: 2px solid black;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .mod-detail-download-btn:hover {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-section">
+            <h1>ReinForge</h1>
+            <p>Reshaping Your Reality</p>
+        </div>
+        <nav>
+            <a href="#" onclick="showPage('home')">Home</a>
+            <a href="#" onclick="showPage('mods')">Mods</a>
+            <a href="#" onclick="showPage('donation')">Donation</a>
+            <a href="#" onclick="showPage('about')">About</a>
+            <a href="#" onclick="showPage('tos')">Terms of Service</a>
+            <a href="#" onclick="showPage('privacy')">Privacy Policy</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <h2 class="page-title">Welcome to ReinForge</h2>
+            <div class="about-content">
+                <p>ReinForge is a Minecraft modding team dedicated to creating immersive and innovative modifications that reshape your Minecraft experience.</p>
+                <p>We believe in pushing the boundaries of what's possible in Minecraft, bringing you quality mods that enhance gameplay and add new dimensions to your adventures.</p>
+                <p>Explore our mods, support our work, and join us in reshaping reality, one block at a time.</p>
+            </div>
+        </div>
+
+        <!-- Mods Page -->
+        <div id="mods" class="page">
+            <h2 class="page-title">Our Mods</h2>
+            
+            <!-- Search Section -->
+            <div class="search-section">
+                <h3>Search Mods:</h3>
+                <div class="search-container">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search by mod name, description, or author...">
+                    <button class="search-btn" onclick="searchMods()">Search</button>
+                </div>
+            </div>
+            
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <h3>Filter by Game Version:</h3>
+                <div class="filter-buttons" id="filterButtons">
+                    <button class="filter-btn active" onclick="filterMods('all')">All Versions</button>
+                </div>
+            </div>
+
+            <div class="mod-grid" id="modGrid">
+                <!-- Mods will be generated here by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Donation Page -->
+        <div id="donation" class="page">
+            <h2 class="page-title">Support Our Work</h2>
+            <div class="donation-section">
+                <p>Your support helps us continue creating amazing mods for the Minecraft community.</p>
+                <img src="https://res.cloudinary.com/dqrmhcdl6/image/upload/v1764081719/Screenshot_2025-11-25_214132_wrna27.png" alt="Donation QR Code">
+                <br>
+                <a href="https://saweria.co/omedonation" target="_blank">Donate via Saweria</a>
+            </div>
+        </div>
+
+        <!-- About Page -->
+        <div id="about" class="page">
+            <h2 class="page-title">About ReinForge</h2>
+            <div class="about-content">
+                <h2>Who We Are</h2>
+                <p>ReinForge is a passionate team of Minecraft modders committed to creating high-quality modifications that enhance the Minecraft experience.</p>
+                
+                <h2>Our Mission</h2>
+                <p>We strive to reshape your reality by introducing innovative gameplay mechanics, new content, and exciting features that push the boundaries of what's possible in Minecraft.</p>
+                
+                <h2>Our Vision</h2>
+                <p>To become a leading force in the Minecraft modding community, known for quality, creativity, and dedication to the player experience.</p>
+                
+                <h2>Contact Us</h2>
+                <p>Have questions or suggestions? Feel free to reach out to us through our social media channels or support us through donations.</p>
+            </div>
+        </div>
+
+        <!-- Terms of Service Page -->
+        <div id="tos" class="page">
+            <h2 class="page-title">Terms of Service</h2>
+            <div class="policy-content">
+                <p class="policy-date">Last Updated: November 26, 2025</p>
+                
+                <p>Welcome to ReinForge. By accessing or using our website and downloading our mods, you agree to be bound by these Terms of Service. Please read them carefully.</p>
+
+                <h2>1. Acceptance of Terms</h2>
+                <p>By accessing this website (reinforge.com or any associated domains), downloading our mods, or using our services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these terms, please do not use our website or services.</p>
+
+                <h2>2. Definitions</h2>
+                <ul>
+                    <li><strong>"We," "Us," "Our"</strong> refers to ReinForge and its team members.</li>
+                    <li><strong>"You," "User"</strong> refers to any individual or entity accessing our website or using our services.</li>
+                    <li><strong>"Mods"</strong> refers to modifications for Minecraft created and distributed by ReinForge.</li>
+                    <li><strong>"Service"</strong> refers to our website, mods, and any related services provided by ReinForge.</li>
+                    <li><strong>"Content"</strong> refers to all text, images, code, and materials available on our website.</li>
+                </ul>
+
+                <h2>3. Eligibility</h2>
+                <p>You must be at least 13 years old to use our services. If you are under 18, you must have permission from a parent or legal guardian. By using our services, you represent and warrant that you meet these eligibility requirements.</p>
+
+                <h2>4. License and Intellectual Property</h2>
+                
+                <h3>4.1 License Grant</h3>
+                <p>Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to download and use our mods for personal, non-commercial purposes in Minecraft.</p>
+
+                <h3>4.2 Ownership</h3>
+                <p>All mods, code, designs, graphics, and content created by ReinForge remain our exclusive property. We retain all rights, title, and interest in and to our mods and website content.</p>
+
+                <h3>4.3 Restrictions</h3>
+                <p>You may NOT:</p>
+                <ul>
+                    <li>Redistribute, sell, lease, or sublicense our mods without explicit written permission</li>
+                    <li>Modify, reverse engineer, decompile, or disassemble our mods for redistribution purposes</li>
+                    <li>Remove or alter any copyright, trademark, or proprietary notices from our mods</li>
+                    <li>Use our mods in any commercial product or service without authorization</li>
+                    <li>Claim our mods as your own work</li>
+                    <li>Upload our mods to other websites or platforms without permission</li>
+                    <li>Use our mods in any way that violates applicable laws or regulations</li>
+                </ul>
+
+                <h3>4.4 Minecraft and Mojang</h3>
+                <p>Our mods are unofficial and not affiliated with, endorsed by, or sponsored by Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios. Users must own a legitimate copy of Minecraft to use our mods.</p>
+
+                <h2>5. User Conduct</h2>
+                <p>When using our website and services, you agree to:</p>
+                <ul>
+                    <li>Provide accurate and complete information when required</li>
+                    <li>Use our services only for lawful purposes</li>
+                    <li>Not attempt to harm, disrupt, or interfere with our website or services</li>
+                    <li>Not use automated tools (bots, scrapers) to access our website without permission</li>
+                    <li>Not upload or transmit viruses, malware, or any harmful code</li>
+                    <li>Not harass, threaten, or harm other users or our team members</li>
+                    <li>Not impersonate ReinForge or any of our team members</li>
+                </ul>
+
+                <h2>6. Downloads and Installation</h2>
+                
+                <h3>6.1 Download Risks</h3>
+                <p>While we strive to ensure our mods are safe and functional, you download and install them at your own risk. We recommend backing up your Minecraft worlds and files before installing any mods.</p>
+
+                <h3>6.2 Compatibility</h3>
+                <p>We make reasonable efforts to ensure our mods work with specified Minecraft versions, but we do not guarantee compatibility with all setups, other mods, or future Minecraft updates.</p>
+
+                <h3>6.3 Technical Requirements</h3>
+                <p>You are responsible for ensuring your system meets the technical requirements to run our mods. We are not responsible for performance issues related to inadequate hardware or software.</p>
+
+                <h2>7. Donations</h2>
+                
+                <h3>7.1 Voluntary Nature</h3>
+                <p>All donations are voluntary and non-refundable. Donations do not purchase any product or service and do not create any contractual obligation on our part.</p>
+
+                <h3>7.2 No Benefits</h3>
+                <p>Unless explicitly stated, donations do not grant any special benefits, early access, or preferential treatment. All users have equal access to our publicly released mods.</p>
+
+                <h3>7.3 Third-Party Payment Processors</h3>
+                <p>Donations are processed through third-party services (such as Saweria). Your use of these services is subject to their respective terms and conditions.</p>
+
+                <h2>8. Disclaimers and Limitation of Liability</h2>
+                
+                <h3>8.1 "As Is" Basis</h3>
+                <p>Our website and mods are provided "as is" and "as available" without warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+
+                <h3>8.2 No Guarantee</h3>
+                <p>We do not guarantee that:</p>
+                <ul>
+                    <li>Our website will be uninterrupted, secure, or error-free</li>
+                    <li>Our mods will be free from bugs or will function perfectly</li>
+                    <li>Any errors or defects will be corrected</li>
+                    <li>Our services will meet your specific requirements</li>
+                </ul>
+
+                <h3>8.3 Limitation of Liability</h3>
+                <p>To the maximum extent permitted by law, ReinForge and its team members shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses resulting from:</p>
+                <ul>
+                    <li>Your use or inability to use our services</li>
+                    <li>Any unauthorized access to or use of our servers</li>
+                    <li>Any bugs, viruses, or harmful code transmitted through our services</li>
+                    <li>Any errors or omissions in any content</li>
+                    <li>Any damage to your computer system or loss of data</li>
+                    <li>Any mod conflicts or incompatibilities with your Minecraft setup</li>
+                </ul>
+
+                <h2>9. Indemnification</h2>
+                <p>You agree to defend, indemnify, and hold harmless ReinForge and its team members from and against any claims, liabilities, damages, losses, and expenses, including reasonable attorney's fees, arising out of or in any way connected with your access to or use of our services, your violation of these Terms, or your violation of any rights of another party.</p>
+
+                <h2>10. Updates and Modifications</h2>
+                
+                <h3>10.1 Mod Updates</h3>
+                <p>We may update, modify, or discontinue any of our mods at any time without notice. We are under no obligation to provide updates or maintain compatibility with future Minecraft versions.</p>
+
+                <h3>10.2 Terms Updates</h3>
+                <p>We reserve the right to modify these Terms at any time. We will notify users of significant changes by posting a notice on our website. Your continued use of our services after changes constitute acceptance of the modified Terms.</p>
+
+                <h2>11. Termination</h2>
+                <p>We reserve the right to terminate or suspend your access to our services immediately, without prior notice or liability, for any reason, including but not limited to:</p>
+                <ul>
+                    <li>Violation of these Terms</li>
+                    <li>Fraudulent, abusive, or illegal activity</li>
+                    <li>Requests by law enforcement or other government agencies</li>
+                </ul>
+
+                <h2>12. Third-Party Links and Content</h2>
+                <p>Our website may contain links to third-party websites or services. We are not responsible for the content, privacy policies, or practices of any third-party websites. You access third-party websites at your own risk.</p>
+
+                <h2>13. Privacy</h2>
+                <p>Your use of our services is also governed by our Privacy Policy, which is incorporated into these Terms by reference. Please review our Privacy Policy to understand our data practices.</p>
+
+                <h2>14. Dispute Resolution</h2>
+                
+                <h3>14.1 Informal Resolution</h3>
+                <p>If you have any dispute with us, you agree to first contact us and attempt to resolve the dispute informally.</p>
+
+                <h3>14.2 Governing Law</h3>
+                <p>These Terms shall be governed by and construed in accordance with applicable laws, without regard to conflict of law provisions.</p>
+
+                <h2>15. Severability</h2>
+                <p>If any provision of these Terms is found to be unenforceable or invalid, that provision will be limited or eliminated to the minimum extent necessary so that the Terms will otherwise remain in full force and effect.</p>
+
+                <h2>16. Entire Agreement</h2>
+                <p>These Terms, together with our Privacy Policy, constitute the entire agreement between you and ReinForge regarding our services and supersede all prior agreements and understandings.</p>
+
+                <h2>17. Contact Information</h2>
+                <p>If you have any questions about these Terms of Service, please contact us through our donation platform or social media channels.</p>
+
+                <h2>18. Acknowledgment</h2>
+                <p>By using our services, you acknowledge that you have read these Terms of Service, understand them, and agree to be bound by them.</p>
+            </div>
+        </div>
+
+        <!-- Privacy Policy Page -->
+        <div id="privacy" class="page">
+            <h2 class="page-title">Privacy Policy</h2>
+            <div class="policy-content">
+                <p class="policy-date">Last Updated: November 26, 2025</p>
+                
+                <p>At ReinForge, we respect your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services.</p>
+
+                <h2>1. Information We Collect</h2>
+                
+                <h3>1.1 Information You Provide</h3>
+                <p>We may collect information that you voluntarily provide to us, including:</p>
+                <ul>
+                    <li>Contact information when you reach out to us</li>
+                    <li>Donation information processed through third-party payment platforms</li>
+                    <li>Feedback, comments, or suggestions you submit</li>
+                    <li>Any other information you choose to provide</li>
+                </ul>
+
+                <h3>1.2 Automatically Collected Information</h3>
+                <p>When you visit our website, certain information may be automatically collected, including:</p>
+                <ul>
+                    <li>IP address and general location information</li>
+                    <li>Browser type and version</li>
+                    <li>Operating system</li>
+                    <li>Pages visited and time spent on pages</li>
+                    <li>Referring website</li>
+                    <li>Download activity (which mods you download)</li>
+                </ul>
+
+                <h3>1.3 Cookies and Tracking Technologies</h3>
+                <p>We may use cookies and similar tracking technologies to enhance your experience. Cookies are small data files stored on your device. You can configure your browser to refuse cookies, but this may limit some website functionality.</p>
+
+                <h2>2. How We Use Your Information</h2>
+                <p>We use the collected information for various purposes, including:</p>
+                <ul>
+                    <li>To provide, maintain, and improve our website and services</li>
+                    <li>To understand how users interact with our mods and website</li>
+                    <li>To communicate with you, including responding to inquiries</li>
+                    <li>To analyze usage patterns and optimize user experience</li>
+                    <li>To detect, prevent, and address technical issues</li>
+                    <li>To monitor and analyze trends and usage</li>
+                    <li>To protect against fraudulent or illegal activity</li>
+                    <li>To comply with legal obligations</li>
+                </ul>
+
+                <h2>3. Information Sharing and Disclosure</h2>
+                
+                <h3>3.1 Third-Party Service Providers</h3>
+                <p>We may share your information with third-party service providers who perform services on our behalf, such as:</p>
+                <ul>
+                    <li>Web hosting providers</li>
+                    <li>Payment processors (for donations)</li>
+                    <li>Analytics services</li>
+                    <li>Content delivery networks</li>
+                </ul>
+                <p>These service providers are obligated to protect your information and use it only for the purposes we specify.</p>
+
+                <h3>3.2 Legal Requirements</h3>
+                <p>We may disclose your information if required to do so by law or in response to valid requests by public authorities, including to meet national security or law enforcement requirements.</p>
+
+                <h3>3.3 Business Transfers</h3>
+                <p>If ReinForge is involved in a merger, acquisition, or sale of assets, your information may be transferred as part of that transaction. We will provide notice before your information is transferred and becomes subject to a different privacy policy.</p>
+
+                <h3>3.4 With Your Consent</h3>
+                <p>We may share your information for any other purpose with your explicit consent.</p>
+
+                <h3>3.5 What We Don't Share</h3>
+                <p>We do not sell, rent, or trade your personal information to third parties for marketing purposes.</p>
+
+                <h2>4. Data Security</h2>
+                <p>We implement reasonable security measures to protect your information from unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the Internet or electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your information, we cannot guarantee absolute security.</p>
+
+                <h2>5. Data Retention</h2>
+                <p>We retain your information only for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law. When information is no longer needed, we will securely delete or anonymize it.</p>
+
+                <h2>6. Third-Party Websites and Services</h2>
+                <p>Our website may contain links to third-party websites, including:</p>
+                <ul>
+                    <li>Donation platforms (Saweria)</li>
+                    <li>Social media platforms</li>
+                    <li>Partner websites</li>
+                </ul>
+                <p>We are not responsible for the privacy practices of these third-party sites. We encourage you to review their privacy policies before providing any personal information.</p>
+
+                <h2>7. Children's Privacy</h2>
+                <p>Our services are not directed to children under 13 years of age. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us so we can delete such information.</p>
+
+                <h2>8. International Data Transfers</h2>
+                <p>Your information may be transferred to and processed in countries other than your country of residence. These countries may have different data protection laws. By using our services, you consent to the transfer of your information to countries outside your country of residence.</p>
+
+                <h2>9. Your Rights and Choices</h2>
+                <p>Depending on your location, you may have certain rights regarding your personal information, including:</p>
+                <ul>
+                    <li><strong>Access:</strong> Request access to the personal information we hold about you</li>
+                    <li><strong>Correction:</strong> Request correction of inaccurate or incomplete information</li>
+                    <li><strong>Deletion:</strong> Request deletion of your personal information</li>
+                    <li><strong>Objection:</strong> Object to processing of your personal information</li>
+                    <li><strong>Restriction:</strong> Request restriction of processing your personal information</li>
+                    <li><strong>Data Portability:</strong> Request transfer of your information to another service</li>
+                    <li><strong>Withdraw Consent:</strong> Withdraw consent where processing is based on consent</li>
+                </ul>
+                <p>To exercise these rights, please contact us using the information provided at the end of this policy.</p>
+
+                <h2>10. Cookie Management</h2>
+                <p>Most web browsers are set to accept cookies by default. You can choose to:</p>
+                <ul>
+                    <li>Block all cookies</li>
+                    <li>Allow only first-party cookies</li>
+                    <li>Delete cookies after each browsing session</li>
+                    <li>Accept or reject cookies on a case-by-case basis</li>
+                </ul>
+                <p>Note that blocking cookies may affect website functionality.</p>
+
+                <h2>11. Do Not Track Signals</h2>
+                <p>Some browsers support "Do Not Track" signals. Currently, we do not respond to Do Not Track signals, as there is no industry standard for how to respond to such signals.</p>
+
+                <h2>12. Updates to This Privacy Policy</h2>
+                <p>We may update this Privacy Policy from time to time to reflect changes in our practices or legal requirements. We will notify you of any material changes by:</p>
+                <ul>
+                    <li>Posting the updated policy on our website</li>
+                    <li>Updating the "Last Updated" date</li>
+                    <li>Providing notice on our website</li>
+                </ul>
+                <p>Your continued use of our services after changes to the Privacy Policy constitutes acceptance of the updated policy.</p>
+
+                <h2>13. California Privacy Rights</h2>
+                <p>If you are a California resident, you have specific rights under the California Consumer Privacy Act (CCPA), including:</p>
+                <ul>
+                    <li>Right to know what personal information is collected</li>
+                    <li>Right to know whether personal information is sold or disclosed</li>
+                    <li>Right to say no to the sale of personal information</li>
+                    <li>Right to access personal information</li>
+                    <li>Right to equal service and price</li>
+                    <li>Right to delete personal information</li>
+                </ul>
+
+                <h2>14. European Privacy Rights (GDPR)</h2>
+                <p>If you are located in the European Economic Area (EEA), you have rights under the General Data Protection Regulation (GDPR), including those listed in Section 9 above. We process your information based on:</p>
+                <ul>
+                    <li>Consent you have given</li>
+                    <li>Performance of a contract with you</li>
+                    <li>Compliance with legal obligations</li>
+                    <li>Our legitimate interests</li>
+                </ul>
+
+                <h2>15. Data Breach Notification</h2>
+                <p>In the event of a data breach that affects your personal information, we will notify you and relevant authorities as required by applicable law, within the timeframes specified by law.</p>
+
+                <h2>16. Contact Information</h2>
+                <p>If you have questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us through:</p>
+                <ul>
+                    <li>Our donation platform</li>
+                    <li>Our social media channels</li>
+                    <li>The contact methods provided on our website</li>
+                </ul>
+
+                <h2>17. Consent</h2>
+                <p>By using our website and services, you consent to this Privacy Policy and agree to its terms.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 ReinForge. All rights reserved. Reshaping Your Reality.</p>
+    </footer>
+
+    <!-- Thank You Modal -->
+    <div id="thankYouModal" class="thank-you-modal">
+        <div class="thank-you-content">
+            <h2>Thank You!</h2>
+            <p>Your download should start automatically.</p>
+            <button onclick="retryDownload()">Not downloading? Click here</button>
+            <button onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Mod Detail Modal -->
+    <div id="modDetailModal" class="mod-detail-modal">
+        <div class="mod-detail-content" id="modDetailContent">
+            <!-- Content will be generated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        let currentDownloadUrl = '';
+        let currentFilter = 'all';
+        let currentSearchTerm = '';
+
+        // DATA MODS - EDIT DI SINI UNTUK MENAMBAH/MENGUBAH MODS
+        const modsData = [
+            {
+                id: 1,
+                name: "Long Sword (Beta Version)",
+                version: "1.20.1",
+                image: "https://imglink.io/i/ba1a8254-0370-4384-92f6-15407e1f8830.png",
+                shortDescription: "Update your diamond sword visuals with a longer and modified visuals..",
+                fullDescription: "Long Sword is a fictional long sword that we created, this sword has a very painful slash suitable for war, this sword has serrations on the front.",
+                authors: ["Rozaq", "Vicko", "Nathan", "All Team ReinForge"],
+                downloadUrl: "https://drive.google.com/uc?id=1UQPU49H3Jx9u081pllwLdvM7NUlVAV8n",
+                features: [
+                    "Update Visual for Diamond Sword",
+                    "Anvil System (Use Diamond Sword)",
+                ],
+                installation: [
+                    "Download and install Minecraft Optifine for version 1.20.1",
+                    "Download the Long Sword mod .Zip file",
+                    "Place the downloaded .Zip file into your Resource Packs folder",
+                    "Launch Minecraft and go to Options > Resource Packs",
+                    "Enable the Long Sword resource pack",
+                    "Enjoy the new Long Sword visuals in your game!"
+                ]
+            }
+        ];
+
+        // Generate filter buttons automatically
+        function generateFilters() {
+            const versions = [...new Set(modsData.map(mod => mod.version))];
+            const filterButtons = document.getElementById('filterButtons');
+            
+            versions.forEach(version => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn';
+                btn.textContent = version;
+                btn.onclick = () => filterMods(version);
+                filterButtons.appendChild(btn);
+            });
+        }
+
+        // Filter mods by version
+        function filterMods(version) {
+            currentFilter = version;
+            
+            // Update active button
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                if ((version === 'all' && btn.textContent === 'All Versions') || 
+                    btn.textContent === version) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            renderMods();
+        }
+
+        // Search mods
+        function searchMods() {
+            const searchInput = document.getElementById('searchInput');
+            currentSearchTerm = searchInput.value.toLowerCase().trim();
+            renderMods();
+        }
+
+        // Handle Enter key in search input
+        document.getElementById('searchInput').addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                searchMods();
+            }
+        });
+
+        // Render mods
+        function renderMods() {
+            const modGrid = document.getElementById('modGrid');
+            modGrid.innerHTML = '';
+            
+            let filteredMods = currentFilter === 'all' 
+                ? modsData 
+                : modsData.filter(mod => mod.version === currentFilter);
+            
+            // Apply search filter if there's a search term
+            if (currentSearchTerm) {
+                filteredMods = filteredMods.filter(mod => 
+                    mod.name.toLowerCase().includes(currentSearchTerm) ||
+                    mod.shortDescription.toLowerCase().includes(currentSearchTerm) ||
+                    mod.authors.some(author => author.toLowerCase().includes(currentSearchTerm))
+                );
+            }
+            
+            if (filteredMods.length === 0) {
+                modGrid.innerHTML = '<p>No mods found matching your criteria.</p>';
+                return;
+            }
+            
+            filteredMods.forEach(mod => {
+                const modCard = document.createElement('div');
+                modCard.className = 'mod-card';
+                modCard.onclick = () => showModDetail(mod.id);
+                modCard.innerHTML = `
+                    <img src="${mod.image}" alt="${mod.name}">
+                    <h3>${mod.name}</h3>
+                    <p>${mod.shortDescription}</p>
+                    <button onclick="event.stopPropagation(); downloadMod('${mod.downloadUrl}', this)">Download</button>
+                `;
+                modGrid.appendChild(modCard);
+            });
+        }
+
+        // Show mod detail
+        function showModDetail(modId) {
+            const mod = modsData.find(m => m.id === modId);
+            if (!mod) return;
+            
+            const detailContent = document.getElementById('modDetailContent');
+            detailContent.innerHTML = `
+                <h2>${mod.name}</h2>
+                <img src="${mod.image}" alt="${mod.name}">
+                
+                <div class="mod-meta">
+                    <div class="mod-meta-item">
+                        <strong>Version</strong>
+                        ${mod.version}
+                    </div>
+                    <div class="mod-meta-item">
+                        <strong>Authors</strong>
+                        ${mod.authors.join(', ')}
+                    </div>
+                </div>
+                
+                <div class="mod-info-section">
+                    <h3>Description</h3>
+                    <p>${mod.fullDescription}</p>
+                </div>
+                
+                <div class="mod-info-section">
+                    <h3>Features</h3>
+                    <ul>
+                        ${mod.features.map(feature => `<li>${feature}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="mod-info-section">
+                    <h3>Installation Guide</h3>
+                    <ul>
+                        ${mod.installation.map((step, index) => `<li><strong>Step ${index + 1}:</strong> ${step}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <button class="mod-detail-download-btn" onclick="downloadMod('${mod.downloadUrl}', this)">Download ${mod.name}</button>
+                <button class="close-detail-btn" onclick="closeModDetail()">Close</button>
+            `;
+            
+            document.getElementById('modDetailModal').classList.add('active');
+        }
+
+        // Close mod detail
+        function closeModDetail() {
+            document.getElementById('modDetailModal').classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('modDetailModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModDetail();
+            }
+        });
+
+        function showPage(pageName) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageName).classList.add('active');
+        }
+
+        function downloadMod(url, button) {
+            currentDownloadUrl = url;
+            
+            // Create a temporary link and trigger download
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = '';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Show thank you modal
+            document.getElementById('thankYouModal').classList.add('active');
+        }
+
+        function retryDownload() {
+            if (currentDownloadUrl) {
+                const link = document.createElement('a');
+                link.href = currentDownloadUrl;
+                link.download = '';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('thankYouModal').classList.remove('active');
+        }
+
+        // Initialize on page load
+        window.onload = function() {
+            generateFilters();
+            renderMods();
+        };
+    </script>
+</body>
+</html>
