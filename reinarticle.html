@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReinArticle | ReinForge Minecraft News Portal</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Using Inter font, simplified dark theme CSS */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212; /* Very dark background */
+            color: #f0f0f0; /* Light text */
+        }
+        .header-bg {
+            background-color: #0d47a1; /* Darker, classic blue */
+            border-bottom: 2px solid #333;
+        }
+        .card {
+            background-color: #1a1a1a; /* Card background, slightly lighter than body */
+            border: 1px solid #333;
+            box-shadow: none; /* No shadow */
+            transition: background-color 0.2s;
+        }
+        .card:hover {
+            background-color: #222222;
+            transform: none; /* No vertical movement on hover */
+        }
+        .text-break {
+            white-space: pre-wrap; /* Ensures spaces and new lines in description are rendered correctly */
+        }
+        .sidebar, .main-article-content {
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Header & Navigation -->
+    <header class="header-bg shadow-md sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-wrap items-center justify-between">
+            <a href="#home" id="home-link" class="text-3xl font-extrabold text-white tracking-tight">ReinArticle</a>
+            
+            <!-- Action Links -->
+            <div class="flex items-center space-x-4 mt-2 sm:mt-0">
+                <button id="new-filter" class="text-white hover:text-yellow-300 font-semibold transition duration-150">New</button>
+                <button id="recommended-filter" class="text-white hover:text-yellow-300 font-semibold transition duration-150">Recommended</button>
+                <a href="https://reinforge.vercel.app" target="_blank" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-1.5 px-3 rounded text-sm transition duration-150">
+                    ReinForge (Mods)
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- Search and Filter Area -->
+        <div id="filter-section" class="flex flex-wrap items-center justify-between gap-4">
+            <div class="w-full md:w-1/2">
+                <input type="text" id="search-input" placeholder="Search Minecraft articles..." class="w-full p-3 border border-gray-600 bg-gray-700 text-white rounded focus:ring-blue-500 focus:border-blue-500 transition duration-150">
+            </div>
+            <div class="text-sm font-medium text-gray-400">
+                <span id="current-filter">All Articles</span>
+                <button id="reset-filter" class="ml-2 text-red-400 hover:text-red-600 hidden text-xs font-semibold">RESET</button>
+            </div>
+        </div>
+
+        <!-- Article List View -->
+        <div id="article-list-view" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Articles will load here -->
+        </div>
+
+        <!-- Article Detail View (New two-column layout) -->
+        <div id="article-detail-view" class="hidden max-w-7xl mx-auto space-y-6">
+            <button id="back-to-list" class="flex items-center text-blue-400 hover:text-blue-600 font-semibold mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Back to List
+            </button>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Main Article Content (2/3 width) -->
+                <div class="lg:col-span-2 bg-[#1a1a1a] p-6 main-article-content space-y-6">
+                    <img id="detail-foto" class="w-full h-auto border border-gray-700 mb-4" alt="Article Photo">
+                    <h1 id="detail-judul" class="text-4xl font-bold text-white"></h1>
+                    
+                    <div class="flex items-center space-x-4 border-t border-b border-gray-700 py-3">
+                        <button id="copy-article-link" class="py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded text-sm transition duration-150">
+                            Copy Article Link
+                        </button>
+                        <a id="detail-link" href="#" target="_blank" class="py-2 px-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded text-sm transition duration-150 hidden">
+                            Read Original Source
+                        </a>
+                    </div>
+
+                    <p id="detail-deskripsi" class="text-gray-300 text-lg leading-relaxed text-break"></p>
+                </div>
+
+                <!-- Recommended Articles Sidebar (1/3 width) -->
+                <div id="recommended-sidebar" class="lg:col-span-1 space-y-4 sidebar p-4 bg-[#1a1a1a]">
+                    <h2 class="text-xl font-bold text-yellow-400 border-b border-gray-700 pb-2">Recommended Reads</h2>
+                    <div id="recommended-list" class="space-y-3">
+                        <!-- Recommended articles go here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification -->
+        <div id="notification" class="hidden fixed bottom-4 right-4 p-4 rounded shadow-xl text-center font-medium z-20"></div>
+
+        <!-- Footer -->
+        <footer class="text-center text-sm text-gray-500 pt-8 border-t border-gray-700 mt-10">
+            &copy; 2025 ReinArticle by ReinForge Team. Internal Minecraft Content.
+        </footer>
+    </main>
+
+    <script>
+        // Article Data (Translated to English)
+        const ARTICLE_DATA_JSON = `
+        [
+          {
+            "foto": "https://placehold.co/800x450/4CAF50/ffffff?text=Tricky+Trials+Update",
+            "judul": "Exploring Minecraft 1.21 Update: The Tricky Trials",
+            "deskripsi": "The 1.21 Update brings many new challenges and exciting blocks. From the trap-filled Trial Chambers to the elusive Breeze mob.\\n\\nMake sure you are equipped with the best gear before exploring! Also, we discuss how the new automated Crafter Block works.",
+            "link": true,
+            "link_url": "https://www.minecraft.net/en-us/article/tricky-trials-out-now",
+            "slug": "update-1-21-tricky-trials",
+            "is_new": true,
+            "is_recommended": true
+          },
+          {
+            "foto": "https://placehold.co/800x450/2196F3/ffffff?text=Redstone+Guide",
+            "judul": "Essential Redstone Guide for Beginners",
+            "deskripsi": "Redstone is the heart of automation in Minecraft. This article covers the basics: how to create circuits, use repeaters, and comparators.\\n\\nWe also provide simple examples like automatic doors and basic farms.",
+            "link": false,
+            "link_url": "",
+            "slug": "redstone-guide-for-beginners",
+            "is_new": false,
+            "is_recommended": true
+          },
+          {
+            "foto": "https://placehold.co/800x450/FFC107/ffffff?text=Nether+Travel",
+            "judul": "Optimizing Nether Travel: Fast Gates and Safe Tunnels",
+            "deskripsi": "The Nether can be used for fast travel in the Overworld. Learn how to calculate coordinates, build safe tunnels, and avoid dangers like Ghasts and Piglins.",
+            "link": false,
+            "link_url": "",
+            "slug": "optimizing-nether-travel",
+            "is_new": true,
+            "is_recommended": false
+          },
+          {
+            "foto": "https://placehold.co/800x450/9C27B0/ffffff?text=Best+Mods+2025",
+            "judul": "Top 5 Best Minecraft Mods of 2025 from ReinForge",
+            "deskripsi": "We summarize 5 must-try mods from the ReinForge collection, which will change the way you play Minecraft. From graphic enhancements to more challenging survival mechanics.",
+            "link": true,
+            "link_url": "https://reinforge.vercel.app/top-mods-2025",
+            "slug": "top-5-mods-reinforge",
+            "is_new": false,
+            "is_recommended": true
+          }
+        ]
+        `;
+        
+        let articles = [];
+        let currentFilter = 'all'; // 'all', 'new', 'recommended', 'search'
+
+        // DOM Elements
+        const articleListView = document.getElementById('article-list-view');
+        const articleDetailView = document.getElementById('article-detail-view');
+        const searchInput = document.getElementById('search-input');
+        const newFilterButton = document.getElementById('new-filter');
+        const recommendedFilterButton = document.getElementById('recommended-filter');
+        const currentFilterSpan = document.getElementById('current-filter');
+        const resetFilterButton = document.getElementById('reset-filter');
+        const homeLink = document.getElementById('home-link');
+        const backToListButton = document.getElementById('back-to-list');
+        const notificationEl = document.getElementById('notification');
+
+
+        /**
+         * Displays a temporary notification in the UI.
+         * @param {string} message Notification message.
+         * @param {string} type 'success' or 'error'.
+         */
+        function showNotification(message, type) {
+            notificationEl.textContent = message;
+            notificationEl.className = 'p-4 rounded shadow-xl text-center font-medium fixed bottom-4 right-4 z-20'; // Reset classes
+            
+            if (type === 'success') {
+                notificationEl.classList.add('bg-green-600', 'text-white');
+            } else if (type === 'error') {
+                notificationEl.classList.add('bg-red-600', 'text-white');
+            }
+            notificationEl.classList.remove('hidden');
+
+            // Hide after 5 seconds
+            setTimeout(() => {
+                notificationEl.classList.add('hidden');
+            }, 5000);
+        }
+        
+        /**
+         * Renders article cards into the list view.
+         * @param {Array} filteredArticles List of articles to display.
+         */
+        function renderArticles(filteredArticles) {
+            articleListView.innerHTML = '';
+
+            if (filteredArticles.length === 0) {
+                articleListView.innerHTML = `<p class="text-center text-gray-500 col-span-full py-10">No articles found for this criteria.</p>`;
+                return;
+            }
+
+            filteredArticles.forEach(article => {
+                const articleCard = document.createElement('div');
+                articleCard.className = 'card rounded overflow-hidden cursor-pointer'; // Simplified card style
+                articleCard.innerHTML = `
+                    <a href="#${article.slug}">
+                        <img src="${article.foto}" alt="${article.judul}" class="w-full h-48 object-cover border-b border-gray-700">
+                        <div class="p-5 space-y-2">
+                            <h3 class="text-xl font-bold text-white hover:text-blue-400 transition duration-150">${article.judul}</h3>
+                            <p class="text-gray-400 text-sm line-clamp-3">${article.deskripsi.split('\n')[0]}</p>
+                            <span class="text-xs font-semibold text-blue-400">Read More &rarr;</span>
+                        </div>
+                    </a>
+                `;
+                articleListView.appendChild(articleCard);
+            });
+        }
+
+        /**
+         * Applies current filters and search query.
+         */
+        function applyFilters() {
+            const query = searchInput.value.toLowerCase().trim();
+            let filtered = articles;
+            let filterName = 'All Articles';
+            resetFilterButton.classList.add('hidden');
+
+            // 1. Apply Category Filters (New/Recommended)
+            if (currentFilter === 'new') {
+                filtered = filtered.filter(a => a.is_new);
+                filterName = 'New Articles';
+                resetFilterButton.classList.remove('hidden');
+            } else if (currentFilter === 'recommended') {
+                filtered = filtered.filter(a => a.is_recommended);
+                filterName = 'Recommended Articles';
+                resetFilterButton.classList.remove('hidden');
+            }
+            
+            // 2. Apply Search
+            if (query) {
+                filtered = filtered.filter(a => 
+                    a.judul.toLowerCase().includes(query) || 
+                    a.deskripsi.toLowerCase().includes(query)
+                );
+                filterName = `Search Results for: "${query}"`;
+                resetFilterButton.classList.remove('hidden');
+            }
+            
+            currentFilterSpan.textContent = filterName;
+            renderArticles(filtered);
+            articleListView.classList.remove('hidden');
+            articleDetailView.classList.add('hidden');
+        }
+        
+        /**
+         * Renders the recommended articles sidebar.
+         * @param {Object} currentArticle The article currently being viewed.
+         */
+        function renderRecommendedSidebar(currentArticle) {
+            const recommendedListEl = document.getElementById('recommended-list');
+            recommendedListEl.innerHTML = ''; // Clear previous list
+
+            const recommendedArticles = articles
+                .filter(a => a.is_recommended && a.slug !== currentArticle.slug) // Filter recommended, exclude current
+                .slice(0, 5); // Limit to 5 articles
+
+            if (recommendedArticles.length > 0) {
+                recommendedArticles.forEach(recArticle => {
+                    const item = document.createElement('a');
+                    item.href = `#${recArticle.slug}`;
+                    item.className = 'block p-3 border border-gray-700 hover:bg-gray-700 transition duration-150';
+                    item.innerHTML = `
+                        <h4 class="text-base font-semibold text-white hover:text-blue-400">${recArticle.judul}</h4>
+                        <p class="text-xs text-gray-400 mt-1 line-clamp-2">${recArticle.deskripsi.split('\n')[0]}</p>
+                    `;
+                    recommendedListEl.appendChild(item);
+                });
+            } else {
+                recommendedListEl.innerHTML = `<p class="text-sm text-gray-500">No other recommended articles available.</p>`;
+            }
+        }
+
+        /**
+         * Displays the article detail view.
+         * @param {Object} article Article object.
+         */
+        function showArticleDetail(article) {
+            document.getElementById('detail-foto').src = article.foto;
+            document.getElementById('detail-foto').alt = article.judul;
+            document.getElementById('detail-judul').textContent = article.judul;
+            
+            // Replace new lines (\n) with <br><br> tags for correct rendering
+            document.getElementById('detail-deskripsi').innerHTML = article.deskripsi.replace(/\n/g, '<br><br>');
+            
+            const detailLinkEl = document.getElementById('detail-link');
+            if (article.link && article.link_url) {
+                detailLinkEl.href = article.link_url;
+                detailLinkEl.classList.remove('hidden');
+            } else {
+                detailLinkEl.classList.add('hidden');
+            }
+            
+            // Render the recommended sidebar when the detail view is shown
+            renderRecommendedSidebar(article);
+
+            articleListView.classList.add('hidden');
+            articleDetailView.classList.remove('hidden');
+            window.scrollTo(0, 0); // Scroll to the top of the page
+
+            // Copy Link button logic
+            document.getElementById('copy-article-link').onclick = () => {
+                const linkToCopy = window.location.origin + window.location.pathname + `#${article.slug}`;
+                const textArea = document.createElement("textarea");
+                textArea.value = linkToCopy;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showNotification('Article link successfully copied!', 'success');
+                } catch (err) {
+                    showNotification('Failed to copy. Manually copy: ' + linkToCopy, 'error');
+                }
+                document.body.removeChild(textArea);
+            };
+        }
+
+        /**
+         * Hash-based routing handler.
+         */
+        function handleRouting() {
+            const hash = window.location.hash.substring(1);
+            
+            if (hash && hash !== 'home') {
+                const article = articles.find(a => a.slug === hash);
+                if (article) {
+                    showArticleDetail(article);
+                    return;
+                }
+            }
+            
+            // Default: Show list view
+            applyFilters();
+        }
+
+        // --- Event Listeners ---
+
+        // Navigation
+        homeLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.hash = '#home';
+        });
+        backToListButton.addEventListener('click', () => {
+            window.location.hash = '#home';
+        });
+
+        // Filter
+        newFilterButton.addEventListener('click', () => {
+            currentFilter = 'new';
+            searchInput.value = '';
+            handleRouting();
+        });
+
+        recommendedFilterButton.addEventListener('click', () => {
+            currentFilter = 'recommended';
+            searchInput.value = '';
+            handleRouting();
+        });
+
+        resetFilterButton.addEventListener('click', () => {
+            currentFilter = 'all';
+            searchInput.value = '';
+            handleRouting();
+        });
+
+        // Search
+        searchInput.addEventListener('input', () => {
+            currentFilter = 'search';
+            handleRouting(); 
+        });
+
+        // Hash Change Listener (for browser back/forward and direct links)
+        window.addEventListener('hashchange', handleRouting);
+        
+        // --- Initialization ---
+        window.onload = () => {
+            try {
+                // Load and parse article data from the simulated JSON string
+                articles = JSON.parse(ARTICLE_DATA_JSON);
+                handleRouting(); // Load content based on the current hash
+            } catch (error) {
+                showNotification('Failed to load article data.', 'error');
+                console.error("Error loading articles:", error);
+            }
+        };
+    </script>
+</body>
+</html>
