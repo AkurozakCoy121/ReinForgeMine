@@ -3,120 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RURFALEWTYUME | RCMT - Data Entry Terminal</title>
+    <title>RURFALEWTYUME | RCMT - JSON Article Generator</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Firebase SDK Imports -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, onSnapshot, collection, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // Global variables must be defined before use
-        window.firebaseApp = null;
-        window.db = null;
-        window.auth = null;
-        window.userId = null;
-        window.isAuthReady = false;
-
-        setLogLevel('debug'); // Enable debug logging for Firestore
-
-        const initFirebase = async () => {
-            try {
-                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-                const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-
-                if (Object.keys(firebaseConfig).length === 0) {
-                    throw new Error("Firebase config not found.");
-                }
-
-                window.firebaseApp = initializeApp(firebaseConfig);
-                window.db = getFirestore(window.firebaseApp);
-                window.auth = getAuth(window.firebaseApp);
-                
-                // Set persistence to local to maintain session after refresh
-                await setPersistence(window.auth, browserLocalPersistence);
-
-                onAuthStateChanged(window.auth, async (user) => {
-                    if (user) {
-                        window.userId = user.uid;
-                        document.getElementById('user-id-display').textContent = `User ID: ${window.userId}`;
-                        // Once authenticated, load articles
-                        loadArticles(); 
-                    } else {
-                        // Attempt to sign in if token is available
-                        const token = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : '';
-                        if (token) {
-                            await signInWithCustomToken(window.auth, token);
-                        } else {
-                            // Fallback to anonymous sign-in if no custom token
-                            await signInAnonymously(window.auth);
-                        }
-                    }
-                    window.isAuthReady = true;
-                });
-
-            } catch (error) {
-                console.error("Firebase initialization failed:", error);
-                document.getElementById('status-message').textContent = `Error: Firebase failed to initialize. Check console.`;
-            }
-        };
-
-        // --- Article Handling Functions ---
-
-        /**
-         * Loads articles from Firestore in real-time.
-         */
-        const loadArticles = () => {
-            if (!window.db || !window.userId) return;
-
-            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-            // Private data path: /artifacts/{appId}/users/{userId}/published_articles
-            const collectionPath = `artifacts/${appId}/users/${window.userId}/published_articles`;
-            const q = query(collection(window.db, collectionPath)); 
-            // Note: Not using orderBy to avoid index issues. Data will be sorted in client.
-            
-            const listEl = document.getElementById('articles-list');
-
-            onSnapshot(q, (snapshot) => {
-                let articles = [];
-                snapshot.forEach((doc) => {
-                    articles.push({ id: doc.id, ...doc.data() });
-                });
-                
-                // Sort by timestamp descending (newest first) in the client
-                articles.sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
-
-                listEl.innerHTML = ''; // Clear existing list
-                
-                if (articles.length === 0) {
-                    listEl.innerHTML = `<p class="text-gray-500">No articles published yet.</p>`;
-                    return;
-                }
-
-                articles.forEach(article => {
-                    const item = document.createElement('div');
-                    item.className = 'p-3 border border-gray-700 bg-[#222] hover:bg-[#333] transition duration-150';
-                    item.innerHTML = `
-                        <h4 class="text-lg font-semibold text-blue-400">${article.title}</h4>
-                        <p class="text-sm text-gray-400">Slug: ${article.slug}</p>
-                        <p class="text-xs text-gray-500">Published: ${article.timestamp ? new Date(article.timestamp.seconds * 1000).toLocaleString() : 'N/A'}</p>
-                        <a href="${article.imageUrl}" target="_blank" class="text-xs text-green-400 underline">View Image</a>
-                    `;
-                    listEl.appendChild(item);
-                });
-            }, (error) => {
-                console.error("Error listening to Firestore:", error);
-                showStatusMessage('Error loading articles.', 'error');
-            });
-        };
-
-
-        // Expose init function globally
-        window.initFirebase = initFirebase;
-    </script>
-
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body {
@@ -132,14 +22,14 @@
             border: 1px solid #00ff00;
             background-color: #1a1a1a;
         }
-        input, textarea, button:not(.btn-success) {
+        input, textarea {
             border: 1px solid #00ff00 !important;
             background-color: #000000;
             color: #00ff00;
             padding: 8px 12px;
         }
         button {
-            transition: background-color 0.15s;
+            transition: background-color 0.15s, transform 0.15s;
         }
         .btn-primary {
             background-color: #008000;
@@ -157,23 +47,24 @@
         }
         .btn-success:hover {
             background-color: #00e600;
+            transform: scale(1.02);
         }
     </style>
 </head>
 <body class="min-h-screen p-4" onload="initApp()">
 
     <!-- Main Application Container -->
-    <div id="app-container" class="max-w-4xl mx-auto p-6 space-y-6 main-container">
+    <div id="app-container" class="max-w-5xl mx-auto p-6 space-y-6 main-container">
 
         <header class="terminal-header p-4 mb-6">
             <h1 class="text-3xl font-bold text-[#00ff00]">RURFALEWTYUME <span class="text-xl">| RCMT</span></h1>
-            <p class="text-sm text-gray-400">ReinForge Content Management Terminal</p>
+            <p class="text-sm text-gray-400">ReinForge Content Management Terminal - JSON Export Mode</p>
         </header>
 
         <!-- Status Message and User ID Display -->
         <div class="flex justify-between items-center text-xs text-gray-500">
             <p id="status-message" class="text-red-400"></p>
-            <p id="user-id-display"></p>
+            <p id="local-status">Status: Local Data Mode</p>
         </div>
 
         <!-- Login Screen -->
@@ -184,64 +75,130 @@
             <p class="text-sm text-yellow-400">Checking against khamu.json token...</p>
         </div>
 
-        <!-- Article Upload Screen -->
+        <!-- Article Upload & Export Screen -->
         <div id="upload-screen" class="hidden space-y-6">
-            <h2 class="text-2xl font-semibold text-white border-b border-gray-700 pb-2">Article Publishing Console</h2>
             
-            <form id="article-form" class="space-y-4">
-                <div>
-                    <label for="title" class="block text-sm font-medium text-gray-400">Title</label>
-                    <input type="text" id="title" required class="w-full mt-1">
-                </div>
-                
-                <div>
-                    <label for="slug" class="block text-sm font-medium text-gray-400">Slug (URL-friendly)</label>
-                    <input type="text" id="slug" required class="w-full mt-1">
-                    <p class="text-xs text-gray-500 mt-1">Example: exploring-the-new-mob</p>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left Column: Form -->
+                <div class="lg:col-span-2 space-y-4">
+                    <h2 class="text-2xl font-semibold text-white border-b border-gray-700 pb-2">Article Data Input</h2>
+
+                    <form id="article-form" class="space-y-4">
+                        <div>
+                            <label for="title" class="block text-sm font-medium text-gray-400">Title</label>
+                            <input type="text" id="title" required class="w-full mt-1">
+                        </div>
+                        
+                        <div>
+                            <label for="slug" class="block text-sm font-medium text-gray-400">Slug (URL-friendly)</label>
+                            <input type="text" id="slug" required class="w-full mt-1">
+                            <p class="text-xs text-gray-500 mt-1">Example: exploring-the-new-mob</p>
+                        </div>
+
+                        <div>
+                            <label for="description" class="block text-sm font-medium text-gray-400">Description / Article Content</label>
+                            <textarea id="description" rows="5" required class="w-full mt-1"></textarea>
+                            <p class="text-xs text-yellow-400 mt-1">Use \\n for new line breaks in the final article view.</p>
+                        </div>
+                        
+                        <div>
+                            <label for="article-image" class="block text-sm font-medium text-gray-400">Article Image (Upload to Cloudinary)</label>
+                            <input type="file" id="article-image" accept="image/*" required class="w-full mt-1 file:bg-[#00ff00] file:text-black file:border-0 file:py-1 file:px-2 file:mr-4 file:rounded file:cursor-pointer">
+                            <div class="flex items-center space-x-4 mt-2">
+                                <input type="checkbox" id="is-new" checked class="h-4 w-4 bg-gray-900 border-gray-700 text-green-500 focus:ring-green-500">
+                                <label for="is-new" class="text-sm text-gray-400">Mark as New (is_new: true)</label>
+                                <input type="checkbox" id="is-recommended" class="h-4 w-4 bg-gray-900 border-gray-700 text-green-500 focus:ring-green-500">
+                                <label for="is-recommended" class="text-sm text-gray-400">Mark as Recommended (is_recommended: true)</label>
+                            </div>
+                            <p id="upload-status" class="text-sm mt-2 text-yellow-400"></p>
+                        </div>
+
+                        <button type="submit" class="btn-primary w-full">Upload Image & Save Article Locally</button>
+                    </form>
                 </div>
 
-                <div>
-                    <label for="description" class="block text-sm font-medium text-gray-400">Description / Article Content</label>
-                    <textarea id="description" rows="5" required class="w-full mt-1"></textarea>
-                </div>
-                
-                <div>
-                    <label for="article-image" class="block text-sm font-medium text-gray-400">Article Image (Max 10MB)</label>
-                    <input type="file" id="article-image" accept="image/*" required class="w-full mt-1 file:bg-[#00ff00] file:text-black file:border-0 file:py-1 file:px-2 file:mr-4 file:rounded file:cursor-pointer">
-                    <p id="upload-status" class="text-sm mt-2 text-yellow-400"></p>
-                </div>
+                <!-- Right Column: Export & List -->
+                <div class="lg:col-span-1 space-y-6">
+                    
+                    <!-- JSON Export Area -->
+                    <div class="p-4 bg-[#222] border border-green-500 space-y-4">
+                        <h3 class="text-xl font-bold text-white">Data Export Terminal</h3>
+                        <p class="text-sm text-yellow-400">Use this to update the data in your `reinarticle.html` file.</p>
+                        <button id="copy-json-button" class="btn-success w-full py-3">
+                            COPY ALL ARTICLES JSON
+                        </button>
+                        <textarea id="json-output" rows="10" readonly class="w-full text-xs bg-black text-[#00ff00] p-2 resize-none" placeholder="JSON output will appear here..."></textarea>
+                    </div>
 
-                <div class="flex items-center space-x-4">
-                    <button type="submit" class="btn-primary flex-grow">Publish Article</button>
-                    <button type="button" onclick="document.getElementById('article-form').reset()" class="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded">Reset Form</button>
+                    <!-- Article List -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-white border-b border-gray-700 pb-2">All Articles (Local)</h3>
+                        <div id="articles-list" class="space-y-3 pt-3">
+                            <p class="text-gray-500">Loading articles...</p>
+                        </div>
+                    </div>
                 </div>
-            </form>
-
-            <h3 class="text-xl font-semibold text-white border-b border-gray-700 pb-2 pt-4">Published Articles</h3>
-            <div id="articles-list" class="space-y-3">
-                <p class="text-gray-500">Loading articles...</p>
             </div>
         </div>
     </div>
 
-    <script type="module">
-        // Import functions from the module block
-        const initFirebase = window.initFirebase;
-        const db = () => window.db;
-        const auth = () => window.auth;
-
-        const CLOUDINARY_CLOUD_NAME = '417817946171992'; // Using API Key as Cloud Name
-        const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
-        // NOTE: CLOUDINARY_UPLOAD_PRESET is required for unsigned upload. 
-        // We use a placeholder here. Replace 'your_upload_preset' with a real unsigned preset.
-        const CLOUDINARY_UPLOAD_PRESET = 'unsigned_preset_placeholder'; 
+    <script>
+        // --- Configuration ---
+        const CLOUDINARY_API_KEY = '417817946171992'; 
+        const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_API_KEY}/image/upload`;
+        // IMPORTANT: You must set up an UNSIGNED UPLOAD PRESET in your Cloudinary account. 
+        // Replace this placeholder with your actual preset name.
+        const CLOUDINARY_UPLOAD_PRESET = 'reinforge_unsigned_preset'; 
+        const LOCAL_STORAGE_KEY = 'rcmt_articles_data';
+        
+        // Initial set of articles from the reinarticle.html file (for merging)
+        const INITIAL_ARTICLES_DATA = [
+          {
+            "foto": "https://placehold.co/800x450/4CAF50/ffffff?text=Tricky+Trials+Update",
+            "judul": "Exploring Minecraft 1.21 Update: The Tricky Trials",
+            "deskripsi": "The 1.21 Update brings many new challenges and exciting blocks. From the trap-filled Trial Chambers to the elusive Breeze mob.\\n\\nMake sure you are equipped with the best gear before exploring! Also, we discuss how the new automated Crafter Block works.",
+            "link": true,
+            "link_url": "https://www.minecraft.net/en-us/article/tricky-trials-out-now",
+            "slug": "update-1-21-tricky-trials",
+            "is_new": true,
+            "is_recommended": true
+          },
+          {
+            "foto": "https://placehold.co/800x450/2196F3/ffffff?text=Redstone+Guide",
+            "judul": "Essential Redstone Guide for Beginners",
+            "deskripsi": "Redstone is the heart of automation in Minecraft. This article covers the basics: how to create circuits, use repeaters, and comparators.\\n\\nWe also provide simple examples like automatic doors and basic farms.",
+            "link": false,
+            "link_url": "",
+            "slug": "redstone-guide-for-beginners",
+            "is_new": false,
+            "is_recommended": true
+          },
+          {
+            "foto": "https://placehold.co/800x450/FFC107/ffffff?text=Nether+Travel",
+            "judul": "Optimizing Nether Travel: Fast Gates and Safe Tunnels",
+            "deskripsi": "The Nether can be used for fast travel in the Overworld. Learn how to calculate coordinates, build safe tunnels, and avoid dangers like Ghasts and Piglins.",
+            "link": false,
+            "link_url": "",
+            "slug": "optimizing-nether-travel",
+            "is_new": true,
+            "is_recommended": false
+          },
+          {
+            "foto": "https://placehold.co/800x450/9C27B0/ffffff?text=Best+Mods+2025",
+            "judul": "Top 5 Best Minecraft Mods of 2025 from ReinForge",
+            "deskripsi": "We summarize 5 must-try mods from the ReinForge collection, which will change the way you play Minecraft. From graphic enhancements to more challenging survival mechanics.",
+            "link": true,
+            "link_url": "https://reinforge.vercel.app/top-mods-2025",
+            "slug": "top-5-mods-reinforge",
+            "is_new": false,
+            "is_recommended": true
+          }
+        ];
 
         // --- Utility Functions ---
 
         /**
          * Shows a status message in the UI.
-         * @param {string} message The message to display.
-         * @param {string} type 'success', 'error', or 'info'.
          */
         const showStatusMessage = (message, type = 'info') => {
             const el = document.getElementById('upload-status');
@@ -251,6 +208,83 @@
             else if (type === 'error') el.classList.add('text-red-500');
             else el.classList.add('text-yellow-400');
         };
+        
+        /**
+         * Clears all temporary articles saved locally.
+         */
+        const resetLocalData = () => {
+             // We do not clear the initial data, only the custom added ones.
+             localStorage.removeItem(LOCAL_STORAGE_KEY);
+             renderArticles();
+             showStatusMessage('Local custom articles cleared. Only initial data shown.', 'info');
+        };
+
+
+        /**
+         * Retrieves all articles: initial set + locally added set.
+         * @returns {Array} Combined list of articles.
+         */
+        const getAllArticles = () => {
+            let localArticles = [];
+            try {
+                const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+                if (stored) {
+                    localArticles = JSON.parse(stored);
+                }
+            } catch (e) {
+                console.error("Error parsing local articles:", e);
+                localStorage.removeItem(LOCAL_STORAGE_KEY); // Clear bad data
+            }
+            
+            // Combine initial data and local articles. Local articles override initial if slugs match.
+            const allArticlesMap = new Map();
+            INITIAL_ARTICLES_DATA.forEach(a => allArticlesMap.set(a.slug, a));
+            localArticles.forEach(a => allArticlesMap.set(a.slug, a));
+
+            return Array.from(allArticlesMap.values()).reverse(); // Reverse to show newest at top of list
+        };
+
+        /**
+         * Renders the current list of all articles (initial + local) and updates the JSON output.
+         */
+        const renderArticles = () => {
+            const articles = getAllArticles();
+            const listEl = document.getElementById('articles-list');
+            listEl.innerHTML = '';
+            
+            // 1. Render List
+            if (articles.length === 0) {
+                listEl.innerHTML = `<p class="text-gray-500">No articles available.</p>`;
+                return;
+            }
+
+            articles.forEach(article => {
+                const isInitial = INITIAL_ARTICLES_DATA.some(a => a.slug === article.slug);
+                const item = document.createElement('div');
+                item.className = 'p-3 border border-gray-700 bg-[#222] hover:bg-[#333] transition duration-150 relative';
+                
+                // Add a marker for new/local articles
+                if (!isInitial) {
+                    item.classList.add('border-l-4', 'border-yellow-500');
+                } else {
+                    item.classList.add('opacity-75'); // Dim initial articles
+                }
+
+                item.innerHTML = `
+                    <span class="absolute top-2 right-2 text-xs font-bold ${isInitial ? 'text-gray-500' : 'text-yellow-500'}">${isInitial ? 'INITIAL' : 'LOCAL'}</span>
+                    <h4 class="text-lg font-semibold text-blue-400">${article.judul}</h4>
+                    <p class="text-sm text-gray-400">Slug: ${article.slug}</p>
+                    <p class="text-xs text-gray-500">New: ${article.is_new}, Recommended: ${article.is_recommended}</p>
+                    <a href="${article.foto}" target="_blank" class="text-xs text-green-400 underline">View Image</a>
+                `;
+                listEl.appendChild(item);
+            });
+            
+            // 2. Update JSON Output
+            const outputJSON = JSON.stringify(articles.reverse(), null, 2); // Reverse back for standard JSON structure
+            document.getElementById('json-output').value = outputJSON;
+        };
+
 
         /**
          * Handles the authentication check.
@@ -273,8 +307,8 @@
                     localStorage.setItem('rcmt_access', expectedToken);
                     document.getElementById('login-screen').classList.add('hidden');
                     document.getElementById('upload-screen').classList.remove('hidden');
-                    statusEl.textContent = 'Access granted. Welcome to RCMT.';
-                    initFirebase(); // Initialize Firebase and load data after successful authentication
+                    statusEl.textContent = 'Access granted. Use JSON Export Terminal.';
+                    renderArticles(); // Load articles after successful login
                 } else {
                     statusEl.textContent = 'Access denied. Incorrect token.';
                 }
@@ -286,8 +320,6 @@
 
         /**
          * Uploads the selected file to Cloudinary using unsigned upload.
-         * @param {File} file The file object to upload.
-         * @returns {Promise<string>} The URL of the uploaded image.
          */
         const uploadImageToCloudinary = async (file) => {
             showStatusMessage('Uploading image to Cloudinary...', 'info');
@@ -295,11 +327,6 @@
             const formData = new FormData();
             formData.append('file', file);
             formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-            // formData.append('api_key', CLOUDINARY_CLOUD_NAME); // Not strictly needed for unsigned
-            
-            // NOTE ON SECURITY: The Secret Key (GZP5C) MUST NOT be included here.
-            // A secure implementation requires a backend server to generate a secure signature 
-            // for signed uploads, but we simulate unsigned upload here using the client-side API.
             
             try {
                 const response = await fetch(CLOUDINARY_UPLOAD_URL, {
@@ -316,50 +343,49 @@
                 showStatusMessage('Image upload complete.', 'success');
                 return result.secure_url; // Use secure URL
             } catch (error) {
-                showStatusMessage(`Image Upload Error: ${error.message}. Check your Cloudinary Upload Preset.`, 'error');
-                throw error; // Re-throw to stop the article saving process
+                showStatusMessage(`Image Upload Error: ${error.message}. Please verify your Cloudinary Upload Preset: "${CLOUDINARY_UPLOAD_PRESET}".`, 'error');
+                throw error; 
             }
         };
 
         /**
-         * Saves article data to Firestore.
-         * @param {Object} articleData The article data including the image URL.
+         * Saves the article data locally and updates the view.
          */
-        const saveArticleToFirestore = async (articleData) => {
-            showStatusMessage('Saving article data to Firestore...', 'info');
-            if (!db() || !auth().currentUser) {
-                throw new Error("Database not ready or user not authenticated.");
-            }
-
-            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-            const userId = auth().currentUser.uid;
-            
-            // Private data path: /artifacts/{appId}/users/{userId}/published_articles
-            const collectionPath = `artifacts/${appId}/users/${userId}/published_articles`;
-            const docRef = doc(db(), collectionPath, articleData.slug); // Use slug as document ID
-
+        const saveArticleLocally = (newArticle) => {
+            let localArticles = [];
             try {
-                await setDoc(docRef, {
-                    ...articleData,
-                    timestamp: serverTimestamp(),
-                });
-                showStatusMessage('Article successfully published and saved to Firestore!', 'success');
-                document.getElementById('article-form').reset(); // Clear form after success
-            } catch (error) {
-                showStatusMessage(`Firestore Save Error: ${error.message}`, 'error');
-                console.error("Firestore Save Error:", error);
+                const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+                if (stored) {
+                    localArticles = JSON.parse(stored);
+                }
+            } catch (e) { /* silent fail */ }
+
+            // Check for duplicate slug (only checks local data for simplicity)
+            if (localArticles.some(a => a.slug === newArticle.slug)) {
+                 showStatusMessage(`Error: Slug "${newArticle.slug}" already exists.`, 'error');
+                 return;
             }
+
+            localArticles.push(newArticle);
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localArticles));
+            
+            document.getElementById('article-form').reset();
+            renderArticles(); // Re-render the list and update JSON output
         };
+
 
         // --- Main Logic ---
 
         document.getElementById('article-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-
+            
             const title = document.getElementById('title').value.trim();
+            // Slug creation: lowercase, replace spaces with hyphens, remove special characters
             const slug = document.getElementById('slug').value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
             const description = document.getElementById('description').value;
             const imageInput = document.getElementById('article-image');
+            const isNew = document.getElementById('is-new').checked;
+            const isRecommended = document.getElementById('is-recommended').checked;
             const imageFile = imageInput.files[0];
 
             if (!imageFile) {
@@ -367,17 +393,52 @@
                 return;
             }
 
+            // Ensure Cloudinary Preset is updated
+            if (CLOUDINARY_UPLOAD_PRESET === 'reinforge_unsigned_preset') {
+                showStatusMessage('CRITICAL: Please change CLOUDINARY_UPLOAD_PRESET in the HTML code to your actual Cloudinary unsigned preset name!', 'error');
+                return;
+            }
+
             try {
                 // 1. Upload Image to Cloudinary
                 const imageUrl = await uploadImageToCloudinary(imageFile);
 
-                // 2. Save Article Data to Firestore
-                const articleData = { title, slug, description, imageUrl };
-                await saveArticleToFirestore(articleData);
+                // 2. Prepare Article Data
+                const newArticle = { 
+                    foto: imageUrl, 
+                    judul: title, 
+                    deskripsi: description, 
+                    link: false, // Default to false
+                    link_url: "", // Default empty
+                    slug: slug, 
+                    is_new: isNew,
+                    is_recommended: isRecommended
+                };
+
+                // 3. Save Locally and Update View
+                saveArticleLocally(newArticle);
+                showStatusMessage('Article saved locally. COPY the JSON below!', 'success');
 
             } catch (error) {
-                // Error handled and messaged inside uploadImageToCloudinary or saveArticleToFirestore
+                // Error handled and messaged inside uploadImageToCloudinary
                 console.error("Publishing process failed:", error);
+            }
+        });
+
+        // Copy JSON Button handler
+        document.getElementById('copy-json-button').addEventListener('click', () => {
+            const jsonOutput = document.getElementById('json-output');
+            jsonOutput.select();
+            
+            try {
+                document.execCommand('copy');
+                document.getElementById('status-message').textContent = 'JSON copied successfully! Now paste it into ARTICLE_DATA_JSON in reinarticle.html';
+                document.getElementById('status-message').classList.remove('text-red-400');
+                document.getElementById('status-message').classList.add('text-green-400');
+            } catch (err) {
+                document.getElementById('status-message').textContent = 'Failed to copy. Manually select and copy the text.';
+                document.getElementById('status-message').classList.remove('text-green-400');
+                document.getElementById('status-message').classList.add('text-red-400');
             }
         });
 
@@ -385,15 +446,14 @@
         window.initApp = () => {
             const storedToken = localStorage.getItem('rcmt_access');
             if (storedToken) {
-                // If token is found, skip login screen and proceed to init Firebase
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('upload-screen').classList.remove('hidden');
-                document.getElementById('status-message').textContent = 'Session restored. Connecting to Firebase...';
-                initFirebase();
+                document.getElementById('status-message').textContent = 'Access Granted. Start generating articles.';
+                renderArticles();
             } else {
-                // Show login screen
                 document.getElementById('login-screen').classList.remove('hidden');
                 document.getElementById('upload-screen').classList.add('hidden');
+                document.getElementById('status-message').textContent = 'Awaiting token entry.';
             }
         };
     </script>
