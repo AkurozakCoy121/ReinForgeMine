@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RURFALEWTYUME | RCMT - Data Entry Terminal</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Firebase SDK Imports -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot, collection, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global variables must be defined before use
+        window.firebaseApp = null;
+        window.db = null;
+        window.auth = null;
+        window.userId = null;
+        window.isAuthReady = false;
+
+        setLogLevel('debug'); // Enable debug logging for Firestore
+
+        const initFirebase = async () => {
+            try {
+                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+                const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+
+                if (Object.keys(firebaseConfig).length === 0) {
+                    throw new Error("Firebase config not found.");
+                }
+
+                window.firebaseApp = initializeApp(firebaseConfig);
+                window.db = getFirestore(window.firebaseApp);
+                window.auth = getAuth(window.firebaseApp);
+                
+                // Set persistence to local to maintain session after refresh
+                await setPersistence(window.auth, browserLocalPersistence);
+
+                onAuthStateChanged(window.auth, async (user) => {
+                    if (user) {
+                        window.userId = user.uid;
+                        document.getElementById('user-id-display').textContent = `User ID: ${window.userId}`;
+                        // Once authenticated, load articles
+                        loadArticles(); 
+                    } else {
+                        // Attempt to sign in if token is available
+                        const token = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : '';
+                        if (token) {
+                            await signInWithCustomToken(window.auth, token);
+                        } else {
+                            // Fallback to anonymous sign-in if no custom token
+                            await signInAnonymously(window.auth);
+                        }
+                    }
+                    window.isAuthReady = true;
+                });
+
+            } catch (error) {
+                console.error("Firebase initialization failed:", error);
+                document.getElementById('status-message').textContent = `Error: Firebase failed to initialize. Check console.`;
+            }
+        };
+
+        // --- Article Handling Functions ---
+
+        /**
+         * Loads articles from Firestore in real-time.
+         */
+        const loadArticles = () => {
+            if (!window.db || !window.userId) return;
+
+            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+            // Private data path: /artifacts/{appId}/users/{userId}/published_articles
+            const collectionPath = `artifacts/${appId}/users/${window.userId}/published_articles`;
+            const q = query(collection(window.db, collectionPath)); 
+            // Note: Not using orderBy to avoid index issues. Data will be sorted in client.
+            
+            const listEl = document.getElementById('articles-list');
+
+            onSnapshot(q, (snapshot) => {
+                let articles = [];
+                snapshot.forEach((doc) => {
+                    articles.push({ id: doc.id, ...doc.data() });
+                });
+                
+                // Sort by timestamp descending (newest first) in the client
+                articles.sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
+
+                listEl.innerHTML = ''; // Clear existing list
+                
+                if (articles.length === 0) {
+                    listEl.innerHTML = `<p class="text-gray-500">No articles published yet.</p>`;
+                    return;
+                }
+
+                articles.forEach(article => {
+                    const item = document.createElement('div');
+                    item.className = 'p-3 border border-gray-700 bg-[#222] hover:bg-[#333] transition duration-150';
+                    item.innerHTML = `
+                        <h4 class="text-lg font-semibold text-blue-400">${article.title}</h4>
+                        <p class="text-sm text-gray-400">Slug: ${article.slug}</p>
+                        <p class="text-xs text-gray-500">Published: ${article.timestamp ? new Date(article.timestamp.seconds * 1000).toLocaleString() : 'N/A'}</p>
+                        <a href="${article.imageUrl}" target="_blank" class="text-xs text-green-400 underline">View Image</a>
+                    `;
+                    listEl.appendChild(item);
+                });
+            }, (error) => {
+                console.error("Error listening to Firestore:", error);
+                showStatusMessage('Error loading articles.', 'error');
+            });
+        };
+
+
+        // Expose init function globally
+        window.initFirebase = initFirebase;
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #f0f0f0;
+        }
+        .terminal-header {
+            background-color: #1a1a1a;
+            border-bottom: 2px solid #00ff00;
+        }
+        .main-container {
+            border: 1px solid #00ff00;
+            background-color: #1a1a1a;
+        }
+        input, textarea, button:not(.btn-success) {
+            border: 1px solid #00ff00 !important;
+            background-color: #000000;
+            color: #00ff00;
+            padding: 8px 12px;
+        }
+        button {
+            transition: background-color 0.15s;
+        }
+        .btn-primary {
+            background-color: #008000;
+            color: white;
+            border-color: #008000 !important;
+        }
+        .btn-primary:hover {
+            background-color: #00b300;
+        }
+        .btn-success {
+            background-color: #00ff00;
+            color: black;
+            font-weight: bold;
+            border-color: #00ff00 !important;
+        }
+        .btn-success:hover {
+            background-color: #00e600;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4" onload="initApp()">
+
+    <!-- Main Application Container -->
+    <div id="app-container" class="max-w-4xl mx-auto p-6 space-y-6 main-container">
+
+        <header class="terminal-header p-4 mb-6">
+            <h1 class="text-3xl font-bold text-[#00ff00]">RURFALEWTYUME <span class="text-xl">| RCMT</span></h1>
+            <p class="text-sm text-gray-400">ReinForge Content Management Terminal</p>
+        </header>
+
+        <!-- Status Message and User ID Display -->
+        <div class="flex justify-between items-center text-xs text-gray-500">
+            <p id="status-message" class="text-red-400"></p>
+            <p id="user-id-display"></p>
+        </div>
+
+        <!-- Login Screen -->
+        <div id="login-screen" class="space-y-4">
+            <h2 class="text-xl font-semibold text-white">ACCESS REQUIRED</h2>
+            <input type="password" id="access-token" placeholder="Enter RF Access Token" class="w-full">
+            <button onclick="handleLogin()" class="w-full btn-success">Login to RCMT</button>
+            <p class="text-sm text-yellow-400">Checking against khamu.json token...</p>
+        </div>
+
+        <!-- Article Upload Screen -->
+        <div id="upload-screen" class="hidden space-y-6">
+            <h2 class="text-2xl font-semibold text-white border-b border-gray-700 pb-2">Article Publishing Console</h2>
+            
+            <form id="article-form" class="space-y-4">
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-400">Title</label>
+                    <input type="text" id="title" required class="w-full mt-1">
+                </div>
+                
+                <div>
+                    <label for="slug" class="block text-sm font-medium text-gray-400">Slug (URL-friendly)</label>
+                    <input type="text" id="slug" required class="w-full mt-1">
+                    <p class="text-xs text-gray-500 mt-1">Example: exploring-the-new-mob</p>
+                </div>
+
+                <div>
+                    <label for="description" class="block text-sm font-medium text-gray-400">Description / Article Content</label>
+                    <textarea id="description" rows="5" required class="w-full mt-1"></textarea>
+                </div>
+                
+                <div>
+                    <label for="article-image" class="block text-sm font-medium text-gray-400">Article Image (Max 10MB)</label>
+                    <input type="file" id="article-image" accept="image/*" required class="w-full mt-1 file:bg-[#00ff00] file:text-black file:border-0 file:py-1 file:px-2 file:mr-4 file:rounded file:cursor-pointer">
+                    <p id="upload-status" class="text-sm mt-2 text-yellow-400"></p>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button type="submit" class="btn-primary flex-grow">Publish Article</button>
+                    <button type="button" onclick="document.getElementById('article-form').reset()" class="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded">Reset Form</button>
+                </div>
+            </form>
+
+            <h3 class="text-xl font-semibold text-white border-b border-gray-700 pb-2 pt-4">Published Articles</h3>
+            <div id="articles-list" class="space-y-3">
+                <p class="text-gray-500">Loading articles...</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import functions from the module block
+        const initFirebase = window.initFirebase;
+        const db = () => window.db;
+        const auth = () => window.auth;
+
+        const CLOUDINARY_CLOUD_NAME = '417817946171992'; // Using API Key as Cloud Name
+        const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
+        // NOTE: CLOUDINARY_UPLOAD_PRESET is required for unsigned upload. 
+        // We use a placeholder here. Replace 'your_upload_preset' with a real unsigned preset.
+        const CLOUDINARY_UPLOAD_PRESET = 'unsigned_preset_placeholder'; 
+
+        // --- Utility Functions ---
+
+        /**
+         * Shows a status message in the UI.
+         * @param {string} message The message to display.
+         * @param {string} type 'success', 'error', or 'info'.
+         */
+        const showStatusMessage = (message, type = 'info') => {
+            const el = document.getElementById('upload-status');
+            el.textContent = message;
+            el.className = 'text-sm mt-2 font-medium';
+            if (type === 'success') el.classList.add('text-green-500');
+            else if (type === 'error') el.classList.add('text-red-500');
+            else el.classList.add('text-yellow-400');
+        };
+
+        /**
+         * Handles the authentication check.
+         */
+        window.handleLogin = async () => {
+            const enteredToken = document.getElementById('access-token').value.trim();
+            const statusEl = document.getElementById('status-message');
+            statusEl.textContent = 'Checking token...';
+
+            try {
+                // Fetch the secret token from the local khamu.json (simulated fetch)
+                const response = await fetch('khamu.json');
+                if (!response.ok) {
+                    throw new Error("khamu.json not found or failed to load.");
+                }
+                const config = await response.json();
+                const expectedToken = config.secret_token.trim();
+
+                if (enteredToken === expectedToken) {
+                    localStorage.setItem('rcmt_access', expectedToken);
+                    document.getElementById('login-screen').classList.add('hidden');
+                    document.getElementById('upload-screen').classList.remove('hidden');
+                    statusEl.textContent = 'Access granted. Welcome to RCMT.';
+                    initFirebase(); // Initialize Firebase and load data after successful authentication
+                } else {
+                    statusEl.textContent = 'Access denied. Incorrect token.';
+                }
+            } catch (error) {
+                console.error("Login Error:", error);
+                statusEl.textContent = `Login failed: ${error.message}`;
+            }
+        };
+
+        /**
+         * Uploads the selected file to Cloudinary using unsigned upload.
+         * @param {File} file The file object to upload.
+         * @returns {Promise<string>} The URL of the uploaded image.
+         */
+        const uploadImageToCloudinary = async (file) => {
+            showStatusMessage('Uploading image to Cloudinary...', 'info');
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+            // formData.append('api_key', CLOUDINARY_CLOUD_NAME); // Not strictly needed for unsigned
+            
+            // NOTE ON SECURITY: The Secret Key (GZP5C) MUST NOT be included here.
+            // A secure implementation requires a backend server to generate a secure signature 
+            // for signed uploads, but we simulate unsigned upload here using the client-side API.
+            
+            try {
+                const response = await fetch(CLOUDINARY_UPLOAD_URL, {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error?.message || 'Cloudinary upload failed.');
+                }
+
+                const result = await response.json();
+                showStatusMessage('Image upload complete.', 'success');
+                return result.secure_url; // Use secure URL
+            } catch (error) {
+                showStatusMessage(`Image Upload Error: ${error.message}. Check your Cloudinary Upload Preset.`, 'error');
+                throw error; // Re-throw to stop the article saving process
+            }
+        };
+
+        /**
+         * Saves article data to Firestore.
+         * @param {Object} articleData The article data including the image URL.
+         */
+        const saveArticleToFirestore = async (articleData) => {
+            showStatusMessage('Saving article data to Firestore...', 'info');
+            if (!db() || !auth().currentUser) {
+                throw new Error("Database not ready or user not authenticated.");
+            }
+
+            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+            const userId = auth().currentUser.uid;
+            
+            // Private data path: /artifacts/{appId}/users/{userId}/published_articles
+            const collectionPath = `artifacts/${appId}/users/${userId}/published_articles`;
+            const docRef = doc(db(), collectionPath, articleData.slug); // Use slug as document ID
+
+            try {
+                await setDoc(docRef, {
+                    ...articleData,
+                    timestamp: serverTimestamp(),
+                });
+                showStatusMessage('Article successfully published and saved to Firestore!', 'success');
+                document.getElementById('article-form').reset(); // Clear form after success
+            } catch (error) {
+                showStatusMessage(`Firestore Save Error: ${error.message}`, 'error');
+                console.error("Firestore Save Error:", error);
+            }
+        };
+
+        // --- Main Logic ---
+
+        document.getElementById('article-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const title = document.getElementById('title').value.trim();
+            const slug = document.getElementById('slug').value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+            const description = document.getElementById('description').value;
+            const imageInput = document.getElementById('article-image');
+            const imageFile = imageInput.files[0];
+
+            if (!imageFile) {
+                showStatusMessage('Please select an image file.', 'error');
+                return;
+            }
+
+            try {
+                // 1. Upload Image to Cloudinary
+                const imageUrl = await uploadImageToCloudinary(imageFile);
+
+                // 2. Save Article Data to Firestore
+                const articleData = { title, slug, description, imageUrl };
+                await saveArticleToFirestore(articleData);
+
+            } catch (error) {
+                // Error handled and messaged inside uploadImageToCloudinary or saveArticleToFirestore
+                console.error("Publishing process failed:", error);
+            }
+        });
+
+
+        window.initApp = () => {
+            const storedToken = localStorage.getItem('rcmt_access');
+            if (storedToken) {
+                // If token is found, skip login screen and proceed to init Firebase
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('upload-screen').classList.remove('hidden');
+                document.getElementById('status-message').textContent = 'Session restored. Connecting to Firebase...';
+                initFirebase();
+            } else {
+                // Show login screen
+                document.getElementById('login-screen').classList.remove('hidden');
+                document.getElementById('upload-screen').classList.add('hidden');
+            }
+        };
+    </script>
+</body>
+</html>
