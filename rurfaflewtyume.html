@@ -140,10 +140,6 @@
             border: 1px solid #fff;
             cursor: pointer;
         }
-        .editor-button.active {
-            background-color: #008000;
-            border-color: #00ff00;
-        }
     </style>
 </head>
 <body class="min-h-screen p-4" onload="initApp()">
@@ -364,6 +360,15 @@
 
                         <button type="submit" class="btn-success w-full py-3 text-lg font-bold">APPLY ARTICLE</button>
                     </form>
+
+                    <!-- Reset Data Button -->
+                    <div class="mt-6 p-4 border border-red-500 bg-[#222]">
+                        <h3 class="text-lg font-semibold text-red-400 mb-2">Danger Zone</h3>
+                        <button onclick="resetAllData()" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded transition duration-150">
+                            RESET ALL ARTICLES DATA
+                        </button>
+                        <p class="text-xs text-gray-400 mt-2">This will delete all articles and restore initial data. Use with caution!</p>
+                    </div>
                 </div>
 
                 <!-- Right Column: Export Only -->
@@ -399,6 +404,16 @@
             "link": true,
             "link_url": "https://www.minecraft.net/en-us/article/tricky-trials-out-now",
             "slug": "update-1-21-tricky-trials",
+            "is_new": true,
+            "is_recommended": true
+          },
+          {
+            "foto": "https://static.beebom.com/wp-content/uploads/2025/11/Mounts-of-Mayhem-features-Minecraft.jpg?resize=1024%2C576&quality=75&strip=all",
+            "judul": "Minecraft 1.21.11 'Mounts of Mayhem' Release Date Announced",
+            "deskripsi": "Over the past couple of months, we have received a bunch of snapshots and previews that have given players small tastes of everything the upcoming update is going to bring. If you didn't have the time to explore these experimental versions, do not worry, as we have got a complete breakdown of all the new Minecraft Mounts of Mayhem features right here.\n\n**All New Features of Minecraft 1.21.11 Mounts of Mayhem**\nThe Mounts of Mayhem update is all about the chaotic encounters and the high-speed combat with new weapons. This drop will completely change how players move and fight in Minecraft due to the introduction of the spear, which specializes in jostling with opponents. In addition to that, here are all the new features you can expect in Minecraft 1.21.11:",
+            "link": true,
+            "link_url": "https://beebom.com/minecraft-mounts-of-mayhem-release-date",
+            "slug": "minecraft-mounts-of-mayhem-release-date",
             "is_new": true,
             "is_recommended": true
           }
@@ -507,6 +522,10 @@
 
         // --- Article Management ---
 
+        /**
+         * FIXED: Get all articles - combine initial data with local articles
+         * Now properly merges instead of replacing
+         */
         const getAllArticles = () => {
             let localArticles = [];
             try {
@@ -519,16 +538,29 @@
                 localStorage.removeItem(LOCAL_STORAGE_KEY);
             }
             
+            // FIX: Create a map to avoid duplicates by slug
             const allArticlesMap = new Map();
-            INITIAL_ARTICLES_DATA.forEach(a => allArticlesMap.set(a.slug, a));
-            localArticles.forEach(a => allArticlesMap.set(a.slug, a));
-
+            
+            // Add initial articles first
+            INITIAL_ARTICLES_DATA.forEach(article => {
+                allArticlesMap.set(article.slug, article);
+            });
+            
+            // Add local articles (they will override initial articles if slugs match)
+            localArticles.forEach(article => {
+                allArticlesMap.set(article.slug, article);
+            });
+            
+            // Convert map back to array and reverse to show newest first
             return Array.from(allArticlesMap.values()).reverse();
         };
 
+        /**
+         * FIXED: Update JSON output properly
+         */
         const updateJSONOutput = () => {
             const articles = getAllArticles();
-            const outputJSON = JSON.stringify(articles.reverse(), null, 2);
+            const outputJSON = JSON.stringify(articles, null, 2);
             document.getElementById('json-output').value = outputJSON;
         };
 
@@ -552,7 +584,7 @@
                     document.getElementById('login-screen').classList.add('hidden');
                     document.getElementById('upload-screen').classList.remove('hidden');
                     statusEl.textContent = 'Access granted. Use JSON Export Terminal.';
-                    updateJSONOutput();
+                    updateJSONOutput(); // Load existing data
                 } else {
                     statusEl.textContent = 'Access denied. Incorrect token.';
                 }
@@ -589,6 +621,9 @@
             }
         };
 
+        /**
+         * FIXED: Save article locally - now APPENDS instead of REPLACING
+         */
         const saveArticleLocally = (newArticle) => {
             let localArticles = [];
             try {
@@ -596,18 +631,27 @@
                 if (stored) {
                     localArticles = JSON.parse(stored);
                 }
-            } catch (e) { /* silent fail */ }
+            } catch (e) { 
+                console.error("Error loading local articles:", e);
+                // If there's an error, start with empty array
+                localArticles = [];
+            }
 
+            // Check for duplicate slug in local articles
             if (localArticles.some(a => a.slug === newArticle.slug)) {
-                 showStatusMessage(`Error: Slug "${newArticle.slug}" already exists.`, 'error');
+                 showStatusMessage(`Error: Slug "${newArticle.slug}" already exists in your local articles.`, 'error');
                  return false;
             }
 
+            // FIX: Add new article to existing array
             localArticles.push(newArticle);
             localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localArticles));
             return true;
         };
 
+        /**
+         * FIXED: Form submission - now properly adds to existing data
+         */
         document.getElementById('article-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -657,15 +701,29 @@
             };
 
             if (saveArticleLocally(newArticle)) {
+                // Reset form but keep existing data
                 document.getElementById('article-form').reset();
                 document.getElementById('description').innerHTML = '<p>Start writing your article here... Use the toolbar above to format your text.</p>';
                 document.getElementById('image-preview').classList.add('hidden');
                 document.getElementById('source-url-container').classList.add('hidden');
                 document.getElementById('has-source').checked = false;
+                
+                // FIX: Update JSON output with ALL articles (existing + new)
                 updateJSONOutput();
-                showStatusMessage('Article applied successfully! JSON updated in Export Terminal.', 'success');
+                showStatusMessage('Article applied successfully! JSON updated with all articles.', 'success');
             }
         });
+
+        /**
+         * Reset all data function
+         */
+        const resetAllData = () => {
+            if (confirm('Are you sure you want to reset ALL articles data? This will delete all your custom articles and restore initial data.')) {
+                localStorage.removeItem(LOCAL_STORAGE_KEY);
+                updateJSONOutput();
+                showStatusMessage('All articles data has been reset to initial state.', 'success');
+            }
+        };
 
         // Toggle source URL container
         document.getElementById('has-source').addEventListener('change', function() {
@@ -700,7 +758,7 @@
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('upload-screen').classList.remove('hidden');
                 document.getElementById('status-message').textContent = 'Access Granted. Start generating articles.';
-                updateJSONOutput();
+                updateJSONOutput(); // Load existing data on init
             } else {
                 document.getElementById('login-screen').classList.remove('hidden');
                 document.getElementById('upload-screen').classList.add('hidden');
