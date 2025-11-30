@@ -49,6 +49,45 @@
             background-color: #00e600;
             transform: scale(1.02);
         }
+        .editor-toolbar {
+            background-color: #2a2a2a;
+            border: 1px solid #00ff00;
+            padding: 8px;
+            border-radius: 4px;
+        }
+        .editor-button {
+            background-color: #333;
+            border: 1px solid #555;
+            color: #00ff00;
+            padding: 4px 8px;
+            margin: 2px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .editor-button:hover {
+            background-color: #444;
+        }
+        .upload-tabs {
+            display: flex;
+            border-bottom: 1px solid #00ff00;
+            margin-bottom: 10px;
+        }
+        .upload-tab {
+            padding: 8px 16px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            margin-right: 5px;
+        }
+        .upload-tab.active {
+            background-color: #008000;
+            border-color: #00ff00;
+        }
+        .upload-content {
+            display: none;
+        }
+        .upload-content.active {
+            display: block;
+        }
     </style>
 </head>
 <body class="min-h-screen p-4" onload="initApp()">
@@ -97,14 +136,60 @@
 
                         <div>
                             <label for="description" class="block text-sm font-medium text-gray-400">Description / Article Content</label>
-                            <textarea id="description" rows="5" required class="w-full mt-1"></textarea>
-                            <p class="text-xs text-yellow-400 mt-1">Use \\n for new line breaks in the final article view.</p>
+                            
+                            <!-- Rich Text Editor Toolbar -->
+                            <div class="editor-toolbar mb-2">
+                                <button type="button" class="editor-button" onclick="formatText('bold')" title="Bold"><b>B</b></button>
+                                <button type="button" class="editor-button" onclick="formatText('italic')" title="Italic"><i>I</i></button>
+                                <button type="button" class="editor-button" onclick="formatText('underline')" title="Underline"><u>U</u></button>
+                                <button type="button" class="editor-button" onclick="insertLink()" title="Insert Link">🔗</button>
+                                <button type="button" class="editor-button" onclick="insertImage()" title="Insert Image">🖼️</button>
+                                <button type="button" class="editor-button" onclick="insertVideo()" title="Insert Video">🎬</button>
+                                <button type="button" class="editor-button" onclick="insertLineBreak()" title="Line Break">↵</button>
+                            </div>
+                            
+                            <textarea id="description" rows="8" required class="w-full mt-1"></textarea>
+                            <p class="text-xs text-yellow-400 mt-1">Gunakan toolbar di atas untuk formatting teks, link, gambar, dan video.</p>
                         </div>
                         
                         <div>
-                            <label for="article-image" class="block text-sm font-medium text-gray-400">Article Image (Upload to Cloudinary)</label>
-                            <input type="file" id="article-image" accept="image/*" required class="w-full mt-1 file:bg-[#00ff00] file:text-black file:border-0 file:py-1 file:px-2 file:mr-4 file:rounded file:cursor-pointer">
-                            <div class="flex items-center space-x-4 mt-2">
+                            <label class="block text-sm font-medium text-gray-400">Article Image</label>
+                            
+                            <!-- Upload Tabs -->
+                            <div class="upload-tabs">
+                                <div class="upload-tab active" onclick="switchUploadTab('upload')">Upload File</div>
+                                <div class="upload-tab" onclick="switchUploadTab('url')">Image URL</div>
+                            </div>
+                            
+                            <!-- Upload File Content -->
+                            <div id="upload-file-content" class="upload-content active">
+                                <input type="file" id="article-image" accept="image/*" class="w-full mt-1 file:bg-[#00ff00] file:text-black file:border-0 file:py-1 file:px-2 file:mr-4 file:rounded file:cursor-pointer">
+                            </div>
+                            
+                            <!-- Image URL Content -->
+                            <div id="upload-url-content" class="upload-content">
+                                <input type="url" id="image-url" placeholder="https://example.com/image.jpg" class="w-full mt-1">
+                                <button type="button" onclick="previewImage()" class="btn-primary w-full mt-2">Preview Image</button>
+                                <div id="image-preview" class="mt-2 hidden">
+                                    <img id="preview-img" class="max-w-full h-auto border border-gray-600">
+                                    <p class="text-xs text-green-400 mt-1">Preview loaded successfully!</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Link Source Options -->
+                            <div class="mt-4 p-3 border border-gray-600 bg-[#222]">
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <input type="checkbox" id="has-source" class="h-4 w-4 bg-gray-900 border-gray-700 text-green-500 focus:ring-green-500">
+                                    <label for="has-source" class="text-sm font-medium text-gray-400">Include External Source Link</label>
+                                </div>
+                                <div id="source-url-container" class="hidden mt-2">
+                                    <label for="source-url" class="block text-xs text-gray-400 mb-1">Source URL</label>
+                                    <input type="url" id="source-url" placeholder="https://example.com/source" class="w-full text-sm">
+                                    <p class="text-xs text-gray-500 mt-1">URL sumber artikel asli (akan muncul di artikel sebagai "Sumber")</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4 mt-4">
                                 <input type="checkbox" id="is-new" checked class="h-4 w-4 bg-gray-900 border-gray-700 text-green-500 focus:ring-green-500">
                                 <label for="is-new" class="text-sm text-gray-400">Mark as New (is_new: true)</label>
                                 <input type="checkbox" id="is-recommended" class="h-4 w-4 bg-gray-900 border-gray-700 text-green-500 focus:ring-green-500">
@@ -113,7 +198,7 @@
                             <p id="upload-status" class="text-sm mt-2 text-yellow-400"></p>
                         </div>
 
-                        <button type="submit" class="btn-primary w-full">Upload Image & Save Article Locally</button>
+                        <button type="submit" class="btn-success w-full py-3 text-lg font-bold">PUBLISH ARTICLE</button>
                     </form>
                 </div>
 
@@ -133,7 +218,7 @@
                     <!-- Article List -->
                     <div>
                         <h3 class="text-xl font-semibold text-white border-b border-gray-700 pb-2">All Articles (Local)</h3>
-                        <div id="articles-list" class="space-y-3 pt-3">
+                        <div id="articles-list" class="space-y-3 pt-3 max-h-96 overflow-y-auto">
                             <p class="text-gray-500">Loading articles...</p>
                         </div>
                     </div>
@@ -146,8 +231,6 @@
         // --- Configuration ---
         const CLOUDINARY_API_KEY = '417817946171992'; 
         const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_API_KEY}/image/upload`;
-        // IMPORTANT: You must set up an UNSIGNED UPLOAD PRESET in your Cloudinary account. 
-        // Replace this placeholder with your actual preset name.
         const CLOUDINARY_UPLOAD_PRESET = 'reinforge_unsigned_preset'; 
         const LOCAL_STORAGE_KEY = 'rcmt_articles_data';
         
@@ -172,26 +255,6 @@
             "slug": "redstone-guide-for-beginners",
             "is_new": false,
             "is_recommended": true
-          },
-          {
-            "foto": "https://placehold.co/800x450/FFC107/ffffff?text=Nether+Travel",
-            "judul": "Optimizing Nether Travel: Fast Gates and Safe Tunnels",
-            "deskripsi": "The Nether can be used for fast travel in the Overworld. Learn how to calculate coordinates, build safe tunnels, and avoid dangers like Ghasts and Piglins.",
-            "link": false,
-            "link_url": "",
-            "slug": "optimizing-nether-travel",
-            "is_new": true,
-            "is_recommended": false
-          },
-          {
-            "foto": "https://placehold.co/800x450/9C27B0/ffffff?text=Best+Mods+2025",
-            "judul": "Top 5 Best Minecraft Mods of 2025 from ReinForge",
-            "deskripsi": "We summarize 5 must-try mods from the ReinForge collection, which will change the way you play Minecraft. From graphic enhancements to more challenging survival mechanics.",
-            "link": true,
-            "link_url": "https://reinforge.vercel.app/top-mods-2025",
-            "slug": "top-5-mods-reinforge",
-            "is_new": false,
-            "is_recommended": true
           }
         ];
 
@@ -208,21 +271,118 @@
             else if (type === 'error') el.classList.add('text-red-500');
             else el.classList.add('text-yellow-400');
         };
-        
+
         /**
-         * Clears all temporary articles saved locally.
+         * Switches between upload tabs
          */
-        const resetLocalData = () => {
-             // We do not clear the initial data, only the custom added ones.
-             localStorage.removeItem(LOCAL_STORAGE_KEY);
-             renderArticles();
-             showStatusMessage('Local custom articles cleared. Only initial data shown.', 'info');
+        const switchUploadTab = (tab) => {
+            // Update tabs
+            document.querySelectorAll('.upload-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.upload-content').forEach(c => c.classList.remove('active'));
+            
+            if (tab === 'upload') {
+                document.querySelector('.upload-tab:nth-child(1)').classList.add('active');
+                document.getElementById('upload-file-content').classList.add('active');
+            } else {
+                document.querySelector('.upload-tab:nth-child(2)').classList.add('active');
+                document.getElementById('upload-url-content').classList.add('active');
+            }
         };
 
+        /**
+         * Preview image from URL
+         */
+        const previewImage = () => {
+            const url = document.getElementById('image-url').value.trim();
+            if (!url) {
+                showStatusMessage('Please enter an image URL', 'error');
+                return;
+            }
+            
+            const previewImg = document.getElementById('preview-img');
+            const previewContainer = document.getElementById('image-preview');
+            
+            previewImg.src = url;
+            previewImg.onload = () => {
+                previewContainer.classList.remove('hidden');
+                showStatusMessage('Image preview loaded successfully!', 'success');
+            };
+            previewImg.onerror = () => {
+                previewContainer.classList.add('hidden');
+                showStatusMessage('Failed to load image. Please check the URL.', 'error');
+            };
+        };
+
+        /**
+         * Rich Text Editor Functions
+         */
+        const formatText = (command) => {
+            const textarea = document.getElementById('description');
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const selectedText = textarea.value.substring(start, end);
+            
+            let formattedText = '';
+            
+            switch(command) {
+                case 'bold':
+                    formattedText = `**${selectedText}**`;
+                    break;
+                case 'italic':
+                    formattedText = `*${selectedText}*`;
+                    break;
+                case 'underline':
+                    formattedText = `__${selectedText}__`;
+                    break;
+            }
+            
+            textarea.value = textarea.value.substring(0, start) + formattedText + textarea.value.substring(end);
+            textarea.focus();
+            textarea.setSelectionRange(start + formattedText.length, start + formattedText.length);
+        };
+
+        const insertLink = () => {
+            const url = prompt('Enter URL:');
+            const text = prompt('Enter link text:') || url;
+            if (url) {
+                const textarea = document.getElementById('description');
+                const start = textarea.selectionStart;
+                const formattedText = `[${text}](${url})`;
+                textarea.value = textarea.value.substring(0, start) + formattedText + textarea.value.substring(start);
+            }
+        };
+
+        const insertImage = () => {
+            const url = prompt('Enter image URL:');
+            const alt = prompt('Enter alt text:') || 'Image';
+            if (url) {
+                const textarea = document.getElementById('description');
+                const start = textarea.selectionStart;
+                const formattedText = `![${alt}](${url})`;
+                textarea.value = textarea.value.substring(0, start) + formattedText + textarea.value.substring(start);
+            }
+        };
+
+        const insertVideo = () => {
+            const url = prompt('Enter video URL (YouTube/Vimeo/etc):');
+            if (url) {
+                const textarea = document.getElementById('description');
+                const start = textarea.selectionStart;
+                const formattedText = `\n\n[VIDEO:${url}]\n\n`;
+                textarea.value = textarea.value.substring(0, start) + formattedText + textarea.value.substring(start);
+            }
+        };
+
+        const insertLineBreak = () => {
+            const textarea = document.getElementById('description');
+            const start = textarea.selectionStart;
+            textarea.value = textarea.value.substring(0, start) + '\n' + textarea.value.substring(start);
+            textarea.focus();
+            textarea.setSelectionRange(start + 1, start + 1);
+        };
 
         /**
          * Retrieves all articles: initial set + locally added set.
-         * @returns {Array} Combined list of articles.
          */
         const getAllArticles = () => {
             let localArticles = [];
@@ -233,26 +393,24 @@
                 }
             } catch (e) {
                 console.error("Error parsing local articles:", e);
-                localStorage.removeItem(LOCAL_STORAGE_KEY); // Clear bad data
+                localStorage.removeItem(LOCAL_STORAGE_KEY);
             }
             
-            // Combine initial data and local articles. Local articles override initial if slugs match.
             const allArticlesMap = new Map();
             INITIAL_ARTICLES_DATA.forEach(a => allArticlesMap.set(a.slug, a));
             localArticles.forEach(a => allArticlesMap.set(a.slug, a));
 
-            return Array.from(allArticlesMap.values()).reverse(); // Reverse to show newest at top of list
+            return Array.from(allArticlesMap.values()).reverse();
         };
 
         /**
-         * Renders the current list of all articles (initial + local) and updates the JSON output.
+         * Renders the current list of all articles
          */
         const renderArticles = () => {
             const articles = getAllArticles();
             const listEl = document.getElementById('articles-list');
             listEl.innerHTML = '';
             
-            // 1. Render List
             if (articles.length === 0) {
                 listEl.innerHTML = `<p class="text-gray-500">No articles available.</p>`;
                 return;
@@ -263,11 +421,10 @@
                 const item = document.createElement('div');
                 item.className = 'p-3 border border-gray-700 bg-[#222] hover:bg-[#333] transition duration-150 relative';
                 
-                // Add a marker for new/local articles
                 if (!isInitial) {
                     item.classList.add('border-l-4', 'border-yellow-500');
                 } else {
-                    item.classList.add('opacity-75'); // Dim initial articles
+                    item.classList.add('opacity-75');
                 }
 
                 item.innerHTML = `
@@ -276,15 +433,14 @@
                     <p class="text-sm text-gray-400">Slug: ${article.slug}</p>
                     <p class="text-xs text-gray-500">New: ${article.is_new}, Recommended: ${article.is_recommended}</p>
                     <a href="${article.foto}" target="_blank" class="text-xs text-green-400 underline">View Image</a>
+                    ${article.link ? `<p class="text-xs text-orange-400">Source: ${article.link_url}</p>` : ''}
                 `;
                 listEl.appendChild(item);
             });
             
-            // 2. Update JSON Output
-            const outputJSON = JSON.stringify(articles.reverse(), null, 2); // Reverse back for standard JSON structure
+            const outputJSON = JSON.stringify(articles.reverse(), null, 2);
             document.getElementById('json-output').value = outputJSON;
         };
-
 
         /**
          * Handles the authentication check.
@@ -295,7 +451,6 @@
             statusEl.textContent = 'Checking token...';
 
             try {
-                // Fetch the secret token from the local khamu.json (simulated fetch)
                 const response = await fetch('khamu.json');
                 if (!response.ok) {
                     throw new Error("khamu.json not found or failed to load.");
@@ -308,7 +463,7 @@
                     document.getElementById('login-screen').classList.add('hidden');
                     document.getElementById('upload-screen').classList.remove('hidden');
                     statusEl.textContent = 'Access granted. Use JSON Export Terminal.';
-                    renderArticles(); // Load articles after successful login
+                    renderArticles();
                 } else {
                     statusEl.textContent = 'Access denied. Incorrect token.';
                 }
@@ -319,7 +474,7 @@
         };
 
         /**
-         * Uploads the selected file to Cloudinary using unsigned upload.
+         * Uploads the selected file to Cloudinary
          */
         const uploadImageToCloudinary = async (file) => {
             showStatusMessage('Uploading image to Cloudinary...', 'info');
@@ -341,15 +496,15 @@
 
                 const result = await response.json();
                 showStatusMessage('Image upload complete.', 'success');
-                return result.secure_url; // Use secure URL
+                return result.secure_url;
             } catch (error) {
-                showStatusMessage(`Image Upload Error: ${error.message}. Please verify your Cloudinary Upload Preset: "${CLOUDINARY_UPLOAD_PRESET}".`, 'error');
+                showStatusMessage(`Image Upload Error: ${error.message}`, 'error');
                 throw error; 
             }
         };
 
         /**
-         * Saves the article data locally and updates the view.
+         * Saves the article data locally
          */
         const saveArticleLocally = (newArticle) => {
             let localArticles = [];
@@ -360,7 +515,6 @@
                 }
             } catch (e) { /* silent fail */ }
 
-            // Check for duplicate slug (only checks local data for simplicity)
             if (localArticles.some(a => a.slug === newArticle.slug)) {
                  showStatusMessage(`Error: Slug "${newArticle.slug}" already exists.`, 'error');
                  return;
@@ -370,58 +524,74 @@
             localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(localArticles));
             
             document.getElementById('article-form').reset();
-            renderArticles(); // Re-render the list and update JSON output
+            document.getElementById('image-preview').classList.add('hidden');
+            renderArticles();
         };
 
-
-        // --- Main Logic ---
+        // --- Event Listeners ---
 
         document.getElementById('article-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const title = document.getElementById('title').value.trim();
-            // Slug creation: lowercase, replace spaces with hyphens, remove special characters
             const slug = document.getElementById('slug').value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
             const description = document.getElementById('description').value;
-            const imageInput = document.getElementById('article-image');
             const isNew = document.getElementById('is-new').checked;
             const isRecommended = document.getElementById('is-recommended').checked;
-            const imageFile = imageInput.files[0];
+            const hasSource = document.getElementById('has-source').checked;
+            const sourceUrl = document.getElementById('source-url').value.trim();
+            
+            let imageUrl = '';
 
-            if (!imageFile) {
-                showStatusMessage('Please select an image file.', 'error');
-                return;
+            // Determine image source
+            const activeTab = document.querySelector('.upload-tab.active').textContent.trim();
+            
+            if (activeTab === 'Upload File') {
+                const imageInput = document.getElementById('article-image');
+                const imageFile = imageInput.files[0];
+
+                if (!imageFile) {
+                    showStatusMessage('Please select an image file.', 'error');
+                    return;
+                }
+
+                try {
+                    imageUrl = await uploadImageToCloudinary(imageFile);
+                } catch (error) {
+                    return; // Error already shown in upload function
+                }
+            } else {
+                imageUrl = document.getElementById('image-url').value.trim();
+                if (!imageUrl) {
+                    showStatusMessage('Please enter an image URL.', 'error');
+                    return;
+                }
             }
 
-            // Ensure Cloudinary Preset is updated
-            if (CLOUDINARY_UPLOAD_PRESET === 'reinforge_unsigned_preset') {
-                showStatusMessage('CRITICAL: Please change CLOUDINARY_UPLOAD_PRESET in the HTML code to your actual Cloudinary unsigned preset name!', 'error');
-                return;
-            }
+            // Prepare Article Data
+            const newArticle = { 
+                foto: imageUrl, 
+                judul: title, 
+                deskripsi: description, 
+                link: hasSource && sourceUrl !== "",
+                link_url: hasSource ? sourceUrl : "", 
+                slug: slug, 
+                is_new: isNew,
+                is_recommended: isRecommended
+            };
 
-            try {
-                // 1. Upload Image to Cloudinary
-                const imageUrl = await uploadImageToCloudinary(imageFile);
+            // Save Locally and Update View
+            saveArticleLocally(newArticle);
+            showStatusMessage('Article published successfully!', 'success');
+        });
 
-                // 2. Prepare Article Data
-                const newArticle = { 
-                    foto: imageUrl, 
-                    judul: title, 
-                    deskripsi: description, 
-                    link: false, // Default to false
-                    link_url: "", // Default empty
-                    slug: slug, 
-                    is_new: isNew,
-                    is_recommended: isRecommended
-                };
-
-                // 3. Save Locally and Update View
-                saveArticleLocally(newArticle);
-                showStatusMessage('Article saved locally. COPY the JSON below!', 'success');
-
-            } catch (error) {
-                // Error handled and messaged inside uploadImageToCloudinary
-                console.error("Publishing process failed:", error);
+        // Toggle source URL container
+        document.getElementById('has-source').addEventListener('change', function() {
+            const container = document.getElementById('source-url-container');
+            if (this.checked) {
+                container.classList.remove('hidden');
+            } else {
+                container.classList.add('hidden');
             }
         });
 
@@ -441,7 +611,6 @@
                 document.getElementById('status-message').classList.add('text-red-400');
             }
         });
-
 
         window.initApp = () => {
             const storedToken = localStorage.getItem('rcmt_access');
