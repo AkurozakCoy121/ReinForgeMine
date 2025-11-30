@@ -121,19 +121,28 @@
             display: block;
         }
         #description {
-            min-height: 300px;
-            font-family: 'Courier New', monospace;
+            min-height: 400px;
+            background: white;
+            color: black;
+            border: 1px solid #ccc;
+            padding: 12px;
+            border-radius: 4px;
         }
         .color-picker {
             display: flex;
             gap: 4px;
             flex-wrap: wrap;
+            padding: 8px;
         }
         .color-option {
             width: 20px;
             height: 20px;
             border: 1px solid #fff;
             cursor: pointer;
+        }
+        .editor-button.active {
+            background-color: #008000;
+            border-color: #00ff00;
         }
     </style>
 </head>
@@ -184,20 +193,20 @@
                         <div>
                             <label for="description" class="block text-sm font-medium text-gray-400">Description / Article Content</label>
                             
-                            <!-- Advanced Rich Text Editor Toolbar -->
+                            <!-- WYSIWYG Rich Text Editor Toolbar -->
                             <div class="editor-toolbar mb-2">
                                 <!-- Font Styles -->
                                 <div class="editor-dropdown">
                                     <button type="button" class="editor-button">Format ▼</button>
                                     <div class="dropdown-content">
-                                        <button type="button" onclick="formatText('h1')">Heading 1</button>
-                                        <button type="button" onclick="formatText('h2')">Heading 2</button>
-                                        <button type="button" onclick="formatText('h3')">Heading 3</button>
-                                        <button type="button" onclick="formatText('h4')">Heading 4</button>
-                                        <button type="button" onclick="formatText('h5')">Heading 5</button>
-                                        <button type="button" onclick="formatText('h6')">Heading 6</button>
-                                        <button type="button" onclick="formatText('p')">Paragraph</button>
-                                        <button type="button" onclick="formatText('blockquote')">Blockquote</button>
+                                        <button type="button" onclick="formatText('formatBlock', 'h1')">Heading 1</button>
+                                        <button type="button" onclick="formatText('formatBlock', 'h2')">Heading 2</button>
+                                        <button type="button" onclick="formatText('formatBlock', 'h3')">Heading 3</button>
+                                        <button type="button" onclick="formatText('formatBlock', 'h4')">Heading 4</button>
+                                        <button type="button" onclick="formatText('formatBlock', 'h5')">Heading 5</button>
+                                        <button type="button" onclick="formatText('formatBlock', 'h6')">Heading 6</button>
+                                        <button type="button" onclick="formatText('formatBlock', 'p')">Paragraph</button>
+                                        <button type="button" onclick="formatText('formatBlock', 'blockquote')">Blockquote</button>
                                     </div>
                                 </div>
 
@@ -205,18 +214,18 @@
                                 <button type="button" class="editor-button" onclick="formatText('bold')" title="Bold"><b>B</b></button>
                                 <button type="button" class="editor-button" onclick="formatText('italic')" title="Italic"><i>I</i></button>
                                 <button type="button" class="editor-button" onclick="formatText('underline')" title="Underline"><u>U</u></button>
-                                <button type="button" class="editor-button" onclick="formatText('strikethrough')" title="Strikethrough"><s>S</s></button>
+                                <button type="button" class="editor-button" onclick="formatText('strikeThrough')" title="Strikethrough"><s>S</s></button>
 
                                 <!-- Font Family -->
                                 <div class="editor-dropdown">
                                     <button type="button" class="editor-button">Font ▼</button>
                                     <div class="dropdown-content">
-                                        <button type="button" onclick="setFontFamily('Arial')">Arial</button>
-                                        <button type="button" onclick="setFontFamily('Georgia')">Georgia</button>
-                                        <button type="button" onclick="setFontFamily('Courier New')">Courier New</button>
-                                        <button type="button" onclick="setFontFamily('Times New Roman')">Times New Roman</button>
-                                        <button type="button" onclick="setFontFamily('Verdana')">Verdana</button>
-                                        <button type="button" onclick="setFontFamily('Impact')">Impact</button>
+                                        <button type="button" onclick="formatText('fontName', 'Arial')">Arial</button>
+                                        <button type="button" onclick="formatText('fontName', 'Georgia')">Georgia</button>
+                                        <button type="button" onclick="formatText('fontName', 'Courier New')">Courier New</button>
+                                        <button type="button" onclick="formatText('fontName', 'Times New Roman')">Times New Roman</button>
+                                        <button type="button" onclick="formatText('fontName', 'Verdana')">Verdana</button>
+                                        <button type="button" onclick="formatText('fontName', 'Impact')">Impact</button>
                                     </div>
                                 </div>
 
@@ -224,26 +233,26 @@
                                 <div class="editor-dropdown">
                                     <button type="button" class="editor-button">Size ▼</button>
                                     <div class="dropdown-content">
-                                        <button type="button" onclick="setFontSize('12px')">Small</button>
-                                        <button type="button" onclick="setFontSize('16px')">Normal</button>
-                                        <button type="button" onclick="setFontSize('20px')">Large</button>
-                                        <button type="button" onclick="setFontSize('24px')">X-Large</button>
+                                        <button type="button" onclick="formatText('fontSize', '1')">Small</button>
+                                        <button type="button" onclick="formatText('fontSize', '3')">Normal</button>
+                                        <button type="button" onclick="formatText('fontSize', '5')">Large</button>
+                                        <button type="button" onclick="formatText('fontSize', '7')">X-Large</button>
                                     </div>
                                 </div>
 
                                 <!-- Text Color -->
                                 <div class="editor-dropdown">
                                     <button type="button" class="editor-button">Color ▼</button>
-                                    <div class="dropdown-content" style="min-width: 150px; padding: 8px;">
+                                    <div class="dropdown-content">
                                         <div class="color-picker">
-                                            <div class="color-option" style="background-color: #000000;" onclick="setTextColor('#000000')"></div>
-                                            <div class="color-option" style="background-color: #FF0000;" onclick="setTextColor('#FF0000')"></div>
-                                            <div class="color-option" style="background-color: #00FF00;" onclick="setTextColor('#00FF00')"></div>
-                                            <div class="color-option" style="background-color: #0000FF;" onclick="setTextColor('#0000FF')"></div>
-                                            <div class="color-option" style="background-color: #FFFF00;" onclick="setTextColor('#FFFF00')"></div>
-                                            <div class="color-option" style="background-color: #FF00FF;" onclick="setTextColor('#FF00FF')"></div>
-                                            <div class="color-option" style="background-color: #00FFFF;" onclick="setTextColor('#00FFFF')"></div>
-                                            <div class="color-option" style="background-color: #FFFFFF;" onclick="setTextColor('#FFFFFF')"></div>
+                                            <div class="color-option" style="background-color: #000000;" onclick="formatText('foreColor', '#000000')"></div>
+                                            <div class="color-option" style="background-color: #FF0000;" onclick="formatText('foreColor', '#FF0000')"></div>
+                                            <div class="color-option" style="background-color: #00FF00;" onclick="formatText('foreColor', '#00FF00')"></div>
+                                            <div class="color-option" style="background-color: #0000FF;" onclick="formatText('foreColor', '#0000FF')"></div>
+                                            <div class="color-option" style="background-color: #FFFF00;" onclick="formatText('foreColor', '#FFFF00')"></div>
+                                            <div class="color-option" style="background-color: #FF00FF;" onclick="formatText('foreColor', '#FF00FF')"></div>
+                                            <div class="color-option" style="background-color: #00FFFF;" onclick="formatText('foreColor', '#00FFFF')"></div>
+                                            <div class="color-option" style="background-color: #FFFFFF;" onclick="formatText('foreColor', '#FFFFFF')"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -251,14 +260,14 @@
                                 <!-- Background Color -->
                                 <div class="editor-dropdown">
                                     <button type="button" class="editor-button">BG Color ▼</button>
-                                    <div class="dropdown-content" style="min-width: 150px; padding: 8px;">
+                                    <div class="dropdown-content">
                                         <div class="color-picker">
-                                            <div class="color-option" style="background-color: #FFFF00;" onclick="setBackgroundColor('#FFFF00')"></div>
-                                            <div class="color-option" style="background-color: #00FF00;" onclick="setBackgroundColor('#00FF00')"></div>
-                                            <div class="color-option" style="background-color: #00FFFF;" onclick="setBackgroundColor('#00FFFF')"></div>
-                                            <div class="color-option" style="background-color: #FFC0CB;" onclick="setBackgroundColor('#FFC0CB')"></div>
-                                            <div class="color-option" style="background-color: #FFA500;" onclick="setBackgroundColor('#FFA500')"></div>
-                                            <div class="color-option" style="background-color: #ADD8E6;" onclick="setBackgroundColor('#ADD8E6')"></div>
+                                            <div class="color-option" style="background-color: #FFFF00;" onclick="formatText('hiliteColor', '#FFFF00')"></div>
+                                            <div class="color-option" style="background-color: #00FF00;" onclick="formatText('hiliteColor', '#00FF00')"></div>
+                                            <div class="color-option" style="background-color: #00FFFF;" onclick="formatText('hiliteColor', '#00FFFF')"></div>
+                                            <div class="color-option" style="background-color: #FFC0CB;" onclick="formatText('hiliteColor', '#FFC0CB')"></div>
+                                            <div class="color-option" style="background-color: #FFA500;" onclick="formatText('hiliteColor', '#FFA500')"></div>
+                                            <div class="color-option" style="background-color: #ADD8E6;" onclick="formatText('hiliteColor', '#ADD8E6')"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -267,16 +276,16 @@
                                 <div class="editor-dropdown">
                                     <button type="button" class="editor-button">Align ▼</button>
                                     <div class="dropdown-content">
-                                        <button type="button" onclick="setAlignment('left')">Left</button>
-                                        <button type="button" onclick="setAlignment('center')">Center</button>
-                                        <button type="button" onclick="setAlignment('right')">Right</button>
-                                        <button type="button" onclick="setAlignment('justify')">Justify</button>
+                                        <button type="button" onclick="formatText('justifyLeft')">Left</button>
+                                        <button type="button" onclick="formatText('justifyCenter')">Center</button>
+                                        <button type="button" onclick="formatText('justifyRight')">Right</button>
+                                        <button type="button" onclick="formatText('justifyFull')">Justify</button>
                                     </div>
                                 </div>
 
                                 <!-- Lists -->
-                                <button type="button" class="editor-button" onclick="formatText('ul')" title="Unordered List">• List</button>
-                                <button type="button" class="editor-button" onclick="formatText('ol')" title="Ordered List">1. List</button>
+                                <button type="button" class="editor-button" onclick="formatText('insertUnorderedList')" title="Unordered List">• List</button>
+                                <button type="button" class="editor-button" onclick="formatText('insertOrderedList')" title="Ordered List">1. List</button>
 
                                 <!-- Indentation -->
                                 <button type="button" class="editor-button" onclick="formatText('indent')" title="Indent">↳</button>
@@ -292,15 +301,19 @@
                                 <button type="button" class="editor-button" onclick="insertVideo()" title="Insert Video">🎬</button>
 
                                 <!-- Line Tools -->
-                                <button type="button" class="editor-button" onclick="insertLineBreak()" title="Line Break">↵</button>
-                                <button type="button" class="editor-button" onclick="insertHorizontalLine()" title="Horizontal Line">―</button>
+                                <button type="button" class="editor-button" onclick="formatText('insertHorizontalRule')" title="Horizontal Line">―</button>
 
                                 <!-- Clean Format -->
-                                <button type="button" class="editor-button" onclick="removeFormatting()" title="Remove Formatting">🧹</button>
+                                <button type="button" class="editor-button" onclick="formatText('removeFormat')" title="Remove Formatting">🧹</button>
+
+                                <!-- Undo/Redo -->
+                                <button type="button" class="editor-button" onclick="formatText('undo')" title="Undo">↶</button>
+                                <button type="button" class="editor-button" onclick="formatText('redo')" title="Redo">↷</button>
                             </div>
                             
-                            <textarea id="description" rows="10" required class="w-full mt-1"></textarea>
-                            <p class="text-xs text-yellow-400 mt-1">Use the toolbar above for advanced text formatting, links, images, and videos.</p>
+                            <!-- Content Editable Div for WYSIWYG Editor -->
+                            <div id="description" contenteditable="true" class="w-full mt-1"></div>
+                            <p class="text-xs text-yellow-400 mt-1">Type your content and use the toolbar above for formatting. What you see is what you get!</p>
                         </div>
                         
                         <div>
@@ -382,7 +395,7 @@
           {
             "foto": "https://placehold.co/800x450/4CAF50/ffffff?text=Tricky+Trials+Update",
             "judul": "Exploring Minecraft 1.21 Update: The Tricky Trials",
-            "deskripsi": "# Exploring Minecraft 1.21\\n\\nThe **1.21 Update** brings many new challenges and exciting blocks. From the trap-filled Trial Chambers to the elusive Breeze mob.\\n\\n## Key Features\\n• New mobs and enemies\\n• Updated combat mechanics\\n• Enhanced building blocks\\n\\nMake sure you are equipped with the best gear before exploring!",
+            "deskripsi": "<h1>Exploring Minecraft 1.21</h1><p>The <strong>1.21 Update</strong> brings many new challenges and exciting blocks. From the trap-filled Trial Chambers to the elusive Breeze mob.</p><h2>Key Features</h2><ul><li>New mobs and enemies</li><li>Updated combat mechanics</li><li>Enhanced building blocks</li></ul><p>Make sure you are equipped with the best gear before exploring!</p>",
             "link": true,
             "link_url": "https://www.minecraft.net/en-us/article/tricky-trials-out-now",
             "slug": "update-1-21-tricky-trials",
@@ -436,202 +449,61 @@
             };
         };
 
-        // --- Advanced Rich Text Editor Functions ---
+        // --- WYSIWYG Editor Functions ---
 
-        const formatText = (command) => {
-            const textarea = document.getElementById('description');
-            const start = textarea.selectionStart;
-            const end = textarea.selectionEnd;
-            const selectedText = textarea.value.substring(start, end);
-            let formattedText = '';
-            
-            switch(command) {
-                case 'bold':
-                    formattedText = `**${selectedText}**`;
-                    break;
-                case 'italic':
-                    formattedText = `*${selectedText}*`;
-                    break;
-                case 'underline':
-                    formattedText = `<u>${selectedText}</u>`;
-                    break;
-                case 'strikethrough':
-                    formattedText = `~~${selectedText}~~`;
-                    break;
-                case 'superscript':
-                    formattedText = `^${selectedText}^`;
-                    break;
-                case 'subscript':
-                    formattedText = `~${selectedText}~`;
-                    break;
-                case 'h1':
-                    formattedText = `# ${selectedText}`;
-                    break;
-                case 'h2':
-                    formattedText = `## ${selectedText}`;
-                    break;
-                case 'h3':
-                    formattedText = `### ${selectedText}`;
-                    break;
-                case 'h4':
-                    formattedText = `#### ${selectedText}`;
-                    break;
-                case 'h5':
-                    formattedText = `##### ${selectedText}`;
-                    break;
-                case 'h6':
-                    formattedText = `###### ${selectedText}`;
-                    break;
-                case 'p':
-                    formattedText = `${selectedText}`;
-                    break;
-                case 'blockquote':
-                    formattedText = `> ${selectedText}`;
-                    break;
-                case 'ul':
-                    formattedText = `• ${selectedText}`;
-                    break;
-                case 'ol':
-                    formattedText = `1. ${selectedText}`;
-                    break;
-                case 'indent':
-                    formattedText = `    ${selectedText}`;
-                    break;
-                case 'outdent':
-                    formattedText = selectedText.replace(/^    /, '');
-                    break;
+        const formatText = (command, value = null) => {
+            document.getElementById('description').focus();
+            if (value) {
+                document.execCommand(command, false, value);
+            } else {
+                document.execCommand(command, false, null);
             }
-            
-            textarea.value = textarea.value.substring(0, start) + formattedText + textarea.value.substring(end);
-            textarea.focus();
-            textarea.setSelectionRange(start + formattedText.length, start + formattedText.length);
-        };
-
-        const setFontFamily = (font) => {
-            const textarea = document.getElementById('description');
-            const start = textarea.selectionStart;
-            const end = textarea.selectionEnd;
-            const selectedText = textarea.value.substring(start, end);
-            const formattedText = `[font:${font}]${selectedText}[/font]`;
-            
-            textarea.value = textarea.value.substring(0, start) + formattedText + textarea.value.substring(end);
-            textarea.focus();
-        };
-
-        const setFontSize = (size) => {
-            const textarea = document.getElementById('description');
-            const start = textarea.selectionStart;
-            const end = textarea.selectionEnd;
-            const selectedText = textarea.value.substring(start, end);
-            const formattedText = `[size:${size}]${selectedText}[/size]`;
-            
-            textarea.value = textarea.value.substring(0, start) + formattedText + textarea.value.substring(end);
-            textarea.focus();
-        };
-
-        const setTextColor = (color) => {
-            const textarea = document.getElementById('description');
-            const start = textarea.selectionStart;
-            const end = textarea.selectionEnd;
-            const selectedText = textarea.value.substring(start, end);
-            const formattedText = `[color:${color}]${selectedText}[/color]`;
-            
-            textarea.value = textarea.value.substring(0, start) + formattedText + textarea.value.substring(end);
-            textarea.focus();
-        };
-
-        const setBackgroundColor = (color) => {
-            const textarea = document.getElementById('description');
-            const start = textarea.selectionStart;
-            const end = textarea.selectionEnd;
-            const selectedText = textarea.value.substring(start, end);
-            const formattedText = `[bgcolor:${color}]${selectedText}[/bgcolor]`;
-            
-            textarea.value = textarea.value.substring(0, start) + formattedText + textarea.value.substring(end);
-            textarea.focus();
-        };
-
-        const setAlignment = (align) => {
-            const textarea = document.getElementById('description');
-            const start = textarea.selectionStart;
-            const formattedText = `[align:${align}]\n\n[/align]`;
-            
-            textarea.value = textarea.value.substring(0, start) + formattedText + textarea.value.substring(start);
-            textarea.focus();
-            textarea.setSelectionRange(start + formattedText.length - 8, start + formattedText.length - 8);
         };
 
         const insertLink = () => {
             const url = prompt('Enter URL:');
-            const text = prompt('Enter link text:') || url;
             if (url) {
-                const textarea = document.getElementById('description');
-                const start = textarea.selectionStart;
-                const formattedText = `[${text}](${url})`;
-                textarea.value = textarea.value.substring(0, start) + formattedText + textarea.value.substring(start);
+                formatText('createLink', url);
             }
         };
 
         const insertImage = () => {
             const url = prompt('Enter image URL:');
-            const alt = prompt('Enter alt text:') || 'Image';
             if (url) {
-                const textarea = document.getElementById('description');
-                const start = textarea.selectionStart;
-                const formattedText = `![${alt}](${url})`;
-                textarea.value = textarea.value.substring(0, start) + formattedText + textarea.value.substring(start);
+                formatText('insertImage', url);
             }
         };
 
         const insertVideo = () => {
             const url = prompt('Enter video URL (YouTube/Vimeo/etc):');
             if (url) {
-                const textarea = document.getElementById('description');
-                const start = textarea.selectionStart;
-                const formattedText = `[video:${url}]`;
-                textarea.value = textarea.value.substring(0, start) + formattedText + textarea.value.substring(start);
+                const videoHTML = `<div class="video-container"><iframe src="${url}" width="560" height="315" frameborder="0" allowfullscreen></iframe></div>`;
+                formatText('insertHTML', videoHTML);
             }
         };
 
-        const insertLineBreak = () => {
-            const textarea = document.getElementById('description');
-            const start = textarea.selectionStart;
-            textarea.value = textarea.value.substring(0, start) + '\n' + textarea.value.substring(start);
-            textarea.focus();
-            textarea.setSelectionRange(start + 1, start + 1);
-        };
-
-        const insertHorizontalLine = () => {
-            const textarea = document.getElementById('description');
-            const start = textarea.selectionStart;
-            const formattedText = '\n---\n';
-            textarea.value = textarea.value.substring(0, start) + formattedText + textarea.value.substring(start);
-            textarea.focus();
-        };
-
-        const removeFormatting = () => {
-            const textarea = document.getElementById('description');
-            const start = textarea.selectionStart;
-            const end = textarea.selectionEnd;
-            let selectedText = textarea.value.substring(start, end);
+        // Make editor more user-friendly
+        document.addEventListener('DOMContentLoaded', function() {
+            const editor = document.getElementById('description');
             
-            // Remove all formatting tags
-            selectedText = selectedText
-                .replace(/\*\*(.*?)\*\*/g, '$1')
-                .replace(/\*(.*?)\*/g, '$1')
-                .replace(/<u>(.*?)<\/u>/g, '$1')
-                .replace(/~~(.*?)~~/g, '$1')
-                .replace(/\^(.*?)\^/g, '$1')
-                .replace(/~(.*?)~/g, '$1')
-                .replace(/\[font:.*?\](.*?)\[\/font\]/g, '$1')
-                .replace(/\[size:.*?\](.*?)\[\/size\]/g, '$1')
-                .replace(/\[color:.*?\](.*?)\[\/color\]/g, '$1')
-                .replace(/\[bgcolor:.*?\](.*?)\[\/bgcolor\]/g, '$1');
+            // Set some basic styles for the editor
+            editor.style.minHeight = '400px';
+            editor.style.padding = '12px';
+            editor.style.border = '1px solid #ccc';
+            editor.style.borderRadius = '4px';
+            editor.style.backgroundColor = 'white';
+            editor.style.color = 'black';
             
-            textarea.value = textarea.value.substring(0, start) + selectedText + textarea.value.substring(end);
-            textarea.focus();
-            textarea.setSelectionRange(start, start + selectedText.length);
-        };
+            // Add placeholder text
+            editor.innerHTML = '<p>Start writing your article here... Use the toolbar above to format your text.</p>';
+            
+            // Prevent paste of formatted text that might break the editor
+            editor.addEventListener('paste', function(e) {
+                e.preventDefault();
+                const text = (e.originalEvent || e).clipboardData.getData('text/plain');
+                document.execCommand('insertText', false, text);
+            });
+        });
 
         // --- Article Management ---
 
@@ -741,7 +613,7 @@
             
             const title = document.getElementById('title').value.trim();
             const slug = document.getElementById('slug').value.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-            const description = document.getElementById('description').value;
+            const description = document.getElementById('description').innerHTML;
             const isNew = document.getElementById('is-new').checked;
             const isRecommended = document.getElementById('is-recommended').checked;
             const hasSource = document.getElementById('has-source').checked;
@@ -786,6 +658,7 @@
 
             if (saveArticleLocally(newArticle)) {
                 document.getElementById('article-form').reset();
+                document.getElementById('description').innerHTML = '<p>Start writing your article here... Use the toolbar above to format your text.</p>';
                 document.getElementById('image-preview').classList.add('hidden');
                 document.getElementById('source-url-container').classList.add('hidden');
                 document.getElementById('has-source').checked = false;
