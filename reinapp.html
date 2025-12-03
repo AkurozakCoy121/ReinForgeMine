@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReinApp - Aplikasi Premium by ReinForge</title>
+    <title>ReinApp - Download Center</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/dqrmhcdl6/image/upload/v1764750192/Screenshot_2025-11-27_193418_flfnou.png">
@@ -12,785 +12,293 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Reset & Base */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #7c3aed;
-            --primary-dark: #6d28d9;
-            --primary-light: #8b5cf6;
-            --secondary: #1e1b4b;
-            --secondary-light: #2e2a6e;
-            --secondary-dark: #0f172a;
-            --accent: #06b6d4;
-            --accent-light: #22d3ee;
-            --accent-dark: #0891b2;
-            --text-primary: #f8fafc;
-            --text-secondary: #cbd5e1;
-            --text-muted: #94a3b8;
-            --border: #475569;
-            --border-light: #64748b;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --card-bg: #1e293b;
-            --card-bg-solid: #1e293b;
-            --hover-light: rgba(124, 58, 237, 0.1);
-            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-            --radius: 0px;
-            --radius-sm: 0px;
-            --transition: all 0.2s ease;
-            --bg-color: #0f172a;
-            --surface: #1e1b4b;
-            --gradient: linear-gradient(135deg, #7c3aed, #06b6d4);
-            --gradient-accent: linear-gradient(135deg, #06b6d4, #22d3ee);
-            --glass: rgba(30, 27, 75, 0.7);
-            --glass-border: rgba(124, 58, 237, 0.2);
-        }
-
-        [data-theme="light"] {
-            --primary: #8b5cf6;
-            --primary-dark: #7c3aed;
-            --primary-light: #a78bfa;
-            --secondary: #f8fafc;
-            --secondary-light: #ffffff;
-            --secondary-dark: #f1f5f9;
-            --accent: #06b6d4;
-            --accent-light: #22d3ee;
-            --text-primary: #1e1b4b;
-            --text-secondary: #475569;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --border-light: #cbd5e1;
-            --card-bg: #ffffff;
-            --card-bg-solid: #ffffff;
-            --hover-light: rgba(124, 58, 237, 0.05);
-            --shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --bg-color: #f8fafc;
-            --surface: #ffffff;
-            --glass: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(0, 0, 0, 0.1);
-        }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.5;
-            overflow-x: hidden;
-            transition: var(--transition);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e1b4b);
+            color: #f8fafc;
+            line-height: 1.6;
             min-height: 100vh;
+            padding: 20px;
         }
 
-        /* Container */
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 0 16px;
-            width: 100%;
         }
 
         /* Header */
         header {
-            background-color: var(--surface);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(10px);
-            background-color: rgba(30, 27, 75, 0.95);
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
         }
 
-        [data-theme="light"] header {
-            background-color: rgba(255, 255, 255, 0.95);
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            height: 60px;
-        }
-
-        .logo-section {
+        .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
         }
 
         .logo-img {
-            width: 40px;
-            height: 40px;
-            border-radius: 4px;
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
             object-fit: cover;
+            border: 2px solid #7c3aed;
         }
 
         .logo-text h1 {
-            font-size: 24px;
+            font-size: 42px;
             font-weight: 800;
-            margin: 0;
-            background: var(--gradient);
+            background: linear-gradient(135deg, #7c3aed, #06b6d4);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: -0.5px;
+            letter-spacing: -1px;
         }
 
         .logo-text p {
-            font-size: 11px;
-            color: var(--text-secondary);
-            margin: 0;
+            font-size: 14px;
+            color: #cbd5e1;
             font-weight: 500;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            margin-top: 5px;
         }
 
-        nav {
-            display: flex;
-            gap: 2px;
-            align-items: center;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--text-primary);
-            padding: 10px 16px;
-            font-size: 13px;
-            font-weight: 500;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            position: relative;
-            border: 1px solid transparent;
-        }
-
-        nav a:hover {
-            background-color: var(--hover-light);
-            border-color: var(--border);
-        }
-
-        nav a.active {
-            background-color: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .theme-toggle {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            cursor: pointer;
-            font-size: 16px;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            margin-left: 8px;
-        }
-
-        .theme-toggle:hover {
-            background-color: var(--hover-light);
+        .tagline {
+            font-size: 18px;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
         }
 
         /* Main Content */
-        main {
-            padding: 32px 0;
-            min-height: calc(100vh - 180px);
+        .main-content {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
         }
 
-        /* Page Title */
-        .page-title {
-            font-size: 36px;
-            margin-bottom: 32px;
-            text-align: center;
-            font-weight: 800;
-            color: var(--text-primary);
-            position: relative;
-            padding-bottom: 16px;
-        }
-
-        .page-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: var(--gradient);
-        }
-
-        /* Hero Section */
-        .hero-section {
-            background: linear-gradient(135deg, var(--secondary-light), var(--secondary));
-            border: 1px solid var(--border);
-            padding: 60px 32px;
-            margin-bottom: 48px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero-section h2 {
-            font-size: 42px;
-            margin-bottom: 20px;
-            font-weight: 800;
-            line-height: 1.1;
-        }
-
-        .hero-section p {
-            font-size: 18px;
-            margin-bottom: 28px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 14px 32px;
-            background: var(--gradient);
-            color: white;
-            text-decoration: none;
-            border: none;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: var(--transition);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
-        }
-
-        /* Platform Selector */
-        .platform-selector {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .platform-btn {
-            padding: 12px 24px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-            font-size: 14px;
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #7c3aed;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .platform-btn.active {
-            background: var(--gradient);
-            color: white;
-            border-color: transparent;
-        }
-
-        .platform-btn:hover:not(.active) {
-            background: var(--hover-light);
-            border-color: var(--primary);
+        .section-title i {
+            color: #7c3aed;
         }
 
         /* App Grid */
         .app-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 24px;
-            margin-top: 32px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
         }
 
         .app-card {
-            background-color: var(--card-bg-solid);
-            border: 1px solid var(--border);
-            position: relative;
-            transition: var(--transition);
+            background: #1e293b;
+            border: 1px solid #475569;
+            border-radius: 8px;
             overflow: hidden;
-            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .app-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
+            border-color: #7c3aed;
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.2);
         }
 
-        .app-badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: var(--gradient);
-            color: white;
-            padding: 4px 10px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            z-index: 2;
-        }
-
-        .app-card-image {
+        .app-image {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid #475569;
         }
 
-        .app-card-content {
-            padding: 20px;
+        .app-content {
+            padding: 25px;
         }
 
-        .app-card-header {
+        .app-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
-        .app-card-title {
-            font-size: 18px;
+        .app-name {
+            font-size: 22px;
             font-weight: 700;
-            color: var(--text-primary);
-            margin: 0;
-            line-height: 1.3;
+            color: #f8fafc;
         }
 
-        .app-card-version {
-            background: var(--gradient-accent);
+        .app-badge {
+            background: linear-gradient(135deg, #7c3aed, #06b6d4);
             color: white;
-            padding: 4px 8px;
-            font-size: 11px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: 600;
-            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .app-card-description {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-            line-height: 1.5;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .app-card-features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 16px;
-        }
-
-        .app-feature-tag {
-            padding: 4px 8px;
-            background: var(--hover-light);
-            border: 1px solid var(--border);
-            font-size: 11px;
-            color: var(--text-secondary);
-            border-radius: 2px;
-        }
-
-        .app-card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 16px;
-            border-top: 1px solid var(--border-light);
-        }
-
-        .app-card-size {
-            font-size: 12px;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .app-card-downloads {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        /* Search & Filter */
-        .search-filter-section {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 20px;
-            margin-bottom: 28px;
-        }
-
-        .search-container {
-            position: relative;
-            margin-bottom: 16px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 12px 16px 12px 44px;
-            border: 1px solid var(--border);
-            background-color: var(--bg-color);
-            color: var(--text-primary);
+        .app-description {
+            color: #cbd5e1;
             font-size: 14px;
-            transition: var(--transition);
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.1);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-        }
-
-        .filter-container {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .filter-select {
-            padding: 10px 16px;
-            border: 1px solid var(--border);
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-size: 13px;
-            cursor: pointer;
-            transition: var(--transition);
-            min-width: 140px;
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 14px;
-            padding-right: 36px;
-        }
-
-        /* App Detail Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(15, 23, 42, 0.9);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background-color: var(--surface);
-            border: 1px solid var(--border);
-            max-width: 800px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .modal-header {
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--gradient);
-        }
-
-        .modal-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: white;
-        }
-
-        .close-btn {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .close-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .modal-body {
-            padding: 24px;
-        }
-
-        .app-detail-image {
-            width: 100%;
-            max-height: 300px;
-            object-fit: contain;
-            border: 1px solid var(--border);
-            margin-bottom: 20px;
-            background: var(--bg-color);
-        }
-
-        .app-detail-meta {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .app-meta-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 12px;
-            background-color: var(--bg-color);
-            border: 1px solid var(--border);
-        }
-
-        .app-meta-item i {
-            color: var(--primary);
-        }
-
-        .app-detail-section {
-            margin-bottom: 24px;
-        }
-
-        .app-detail-section h3 {
-            font-size: 18px;
-            margin-bottom: 12px;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-        }
-
-        .app-detail-section h3 i {
-            color: var(--primary);
-        }
-
-        .app-detail-section p {
-            color: var(--text-secondary);
             line-height: 1.6;
-            font-size: 14px;
-            margin-bottom: 12px;
+            margin-bottom: 20px;
+            min-height: 60px;
         }
 
-        .app-detail-section ul {
-            margin-left: 20px;
-            margin-bottom: 16px;
+        .app-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
-        .app-detail-section li {
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-            line-height: 1.5;
-            font-size: 14px;
-            position: relative;
-            padding-left: 8px;
+        .feature-tag {
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            color: #a78bfa;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
         }
 
-        .app-detail-section li:before {
-            content: "•";
-            color: var(--primary);
-            position: absolute;
-            left: -12px;
+        .app-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid #475569;
         }
 
-        .download-section {
-            background-color: var(--bg-color);
-            border: 1px solid var(--border);
-            padding: 20px;
-            margin-top: 24px;
-            border-radius: 0;
+        .app-info {
+            font-size: 13px;
+            color: #94a3b8;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
         }
 
-        .download-section h3 {
-            font-size: 18px;
-            margin-bottom: 16px;
-            color: var(--text-primary);
-            font-weight: 600;
+        .app-info span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
+        .app-info i {
+            color: #7c3aed;
+        }
+
+        /* Download Buttons */
         .download-buttons {
             display: flex;
             gap: 12px;
-            flex-wrap: wrap;
         }
 
         .download-btn {
-            padding: 12px 24px;
+            padding: 10px 20px;
             border: none;
+            border-radius: 6px;
             font-weight: 600;
+            font-size: 14px;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 8px;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            flex: 1;
-            min-width: 150px;
+            text-decoration: none;
         }
 
         .download-btn.primary {
-            background: var(--gradient);
+            background: linear-gradient(135deg, #7c3aed, #06b6d4);
             color: white;
         }
 
         .download-btn.primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
         }
 
         .download-btn.secondary {
-            background-color: var(--surface);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
+            background: transparent;
+            color: #94a3b8;
+            border: 1px solid #475569;
         }
 
         .download-btn.secondary:hover {
-            background-color: var(--hover-light);
-        }
-
-        .qr-section {
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-        }
-
-        .qr-code {
-            max-width: 200px;
-            width: 100%;
-            border: 1px solid var(--border);
-            padding: 10px;
-            background: white;
-            margin: 0 auto 12px;
+            background: rgba(124, 58, 237, 0.1);
+            border-color: #7c3aed;
+            color: #f8fafc;
         }
 
         /* Footer */
         footer {
-            background: var(--surface);
-            border-top: 1px solid var(--border);
-            padding: 32px 0;
-            margin-top: 64px;
             text-align: center;
+            padding: 30px 0;
+            color: #94a3b8;
+            font-size: 14px;
+            border-top: 1px solid #475569;
+            margin-top: 40px;
         }
 
-        .footer-content p {
-            color: var(--text-secondary);
-            font-size: 13px;
-            margin-top: 16px;
-        }
-
-        /* Back to Top */
-        .back-to-top {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 48px;
-            height: 48px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            opacity: 0;
-            visibility: hidden;
-            z-index: 100;
+        .footer-links {
             display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 20px;
-            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+            gap: 20px;
+            margin-top: 15px;
         }
 
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
+        .footer-links a {
+            color: #a78bfa;
+            text-decoration: none;
+            transition: color 0.3s ease;
         }
 
-        .back-to-top:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
+        .footer-links a:hover {
+            color: #7c3aed;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                height: auto;
-                gap: 12px;
-                padding: 16px 0;
+            .container {
+                padding: 0 15px;
             }
             
-            nav {
-                width: 100%;
-                justify-content: center;
-                flex-wrap: wrap;
+            .main-content {
+                padding: 25px;
             }
             
-            .hero-section {
-                padding: 40px 20px;
-            }
-            
-            .hero-section h2 {
+            .logo-text h1 {
                 font-size: 32px;
             }
             
-            .page-title {
-                font-size: 28px;
+            .section-title {
+                font-size: 24px;
             }
             
             .app-grid {
@@ -803,899 +311,215 @@
             
             .download-btn {
                 width: 100%;
-            }
-            
-            .app-detail-meta {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-section h2 {
-                font-size: 28px;
-            }
-            
-            .page-title {
-                font-size: 24px;
-            }
-            
-            .platform-selector {
-                flex-direction: column;
-            }
-            
-            .platform-btn {
-                width: 100%;
                 justify-content: center;
             }
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-color);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--border);
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--border-light);
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .logo {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .app-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .app-details {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-container">
-                <div class="logo-section">
-                    <img src="https://res.cloudinary.com/dqrmhcdl6/image/upload/v1764750192/Screenshot_2025-11-27_193418_flfnou.png" 
-                         alt="ReinApp Logo" class="logo-img">
-                    <div class="logo-text">
-                        <h1>ReinApp</h1>
-                        <p>Premium Applications</p>
-                    </div>
-                </div>
-                <nav>
-                    <a href="#" onclick="showPage('home')" class="active"><i class="fas fa-home"></i> Home</a>
-                    <a href="#" onclick="showPage('apps')"><i class="fas fa-mobile-alt"></i> Apps</a>
-                    <a href="#" onclick="showPage('about')"><i class="fas fa-info-circle"></i> About</a>
-                    <a href="#" onclick="showPage('support')"><i class="fas fa-headset"></i> Support</a>
-                    <button class="theme-toggle" id="themeToggle">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                </nav>
-            </div>
-        </div>
-    </header>
-
-    <main>
-        <div class="container">
-            <!-- Home Page -->
-            <div id="home" class="page active">
-                <div class="hero-section">
-                    <div class="hero-content">
-                        <h2>Premium Applications by ReinForge</h2>
-                        <p>Discover powerful applications built with cutting-edge technology. From productivity tools to entertainment apps, we create software that enhances your digital experience.</p>
-                        <button class="cta-button" onclick="showPage('apps')">
-                            <i class="fas fa-rocket"></i> Explore Apps
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Featured Apps -->
-                <div class="featured-apps">
-                    <h2 class="page-title">Featured Applications</h2>
-                    <div class="app-grid" id="featuredAppsGrid">
-                        <!-- Featured apps will be loaded here -->
-                    </div>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="https://res.cloudinary.com/dqrmhcdl6/image/upload/v1764750192/Screenshot_2025-11-27_193418_flfnou.png" 
+                     alt="ReinApp Logo" class="logo-img">
+                <div class="logo-text">
+                    <h1>ReinApp</h1>
+                    <p>Download Center</p>
                 </div>
             </div>
+            <p class="tagline">
+                Download aplikasi premium buatan ReinForge Team. Simple, powerful, dan free untuk digunakan.
+            </p>
+        </header>
 
-            <!-- Apps Page -->
-            <div id="apps" class="page">
-                <h2 class="page-title">Our Application Collection</h2>
-                
-                <!-- Platform Selector -->
-                <div class="platform-selector">
-                    <button class="platform-btn active" onclick="setPlatform('all')">
-                        <i class="fas fa-layer-group"></i> All Platforms
-                    </button>
-                    <button class="platform-btn" onclick="setPlatform('android')">
-                        <i class="fab fa-android"></i> Android
-                    </button>
-                    <button class="platform-btn" onclick="setPlatform('ios')">
-                        <i class="fab fa-apple"></i> iOS
-                    </button>
-                    <button class="platform-btn" onclick="setPlatform('windows')">
-                        <i class="fab fa-windows"></i> Windows
-                    </button>
-                    <button class="platform-btn" onclick="setPlatform('web')">
-                        <i class="fas fa-globe"></i> Web
-                    </button>
-                </div>
+        <main class="main-content">
+            <h2 class="section-title">
+                <i class="fas fa-mobile-alt"></i> Daftar Aplikasi
+            </h2>
 
-                <!-- Search & Filter -->
-                <div class="search-filter-section">
-                    <div class="search-container">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" class="search-input" id="searchInput" placeholder="Search applications...">
-                    </div>
-                    
-                    <div class="filter-container">
-                        <select class="filter-select" id="categoryFilter">
-                            <option value="all">All Categories</option>
-                            <option value="productivity">Productivity</option>
-                            <option value="utility">Utility</option>
-                            <option value="entertainment">Entertainment</option>
-                            <option value="tool">Tools</option>
-                            <option value="security">Security</option>
-                        </select>
-                        
-                        <select class="filter-select" id="sortSelect">
-                            <option value="popular">Most Popular</option>
-                            <option value="newest">Newest First</option>
-                            <option value="name">Name (A-Z)</option>
-                            <option value="size">Size (Small to Large)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Apps Grid -->
-                <div class="app-grid" id="appsGrid">
-                    <!-- Apps will be loaded here -->
-                </div>
+            <div class="app-grid" id="appsGrid">
+                <!-- Apps will be loaded here -->
             </div>
+        </main>
 
-            <!-- About Page -->
-            <div id="about" class="page">
-                <h2 class="page-title">About ReinApp</h2>
-                <div class="about-content">
-                    <div class="app-detail-section">
-                        <h3><i class="fas fa-code"></i> Our Development Philosophy</h3>
-                        <p>At ReinApp, we believe in creating software that is not only functional but also delightful to use. Every application we build is crafted with attention to detail, performance, and user experience.</p>
-                    </div>
-                    
-                    <div class="app-detail-section">
-                        <h3><i class="fas fa-shield-alt"></i> Security & Privacy</h3>
-                        <p>Your security is our top priority. All our applications undergo rigorous security testing and adhere to strict privacy standards. We never collect unnecessary data and always respect user privacy.</p>
-                    </div>
-                    
-                    <div class="app-detail-section">
-                        <h3><i class="fas fa-sync-alt"></i> Regular Updates</h3>
-                        <p>We continuously improve our applications with regular updates, bug fixes, and new features based on user feedback. Our apps are always up-to-date with the latest technologies.</p>
-                    </div>
-                    
-                    <div class="app-detail-section">
-                        <h3><i class="fas fa-users"></i> Community Driven</h3>
-                        <p>Our applications are shaped by community feedback. We listen to our users and implement features that matter most to them. Join our community to help shape the future of ReinApp!</p>
-                    </div>
-                </div>
+        <footer>
+            <p>&copy; 2025 ReinApp by ReinForge Team. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="https://reinforge.com" target="_blank">
+                    <i class="fas fa-globe"></i> ReinForge Website
+                </a>
+                <a href="mailto:support@reinapp.com">
+                    <i class="fas fa-envelope"></i> Support
+                </a>
             </div>
-
-            <!-- Support Page -->
-            <div id="support" class="page">
-                <h2 class="page-title">Support & Help</h2>
-                <div class="about-content">
-                    <div class="app-detail-section">
-                        <h3><i class="fas fa-question-circle"></i> Frequently Asked Questions</h3>
-                        <p><strong>Q: How do I install ReinApp applications?</strong><br>
-                        A: Each application has specific installation instructions. Check the app details page for step-by-step guides.</p>
-                        
-                        <p><strong>Q: Are your applications free?</strong><br>
-                        A: Most of our basic applications are free. Premium features may require purchase.</p>
-                        
-                        <p><strong>Q: How do I request a feature?</strong><br>
-                        A: You can submit feature requests through our community forum or contact support.</p>
-                    </div>
-                    
-                    <div class="app-detail-section">
-                        <h3><i class="fas fa-life-ring"></i> Contact Support</h3>
-                        <p>Need help? Our support team is here to assist you:</p>
-                        <ul>
-                            <li>Email: support@reinapp.com</li>
-                            <li>Telegram: @reinapp_support</li>
-                            <li>Discord: ReinApp Official Server</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2025 ReinApp by ReinForge Team. All rights reserved.</p>
-                <p style="margin-top: 8px; font-size: 12px; color: var(--text-muted);">
-                    <i class="fas fa-heart" style="color: var(--primary);"></i> Crafted with passion for the community
-                </p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- App Detail Modal -->
-    <div id="appDetailModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="appDetailTitle">App Details</h2>
-                <button class="close-btn" onclick="closeAppDetail()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body" id="appDetailBody">
-                <!-- Content will be loaded by JavaScript -->
-            </div>
-        </div>
+        </footer>
     </div>
 
     <!-- External Link Warning Modal -->
-    <div id="externalLinkModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title"><i class="fas fa-external-link-alt"></i> External Link</h2>
-                <button class="close-btn" onclick="closeExternalLinkModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div style="text-align: center; padding: 20px;">
-                    <i class="fas fa-external-link-alt" style="font-size: 48px; color: var(--warning); margin-bottom: 20px;"></i>
-                    <h3 style="margin-bottom: 12px;">You are leaving ReinApp</h3>
-                    <p style="color: var(--text-secondary); margin-bottom: 16px;">
-                        You will be redirected to an external website. Please ensure you trust the destination.
-                    </p>
-                    <p id="externalLinkUrl" style="background: var(--bg-color); padding: 12px; border: 1px solid var(--border); word-break: break-all; margin: 16px 0;"></p>
-                    <div style="display: flex; gap: 12px; margin-top: 24px;">
-                        <button class="download-btn secondary" onclick="closeExternalLinkModal()" style="flex: 1;">Cancel</button>
-                        <button class="download-btn primary" onclick="proceedToExternalLink()" style="flex: 1;">Continue</button>
-                    </div>
+    <div id="externalModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;">
+        <div style="background: #1e293b; border: 1px solid #475569; border-radius: 8px; padding: 30px; max-width: 500px; width: 90%;">
+            <div style="text-align: center;">
+                <i class="fas fa-external-link-alt" style="font-size: 48px; color: #f59e0b; margin-bottom: 20px;"></i>
+                <h3 style="margin-bottom: 10px; color: #f8fafc;">External Link Warning</h3>
+                <p style="color: #cbd5e1; margin-bottom: 20px;">You are about to visit:</p>
+                <div id="externalUrl" style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 4px; margin: 15px 0; word-break: break-all; color: #a78bfa;"></div>
+                <div style="display: flex; gap: 10px; margin-top: 25px;">
+                    <button onclick="closeExternalModal()" style="flex: 1; padding: 12px; background: #475569; color: #f8fafc; border: none; border-radius: 4px; cursor: pointer;">
+                        Cancel
+                    </button>
+                    <button onclick="proceedExternal()" style="flex: 1; padding: 12px; background: linear-gradient(135deg, #7c3aed, #06b6d4); color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        Continue
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // App Data with Detailed Information
+        // App Data - Simple Version
         const appsData = [
             {
                 id: 1,
-                slug: "rein-security-pro",
-                name: "Rein Security Pro",
+                name: "Rein Security",
                 version: "2.5.1",
-                platform: ["android", "windows"],
-                category: "security",
                 image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=300&fit=crop",
-                shortDescription: "Advanced mobile security with real-time protection and privacy tools.",
-                fullDescription: "Rein Security Pro is a comprehensive security suite designed to protect your Android devices from malware, viruses, and online threats. Features include real-time scanning, privacy advisor, app lock, and anti-theft protection.",
+                description: "Aplikasi keamanan untuk proteksi perangkat dari malware dan virus.",
                 size: "28.5 MB",
                 downloads: "1.2M+",
-                rating: 4.8,
                 lastUpdated: "2025-11-25",
-                featured: true,
-                developer: "ReinForge Security Team",
-                requirements: "Android 8.0+ or Windows 10/11",
-                price: "Free with Premium ($4.99/month)",
+                features: ["Anti-virus", "Malware Scanner", "App Lock", "Privacy Guard"],
                 downloadUrl: "https://drive.google.com/uc?id=SECURITY_APP_ID",
-                websiteUrl: "https://reinapp.com/security-pro",
-                
-                features: [
-                    "Real-time malware protection",
-                    "Privacy advisor and permission manager",
-                    "App lock with fingerprint support",
-                    "Anti-theft with remote wipe",
-                    "Wi-Fi security scanner",
-                    "Ad blocker and tracker protection",
-                    "Battery optimization"
-                ],
-                
-                installation: [
-                    "Download the APK file from our secure server",
-                    "Enable 'Install from Unknown Sources' in Android settings",
-                    "Navigate to Downloads folder and tap the APK file",
-                    "Follow the on-screen installation instructions",
-                    "Grant necessary permissions when prompted",
-                    "Launch the app and complete initial setup",
-                    "Activate real-time protection in settings"
-                ],
-                
-                screenshots: [
-                    "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=800&fit=crop",
-                    "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=800&fit=crop"
-                ]
-            },
-            {
-                id: 2,
-                slug: "productivity-master",
-                name: "Productivity Master",
-                version: "3.2.0",
-                platform: ["android", "ios", "web"],
-                category: "productivity",
-                image: "https://images.unsplash.com/photo-1545235617-9465d2a55698?w=400&h=300&fit=crop",
-                shortDescription: "All-in-one productivity suite with task management and time tracking.",
-                fullDescription: "Productivity Master helps you organize your work and personal life with powerful task management, calendar integration, time tracking, and note-taking features. Sync across all your devices.",
-                size: "42.3 MB",
-                downloads: "850K+",
-                rating: 4.7,
-                lastUpdated: "2025-11-20",
-                featured: true,
-                developer: "ReinForge Productivity Lab",
-                requirements: "Android 7.0+, iOS 13+, Modern Web Browser",
-                price: "Freemium (Pro: $3.99/month)",
-                downloadUrl: "https://drive.google.com/uc?id=PRODUCTIVITY_APP_ID",
-                websiteUrl: "https://reinapp.com/productivity",
-                
-                features: [
-                    "Smart task management with priorities",
-                    "Calendar integration and scheduling",
-                    "Time tracking with detailed reports",
-                    "Note-taking with rich text editor",
-                    "Cross-device synchronization",
-                    "Team collaboration tools",
-                    "Customizable workflows"
-                ],
-                
-                installation: [
-                    "For Android: Download from Google Play Store",
-                    "For iOS: Download from App Store",
-                    "For Web: Visit app.reinapp.com",
-                    "Create account or sign in with Google",
-                    "Complete initial setup wizard",
-                    "Connect your calendar (optional)",
-                    "Start adding tasks and projects"
-                ]
-            },
-            {
-                id: 3,
-                slug: "media-downloader-plus",
-                name: "Media Downloader Plus",
-                version: "1.8.3",
-                platform: ["android"],
-                category: "utility",
-                image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
-                shortDescription: "Download videos, music, and images from various platforms.",
-                fullDescription: "Media Downloader Plus allows you to download videos, music, and images from popular platforms. Supports multiple formats and resolutions with built-in media player and organizer.",
-                size: "35.7 MB",
-                downloads: "2.5M+",
-                rating: 4.6,
-                lastUpdated: "2025-11-18",
-                featured: true,
-                developer: "ReinForge Media Tools",
-                requirements: "Android 6.0+",
-                price: "Free (Ad-free: $2.99)",
-                downloadUrl: "https://drive.google.com/uc?id=MEDIA_APP_ID",
-                
-                features: [
-                    "Video download from 50+ platforms",
-                    "Audio extraction and conversion",
-                    "Batch downloading support",
-                    "Built-in media player",
-                    "File organizer by type",
-                    "Background downloading",
-                    "Download scheduler"
-                ],
-                
-                installation: [
-                    "Download the APK file from our website",
-                    "Allow installation from unknown sources",
-                    "Install and open the application",
-                    "Grant storage permissions",
-                    "Paste URL of media you want to download",
-                    "Select format and quality",
-                    "Start download and manage files"
-                ]
-            },
-            {
-                id: 4,
-                slug: "photo-editor-ai",
-                name: "Photo Editor AI",
-                version: "4.1.2",
-                platform: ["android", "ios"],
-                category: "tool",
-                image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&h=300&fit=crop",
-                shortDescription: "AI-powered photo editing with advanced filters and tools.",
-                fullDescription: "Photo Editor AI uses artificial intelligence to enhance your photos automatically. Includes professional editing tools, filters, effects, and collage maker for creative photo editing.",
-                size: "65.2 MB",
-                downloads: "3.1M+",
-                rating: 4.9,
-                lastUpdated: "2025-11-15",
-                featured: false,
-                developer: "ReinForge Creative Studio",
-                requirements: "Android 8.0+, iOS 12+",
-                price: "Free with in-app purchases",
-                downloadUrl: "https://drive.google.com/uc?id=PHOTO_APP_ID",
-                
-                features: [
-                    "AI-powered auto enhancement",
-                    "Professional editing tools",
-                    "100+ filters and effects",
-                    "Background removal",
-                    "Face retouching and beautify",
-                    "Collage and grid maker",
-                    "RAW photo support"
-                ],
-                
-                installation: [
-                    "Available on Google Play and App Store",
-                    "Search for 'Photo Editor AI by ReinForge'",
-                    "Install the application",
-                    "Open and grant photo access",
-                    "Select a photo to edit",
-                    "Use AI enhance or manual tools",
-                    "Save or share your edited photos"
-                ]
-            },
-            {
-                id: 5,
-                slug: "file-manager-pro",
-                name: "File Manager Pro",
-                version: "2.3.0",
-                platform: ["android", "windows"],
-                category: "utility",
-                image: "https://images.unsplash.com/photo-1591453089816-0fbb971b454c?w=400&h=300&fit=crop",
-                shortDescription: "Advanced file management with cloud integration and encryption.",
-                fullDescription: "File Manager Pro offers comprehensive file management with cloud storage support, file encryption, archive handling, and network file sharing capabilities.",
-                size: "22.8 MB",
-                downloads: "950K+",
-                rating: 4.5,
-                lastUpdated: "2025-11-10",
-                featured: false,
-                developer: "ReinForge System Tools",
-                requirements: "Android 7.0+ or Windows 8+",
-                price: "Free (Pro features: $1.99/month)",
-                downloadUrl: "https://drive.google.com/uc?id=FILE_APP_ID",
-                
-                features: [
-                    "Dual-pane file browser",
-                    "Cloud storage integration",
-                    "File encryption and decryption",
-                    "Archive support (ZIP, RAR, 7z)",
-                    "Network file sharing",
-                    "App manager and analyzer",
-                    "Storage analyzer and cleaner"
-                ],
-                
-                installation: [
-                    "Download the installer from our website",
-                    "Run the installer and follow prompts",
-                    "For Android: Install APK and grant permissions",
-                    "For Windows: Complete setup wizard",
-                    "Launch application",
-                    "Configure cloud storage connections",
-                    "Start managing your files"
-                ]
+                websiteUrl: "https://reinapp.com/security"
             }
         ];
 
-        // State variables
-        let currentPage = 'home';
-        let currentPlatform = 'all';
-        let currentCategory = 'all';
-        let currentSearch = '';
-        let currentSort = 'popular';
+        // State
         let currentExternalLink = '';
 
         // Initialize
         function init() {
-            renderFeaturedApps();
-            renderAllApps();
-            setupEventListeners();
-            setupTheme();
-            setupBackToTop();
-            setupRouting();
+            renderApps();
         }
 
-        // Setup routing
-        function setupRouting() {
-            const path = window.location.pathname;
-            if (path.includes('/app/')) {
-                const slug = path.split('/app/')[1];
-                const app = appsData.find(a => a.slug === slug);
-                if (app) {
-                    showPage('apps');
-                    setTimeout(() => showAppDetail(app.id), 100);
-                }
-            }
-        }
-
-        // Render featured apps
-        function renderFeaturedApps() {
-            const grid = document.getElementById('featuredAppsGrid');
-            const featured = appsData.filter(app => app.featured);
-            
-            grid.innerHTML = featured.map(app => `
-                <div class="app-card" onclick="showAppDetail(${app.id})">
-                    ${app.platform.includes('android') ? '<span class="app-badge"><i class="fab fa-android"></i> Android</span>' : 
-                      app.platform.includes('ios') ? '<span class="app-badge"><i class="fab fa-apple"></i> iOS</span>' : 
-                      '<span class="app-badge"><i class="fas fa-globe"></i> Web</span>'}
-                    
-                    <img src="${app.image}" alt="${app.name}" class="app-card-image">
-                    <div class="app-card-content">
-                        <div class="app-card-header">
-                            <h3 class="app-card-title">${app.name}</h3>
-                            <span class="app-card-version">v${app.version}</span>
-                        </div>
-                        <p class="app-card-description">${app.shortDescription}</p>
-                        <div class="app-card-features">
-                            ${app.features.slice(0, 3).map(feat => 
-                                `<span class="app-feature-tag">${feat.split(' ')[0]}</span>`
-                            ).join('')}
-                        </div>
-                        <div class="app-card-footer">
-                            <div class="app-card-size">
-                                <i class="fas fa-weight"></i> ${app.size}
-                            </div>
-                            <div class="app-card-downloads">
-                                <i class="fas fa-download"></i> ${app.downloads}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Render all apps with filters
-        function renderAllApps() {
+        // Render apps
+        function renderApps() {
             const grid = document.getElementById('appsGrid');
             
-            // Filter apps
-            let filteredApps = appsData.filter(app => {
-                // Platform filter
-                if (currentPlatform !== 'all' && !app.platform.includes(currentPlatform)) {
-                    return false;
-                }
-                
-                // Category filter
-                if (currentCategory !== 'all' && app.category !== currentCategory) {
-                    return false;
-                }
-                
-                // Search filter
-                if (currentSearch) {
-                    const searchTerm = currentSearch.toLowerCase();
-                    const searchFields = [
-                        app.name,
-                        app.shortDescription,
-                        app.fullDescription,
-                        app.developer,
-                        ...app.features
-                    ];
-                    
-                    if (!searchFields.some(field => 
-                        field.toLowerCase().includes(searchTerm)
-                    )) {
-                        return false;
-                    }
-                }
-                
-                return true;
-            });
-            
-            // Sort apps
-            filteredApps.sort((a, b) => {
-                switch(currentSort) {
-                    case 'popular':
-                        return parseFloat(b.downloads) - parseFloat(a.downloads);
-                    case 'newest':
-                        return new Date(b.lastUpdated) - new Date(a.lastUpdated);
-                    case 'name':
-                        return a.name.localeCompare(b.name);
-                    case 'size':
-                        return parseFloat(a.size) - parseFloat(b.size);
-                    default:
-                        return 0;
-                }
-            });
-            
-            // Render apps
-            grid.innerHTML = filteredApps.map(app => `
-                <div class="app-card" onclick="showAppDetail(${app.id})">
-                    ${app.platform.includes('android') ? '<span class="app-badge"><i class="fab fa-android"></i> Android</span>' : 
-                      app.platform.includes('ios') ? '<span class="app-badge"><i class="fab fa-apple"></i> iOS</span>' : 
-                      app.platform.includes('windows') ? '<span class="app-badge"><i class="fab fa-windows"></i> Windows</span>' : 
-                      '<span class="app-badge"><i class="fas fa-globe"></i> Web</span>'}
-                    
-                    <img src="${app.image}" alt="${app.name}" class="app-card-image">
-                    <div class="app-card-content">
-                        <div class="app-card-header">
-                            <h3 class="app-card-title">${app.name}</h3>
-                            <span class="app-card-version">v${app.version}</span>
+            grid.innerHTML = appsData.map(app => `
+                <div class="app-card">
+                    <img src="${app.image}" alt="${app.name}" class="app-image">
+                    <div class="app-content">
+                        <div class="app-header">
+                            <h3 class="app-name">${app.name}</h3>
+                            <span class="app-badge">v${app.version}</span>
                         </div>
-                        <p class="app-card-description">${app.shortDescription}</p>
-                        <div class="app-card-features">
-                            <span class="app-feature-tag">${app.category}</span>
-                            <span class="app-feature-tag">${app.size}</span>
-                            <span class="app-feature-tag">⭐ ${app.rating}</span>
+                        
+                        <p class="app-description">${app.description}</p>
+                        
+                        <div class="app-features">
+                            ${app.features.map(feature => 
+                                `<span class="feature-tag">${feature}</span>`
+                            ).join('')}
                         </div>
-                        <div class="app-card-footer">
-                            <div class="app-card-size">
-                                <i class="fas fa-mobile-alt"></i> ${app.platform.join(', ')}
+                        
+                        <div class="app-details">
+                            <div class="app-info">
+                                <span><i class="fas fa-weight"></i> ${app.size}</span>
+                                <span><i class="fas fa-download"></i> ${app.downloads}</span>
+                                <span><i class="fas fa-calendar"></i> ${formatDate(app.lastUpdated)}</span>
                             </div>
-                            <div class="app-card-downloads">
-                                <i class="fas fa-download"></i> ${app.downloads}
+                            
+                            <div class="download-buttons">
+                                <button class="download-btn primary" onclick="downloadApp(${app.id})">
+                                    <i class="fas fa-download"></i> Download
+                                </button>
+                                ${app.websiteUrl ? `
+                                <button class="download-btn secondary" onclick="openWebsite(${app.id})">
+                                    <i class="fas fa-globe"></i> Website
+                                </button>
+                                ` : ''}
                             </div>
                         </div>
                     </div>
                 </div>
             `).join('');
-            
-            if (filteredApps.length === 0) {
-                grid.innerHTML = `
-                    <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-secondary);">
-                        <i class="fas fa-search" style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
-                        <h3>No applications found</h3>
-                        <p>Try adjusting your search or filters</p>
-                    </div>
-                `;
-            }
-        }
-
-        // Set platform filter
-        function setPlatform(platform) {
-            currentPlatform = platform;
-            
-            // Update button states
-            document.querySelectorAll('.platform-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            renderAllApps();
-        }
-
-        // Show app detail
-        function showAppDetail(appId) {
-            const app = appsData.find(a => a.id === appId);
-            if (!app) return;
-            
-            // Update browser URL
-            history.pushState({ appId }, '', `/app/${app.slug}`);
-            
-            const title = document.getElementById('appDetailTitle');
-            const body = document.getElementById('appDetailBody');
-            
-            title.textContent = app.name;
-            
-            // Generate platform icons
-            const platformIcons = app.platform.map(p => {
-                switch(p) {
-                    case 'android': return '<i class="fab fa-android" title="Android"></i>';
-                    case 'ios': return '<i class="fab fa-apple" title="iOS"></i>';
-                    case 'windows': return '<i class="fab fa-windows" title="Windows"></i>';
-                    case 'web': return '<i class="fas fa-globe" title="Web"></i>';
-                    default: return '';
-                }
-            }).join(' ');
-            
-            body.innerHTML = `
-                <img src="${app.image}" alt="${app.name}" class="app-detail-image">
-                
-                <div class="app-detail-meta">
-                    <div class="app-meta-item">
-                        <i class="fas fa-code-branch"></i>
-                        <span><strong>Version:</strong> ${app.version}</span>
-                    </div>
-                    <div class="app-meta-item">
-                        <i class="fas fa-weight"></i>
-                        <span><strong>Size:</strong> ${app.size}</span>
-                    </div>
-                    <div class="app-meta-item">
-                        <i class="fas fa-download"></i>
-                        <span><strong>Downloads:</strong> ${app.downloads}</span>
-                    </div>
-                    <div class="app-meta-item">
-                        <i class="fas fa-star"></i>
-                        <span><strong>Rating:</strong> ${app.rating}/5.0</span>
-                    </div>
-                    <div class="app-meta-item">
-                        <i class="fas fa-calendar"></i>
-                        <span><strong>Updated:</strong> ${formatDate(app.lastUpdated)}</span>
-                    </div>
-                    <div class="app-meta-item">
-                        <i class="fas fa-layer-group"></i>
-                        <span><strong>Platform:</strong> ${platformIcons}</span>
-                    </div>
-                    <div class="app-meta-item">
-                        <i class="fas fa-user"></i>
-                        <span><strong>Developer:</strong> ${app.developer}</span>
-                    </div>
-                    <div class="app-meta-item">
-                        <i class="fas fa-tag"></i>
-                        <span><strong>Price:</strong> ${app.price}</span>
-                    </div>
-                </div>
-                
-                <div class="app-detail-section">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>${app.fullDescription}</p>
-                </div>
-                
-                <div class="app-detail-section">
-                    <h3><i class="fas fa-star"></i> Key Features</h3>
-                    <ul>
-                        ${app.features.map(feature => `<li>${feature}</li>`).join('')}
-                    </ul>
-                </div>
-                
-                <div class="app-detail-section">
-                    <h3><i class="fas fa-download"></i> Installation Guide</h3>
-                    <ul>
-                        ${app.installation.map((step, index) => 
-                            `<li><strong>Step ${index + 1}:</strong> ${step}</li>`
-                        ).join('')}
-                    </ul>
-                </div>
-                
-                <div class="download-section">
-                    <h3><i class="fas fa-download"></i> Download</h3>
-                    <div class="download-buttons">
-                        <button class="download-btn primary" onclick="downloadApp('${app.downloadUrl}', '${app.slug}')">
-                            <i class="fas fa-download"></i> Download Now
-                        </button>
-                        ${app.websiteUrl ? `
-                        <button class="download-btn secondary" onclick="openExternalLink('${app.websiteUrl}')">
-                            <i class="fas fa-external-link-alt"></i> Visit Website
-                        </button>
-                        ` : ''}
-                    </div>
-                    
-                    <div class="qr-section">
-                        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">
-                            Scan to download on mobile:
-                        </p>
-                        <div class="qr-code">
-                            <div style="width: 180px; height: 180px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
-                                <i class="fas fa-qrcode" style="font-size: 64px; color: #666;"></i>
-                            </div>
-                        </div>
-                        <p style="font-size: 11px; color: var(--text-muted);">
-                            Point your camera at this QR code
-                        </p>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('appDetailModal').classList.add('active');
-        }
-
-        // Close app detail
-        function closeAppDetail() {
-            history.pushState({}, '', '/apps');
-            document.getElementById('appDetailModal').classList.remove('active');
         }
 
         // Download app
-        function downloadApp(url, filename) {
-            if (!url || url.includes('_ID')) {
-                alert('Download link will be available soon!');
+        function downloadApp(appId) {
+            const app = appsData.find(a => a.id === appId);
+            if (!app) return;
+            
+            if (app.downloadUrl.includes('_ID')) {
+                alert(`Download untuk ${app.name} akan tersedia segera!\n\nVersion: ${app.version}\nSize: ${app.size}`);
                 return;
             }
             
             const link = document.createElement('a');
-            link.href = url;
-            link.download = filename || 'app';
+            link.href = app.downloadUrl;
+            link.download = `${app.name.replace(/\s+/g, '-').toLowerCase()}-v${app.version}.apk`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+            
+            // Track download
+            console.log(`Download started: ${app.name}`);
         }
 
-        // External link warning
-        function openExternalLink(url) {
-            currentExternalLink = url;
-            document.getElementById('externalLinkUrl').textContent = url;
-            document.getElementById('externalLinkModal').classList.add('active');
+        // Open website
+        function openWebsite(appId) {
+            const app = appsData.find(a => a.id === appId);
+            if (!app || !app.websiteUrl) return;
+            
+            currentExternalLink = app.websiteUrl;
+            document.getElementById('externalUrl').textContent = app.websiteUrl;
+            document.getElementById('externalModal').style.display = 'flex';
         }
 
-        function closeExternalLinkModal() {
-            document.getElementById('externalLinkModal').classList.remove('active');
+        // External link modal
+        function closeExternalModal() {
+            document.getElementById('externalModal').style.display = 'none';
             currentExternalLink = '';
         }
 
-        function proceedToExternalLink() {
+        function proceedExternal() {
             if (currentExternalLink) {
                 window.open(currentExternalLink, '_blank');
             }
-            closeExternalLinkModal();
+            closeExternalModal();
         }
 
-        // Show page
-        function showPage(page) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-            
-            document.getElementById(page).classList.add('active');
-            event.target.classList.add('active');
-            
-            currentPage = page;
-            history.pushState({ page }, '', page === 'home' ? '/' : `/${page}`);
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-        }
-
-        // Setup event listeners
-        function setupEventListeners() {
-            // Search input
-            document.getElementById('searchInput').addEventListener('input', function() {
-                currentSearch = this.value;
-                renderAllApps();
-            });
-            
-            // Category filter
-            document.getElementById('categoryFilter').addEventListener('change', function() {
-                currentCategory = this.value;
-                renderAllApps();
-            });
-            
-            // Sort select
-            document.getElementById('sortSelect').addEventListener('change', function() {
-                currentSort = this.value;
-                renderAllApps();
-            });
-            
-            // Handle browser back/forward
-            window.addEventListener('popstate', function(event) {
-                if (event.state && event.state.page) {
-                    showPage(event.state.page);
-                } else if (event.state && event.state.appId) {
-                    showAppDetail(event.state.appId);
-                }
-            });
-        }
-
-        // Setup theme
-        function setupTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            setTheme(savedTheme);
-            
-            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-        }
-
-        function toggleTheme() {
-            const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            setTheme(newTheme);
-        }
-
-        function setTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-            
-            const icon = document.querySelector('#themeToggle i');
-            icon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
-        }
-
-        // Setup back to top
-        function setupBackToTop() {
-            const btn = document.getElementById('backToTop');
-            
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    btn.classList.add('visible');
-                } else {
-                    btn.classList.remove('visible');
-                }
-            });
-            
-            btn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        }
-
-        // Utility functions
+        // Utility function
         function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'short', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString(undefined, options);
+            const options = { day: 'numeric', month: 'short', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('id-ID', options);
         }
 
         // Initialize on load
