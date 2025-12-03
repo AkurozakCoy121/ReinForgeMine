@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/app/:slug",
+      "destination": "/reinapp.html"
+    },
+    {
+      "source": "/:page(apps|about|support)",
+      "destination": "/reinapp.html"
+    },
+    {
+      "source": "/",
+      "destination": "/reinapp.html"
+    }
+  ]
+}
