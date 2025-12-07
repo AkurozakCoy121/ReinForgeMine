@@ -1,16 +1,16 @@
 {
   "rewrites": [
     {
-      "source": "/app/:slug",
-      "destination": "/reinapp.html"
+      "source": "/mods/:slug",
+      "destination": "/index.html"
     },
     {
-      "source": "/:page(apps|about|support)",
-      "destination": "/reinapp.html"
+      "source": "/:page(about|donation|privacy|terms)",
+      "destination": "/index.html"
     },
     {
       "source": "/",
-      "destination": "/reinapp.html"
+      "destination": "/index.html"
     }
   ]
 }
