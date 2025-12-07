@@ -1,17 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReinForge - Reshaping Your Reality</title>
-    
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/dqrmhcdl6/image/upload/v1764750192/Screenshot_2025-11-27_193418_flfnou.png">
-    
-    <!-- AdSense Code -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4572281277105896"
-     crossorigin="anonymous"></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -21,278 +14,257 @@
         }
 
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --primary-light: #3b82f6;
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
             --secondary: #0f172a;
-            --secondary-light: #1e293b;
-            --secondary-dark: #020617;
-            --accent: #10b981;
-            --accent-light: #34d399;
-            --accent-dark: #059669;
-            --text-primary: #f8fafc;
-            --text-secondary: #cbd5e1;
-            --text-muted: #94a3b8;
-            --border: #334155;
-            --border-light: #475569;
+            --surface: #1e293b;
+            --surface-light: #334155;
+            --accent: #22d3ee;
+            --accent-dark: #06b6d4;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --card-bg: #1e293b;
-            --card-bg-solid: #1e293b;
-            --hover-light: rgba(37, 99, 235, 0.1);
-            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-            --radius: 0px;
-            --radius-sm: 0px;
-            --transition: all 0.2s ease;
-            --bg-color: #0f172a;
-            --surface: #1e293b;
-            --gradient: linear-gradient(135deg, #2563eb, #3b82f6);
-            --gradient-accent: linear-gradient(135deg, #10b981, #34d399);
-            --glass: rgba(30, 41, 59, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --text: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
         }
 
         [data-theme="light"] {
-            --primary: #3b82f6;
-            --primary-dark: #2563eb;
-            --primary-light: #60a5fa;
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
             --secondary: #f8fafc;
-            --secondary-light: #ffffff;
-            --secondary-dark: #f1f5f9;
-            --accent: #10b981;
-            --accent-light: #34d399;
-            --text-primary: #1e293b;
+            --surface: #ffffff;
+            --surface-light: #f1f5f9;
+            --text: #1e293b;
             --text-secondary: #475569;
             --text-muted: #64748b;
             --border: #e2e8f0;
-            --border-light: #cbd5e1;
-            --card-bg: #ffffff;
-            --card-bg-solid: #ffffff;
-            --hover-light: rgba(37, 99, 235, 0.05);
-            --shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --bg-color: #f8fafc;
-            --surface: #ffffff;
-            --glass: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(0, 0, 0, 0.1);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.5;
-            overflow-x: hidden;
-            transition: var(--transition);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--secondary) 0%, #1a2332 100%);
+            color: var(--text);
+            line-height: 1.6;
             min-height: 100vh;
         }
 
-        /* Layout Improvements */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 16px;
-            width: 100%;
+        [data-theme="light"] body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
         }
 
-        /* Header Styles */
+        /* Header */
         header {
-            background-color: var(--surface);
+            background: rgba(30, 41, 59, 0.98);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
             z-index: 1000;
             box-shadow: var(--shadow);
-            backdrop-filter: blur(10px);
-            background-color: rgba(30, 41, 59, 0.95);
-        }
-
-        [data-theme="light"] header {
-            background-color: rgba(255, 255, 255, 0.95);
         }
 
         .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
-            height: 60px;
+            gap: 2rem;
         }
 
-        .logo-section {
+        .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--text);
+            transition: transform 0.3s;
         }
 
-        .logo-img {
-            width: 40px;
-            height: 40px;
-            border-radius: 4px;
-            object-fit: cover;
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
         }
 
         .logo-text h1 {
-            font-size: 24px;
+            font-size: 1.75rem;
             font-weight: 800;
-            margin: 0;
-            background: var(--gradient);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            -webkit-text-fill-color: transparent;
             letter-spacing: -0.5px;
         }
 
         .logo-text p {
-            font-size: 11px;
-            color: var(--text-secondary);
-            margin: 0;
-            font-weight: 500;
-            letter-spacing: 1px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
             text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
         }
 
         nav {
             display: flex;
-            gap: 2px;
+            gap: 0.5rem;
             align-items: center;
         }
 
         nav a {
+            padding: 0.75rem 1.5rem;
             text-decoration: none;
-            color: var(--text-primary);
-            padding: 10px 16px;
-            font-size: 13px;
-            font-weight: 500;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            color: var(--text);
+            border-radius: 10px;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 0.95rem;
             position: relative;
-            border: 1px solid transparent;
         }
 
-        nav a:hover {
-            background-color: var(--hover-light);
-            border-color: var(--border);
-        }
-
-        nav a.active {
-            background-color: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .theme-toggle {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            cursor: pointer;
-            font-size: 16px;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            margin-left: 8px;
-        }
-
-        .theme-toggle:hover {
-            background-color: var(--hover-light);
-        }
-
-        /* Main Content */
-        main {
-            padding: 32px 0;
-            min-height: calc(100vh - 180px);
-        }
-
-        /* Page Title */
-        .page-title {
-            font-size: 36px;
-            margin-bottom: 32px;
-            text-align: center;
-            font-weight: 800;
-            color: var(--text-primary);
-            position: relative;
-            padding-bottom: 16px;
-        }
-
-        .page-title::after {
+        nav a::before {
             content: '';
             position: absolute;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: var(--gradient);
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
         }
 
-        /* Home Page */
-        .hero-section {
-            background: linear-gradient(135deg, var(--secondary-light), var(--secondary));
-            border: 1px solid var(--border);
-            padding: 60px 32px;
-            margin-bottom: 48px;
+        nav a:hover::before {
+            width: 80%;
+        }
+
+        nav a:hover {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+
+        nav a.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        .theme-toggle {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.2rem;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            transition: all 0.3s;
+            margin-left: 1rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: white;
+            transform: rotate(180deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(34, 211, 238, 0.1));
+            border: 2px solid var(--border);
+            border-radius: 24px;
+            padding: 4rem 2rem;
+            margin: 2rem auto;
+            max-width: 1400px;
             text-align: center;
             position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow-lg);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
         }
 
         .hero-content {
             position: relative;
             z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
         }
 
-        .hero-section h2 {
-            font-size: 42px;
-            margin-bottom: 20px;
-            font-weight: 800;
-            line-height: 1.1;
+        .hero h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
         }
 
-        .hero-section p {
-            font-size: 18px;
-            margin-bottom: 28px;
+        .hero p {
+            font-size: 1.35rem;
             color: var(--text-secondary);
-            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .cta-button {
-            display: inline-block;
-            padding: 14px 32px;
-            background: var(--gradient);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             text-decoration: none;
-            border: none;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: var(--transition);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
         }
 
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.6);
         }
 
         /* Banner Slider */
         .banner-slider {
-            margin: 48px 0;
+            margin: 3rem auto;
+            max-width: 1400px;
             position: relative;
             overflow: hidden;
-            height: 180px;
-            border: 1px solid var(--border);
+            height: 300px;
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            box-shadow: var(--shadow-lg);
         }
 
         .banner-slide {
@@ -302,7 +274,7 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.8s ease;
             cursor: pointer;
         }
 
@@ -318,47 +290,71 @@
 
         .banner-dots {
             position: absolute;
-            bottom: 16px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 8px;
+            gap: 12px;
             z-index: 10;
         }
 
         .banner-dot {
-            width: 8px;
-            height: 8px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.4);
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s;
+            border: 2px solid transparent;
         }
 
         .banner-dot.active {
             background: var(--primary);
-            transform: scale(1.2);
+            transform: scale(1.3);
+            border-color: white;
+        }
+
+        .banner-dot:hover {
+            background: rgba(255, 255, 255, 0.8);
         }
 
         /* Running Mods */
         .running-mods {
-            margin: 48px 0;
+            margin: 3rem auto;
+            max-width: 1400px;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: var(--text);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
         }
 
         .running-mod {
             background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 20px;
-            margin-bottom: 16px;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 1.75rem;
+            margin-bottom: 1.25rem;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s;
             position: relative;
             overflow: hidden;
-        }
-
-        .running-mod:hover {
-            border-color: var(--primary);
-            transform: translateX(4px);
         }
 
         .running-mod::before {
@@ -367,117 +363,257 @@
             left: 0;
             top: 0;
             bottom: 0;
-            width: 4px;
-            background: var(--gradient);
+            width: 5px;
+            background: linear-gradient(180deg, var(--primary), var(--accent));
+            transform: scaleY(0);
+            transition: transform 0.3s;
+        }
+
+        .running-mod:hover {
+            border-color: var(--primary);
+            transform: translateX(8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .running-mod:hover::before {
+            transform: scaleY(1);
         }
 
         .running-mod-content {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 1.5rem;
         }
 
         .running-mod-icon {
             color: var(--primary);
-            font-size: 24px;
+            font-size: 2.5rem;
+            min-width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
         }
 
         .running-mod-text h4 {
-            font-size: 18px;
-            margin-bottom: 4px;
-            color: var(--text-primary);
+            font-size: 1.35rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-weight: 700;
         }
 
         .running-mod-text p {
-            font-size: 14px;
+            font-size: 1rem;
             color: var(--text-secondary);
             margin: 0;
         }
 
-        /* Featured Mods */
-        .section-title {
-            font-size: 28px;
-            margin-bottom: 28px;
-            color: var(--text-primary);
-            font-weight: 700;
-            position: relative;
-            padding-bottom: 12px;
+        /* Search & Filter */
+        .search-filter-section {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 1400px;
         }
 
-        .section-title::after {
-            content: '';
+        .search-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.25rem 1.25rem 1.25rem 3.5rem;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            background-color: var(--secondary);
+            color: var(--text);
+            font-size: 1.05rem;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .search-icon {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 48px;
-            height: 2px;
-            background: var(--gradient);
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.25rem;
+        }
+
+        .filter-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 0.9rem 1.25rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background-color: var(--secondary);
+            color: var(--text);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 160px;
+            font-weight: 600;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .filter-select:hover {
+            border-color: var(--primary);
+        }
+
+        /* Edition Selector */
+        .edition-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .edition-btn {
+            padding: 1rem 2rem;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 700;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .edition-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .edition-btn:hover:not(.active) {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
         /* Mod Grid */
         .mod-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 28px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
         }
 
         .mod-card {
-            background-color: var(--card-bg-solid);
-            border: 1px solid var(--border);
-            position: relative;
-            transition: var(--transition);
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 20px;
             overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
+            position: relative;
+        }
+
+        .mod-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(34, 211, 238, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 0;
+        }
+
+        .mod-card:hover::before {
+            opacity: 1;
         }
 
         .mod-card:hover {
             border-color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.5);
         }
 
         .mod-card-image {
             width: 100%;
-            height: 160px;
+            height: 200px;
             object-fit: cover;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 2px solid var(--border);
+            transition: transform 0.4s;
+        }
+
+        .mod-card:hover .mod-card-image {
+            transform: scale(1.1);
         }
 
         .mod-card-content {
-            padding: 20px;
+            padding: 1.75rem;
+            position: relative;
+            z-index: 1;
         }
 
         .mod-card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 12px;
+            margin-bottom: 1rem;
+            gap: 1rem;
         }
 
         .mod-card-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-primary);
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--text);
             margin: 0;
             line-height: 1.3;
         }
 
         .mod-card-version {
-            background: var(--gradient);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            padding: 4px 8px;
-            font-size: 11px;
-            font-weight: 600;
+            padding: 0.4rem 0.9rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            white-space: nowrap;
         }
 
         .mod-card-description {
-            font-size: 13px;
+            font-size: 0.95rem;
             color: var(--text-secondary);
-            margin-bottom: 16px;
-            line-height: 1.5;
+            margin-bottom: 1.25rem;
+            line-height: 1.6;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -488,396 +624,167 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 16px;
-            border-top: 1px solid var(--border-light);
+            padding-top: 1.25rem;
+            border-top: 2px solid var(--border);
         }
 
         .mod-card-author {
-            font-size: 12px;
+            font-size: 0.9rem;
             color: var(--text-muted);
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 0.5rem;
+            font-weight: 600;
         }
 
         .mod-card-downloads {
             display: flex;
             align-items: center;
-            gap: 4px;
-            font-size: 12px;
-            color: var(--text-muted);
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 700;
         }
 
-        /* Load More & Back to Top */
-        .load-more-section {
-            text-align: center;
-            margin: 40px 0;
-        }
-
-        .load-more-btn {
-            padding: 12px 32px;
+        /* Mod Detail */
+        .mod-detail {
+            max-width: 1000px;
+            margin: 2rem auto;
             background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 14px;
-        }
-
-        .load-more-btn:hover {
-            background: var(--hover-light);
-            border-color: var(--primary);
-        }
-
-        .back-to-top {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 48px;
-            height: 48px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: var(--transition);
-            opacity: 0;
-            visibility: hidden;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        /* Minecraft Edition Selector */
-        .edition-selector {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
-
-        .edition-btn {
-            padding: 12px 24px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .edition-btn.active {
-            background: var(--gradient);
-            color: white;
-            border-color: transparent;
-        }
-
-        .edition-btn:hover:not(.active) {
-            background: var(--hover-light);
-            border-color: var(--primary);
-        }
-
-        /* Search & Filter */
-        .search-filter-section {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 20px;
-            margin-bottom: 28px;
-        }
-
-        .search-container {
-            position: relative;
-            margin-bottom: 16px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 12px 16px 12px 44px;
-            border: 1px solid var(--border);
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-size: 14px;
-            transition: var(--transition);
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-        }
-
-        .filter-container {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .filter-select {
-            padding: 10px 16px;
-            border: 1px solid var(--border);
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-size: 13px;
-            cursor: pointer;
-            transition: var(--transition);
-            min-width: 140px;
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 14px;
-            padding-right: 36px;
-        }
-
-        .filter-select:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        /* Mods Header */
-        .mods-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding: 0 4px;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .mod-count {
-            color: var(--text-secondary);
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .sort-select {
-            padding: 8px 16px;
-            border: 1px solid var(--border);
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-size: 13px;
-            cursor: pointer;
-            transition: var(--transition);
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 14px;
-            padding-right: 36px;
-            min-width: 140px;
-        }
-
-        /* AdSense Container */
-        .adsense-container {
-            margin: 32px 0;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 16px;
-            min-height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .adsense-label {
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center;
-        }
-
-        /* Donation Page */
-        .donation-section {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 40px;
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .donation-section p {
-            font-size: 16px;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-            line-height: 1.6;
-        }
-
-        .donation-qr {
-            max-width: 250px;
-            width: 100%;
-            border: 1px solid var(--border);
-            margin: 20px 0;
+            border: 2px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
             box-shadow: var(--shadow-lg);
         }
 
-        .donation-button {
-            display: inline-block;
-            padding: 14px 32px;
-            background: var(--gradient);
-            color: white;
-            text-decoration: none;
-            border: none;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: var(--transition);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 16px;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        .mod-detail-image {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
         }
 
-        .donation-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        .mod-detail-content {
+            padding: 3rem;
         }
 
-        /* About Page */
-        .about-content {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 40px;
+        .mod-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 2.5rem;
+            gap: 2rem;
         }
 
-        .about-section {
-            margin-bottom: 32px;
+        .mod-detail-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .about-section:last-child {
-            margin-bottom: 0;
+        .mod-detail-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
         }
 
-        .about-section h3 {
-            font-size: 20px;
-            margin-bottom: 12px;
-            color: var(--text-primary);
+        .meta-item {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(99, 102, 241, 0.1);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-secondary);
             font-weight: 600;
         }
 
-        .about-section h3 i {
+        .meta-item i {
             color: var(--primary);
-            font-size: 18px;
+            font-size: 1.25rem;
         }
 
-        .about-section p {
+        .download-btn {
+            padding: 1.25rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.6);
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1.25rem;
+            color: var(--text);
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section h3 i {
+            color: var(--primary);
+        }
+
+        .section p {
             color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .section ul {
+            margin-left: 1.5rem;
+        }
+
+        .section li {
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
             line-height: 1.6;
-            font-size: 15px;
+            font-size: 1.05rem;
         }
 
-        /* Policy Pages */
-        .policy-content {
+        /* Back Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
             background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 40px;
-            max-height: 60vh;
-            overflow-y: auto;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+            font-weight: 700;
         }
 
-        .policy-content h3 {
-            font-size: 20px;
-            margin: 24px 0 12px;
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .policy-content h4 {
-            font-size: 16px;
-            margin: 20px 0 8px;
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .policy-content p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 12px;
-            font-size: 14px;
-        }
-
-        .policy-content ul {
-            margin-left: 20px;
-            margin-bottom: 16px;
-        }
-
-        .policy-content li {
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-            line-height: 1.5;
-            font-size: 14px;
-        }
-
-        .policy-date {
-            color: var(--text-muted);
-            font-size: 13px;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--surface);
-            border-top: 1px solid var(--border);
-            padding: 32px 0;
-            margin-top: 64px;
-        }
-
-        .footer-content {
-            text-align: center;
-        }
-
-        .footer-content p {
-            color: var(--text-secondary);
-            font-size: 13px;
-            margin-top: 16px;
-        }
-
-        /* Page System */
-        .page {
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .back-btn:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
+            transform: translateX(-4px);
         }
 
         /* Modals */
@@ -888,12 +795,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(15, 23, 42, 0.9);
+            background-color: rgba(15, 23, 42, 0.95);
             z-index: 2000;
             justify-content: center;
             align-items: center;
-            padding: 16px;
-            backdrop-filter: blur(5px);
+            padding: 2rem;
+            backdrop-filter: blur(10px);
         }
 
         .modal.active {
@@ -902,57 +809,60 @@
 
         .modal-content {
             background-color: var(--surface);
-            border: 1px solid var(--border);
-            max-width: 500px;
+            border: 2px solid var(--border);
+            border-radius: 24px;
+            max-width: 600px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
         }
 
         .modal-header {
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--border);
+            padding: 2rem 2.5rem;
+            border-bottom: 2px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--gradient);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         }
 
         .modal-title {
-            font-size: 20px;
-            font-weight: 700;
+            font-size: 1.75rem;
+            font-weight: 800;
             color: white;
         }
 
         .close-btn {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             color: white;
-            font-size: 18px;
+            font-size: 1.5rem;
             cursor: pointer;
-            transition: var(--transition);
-            width: 36px;
-            height: 36px;
+            transition: all 0.3s;
+            width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 12px;
         }
 
         .close-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
         }
 
         .modal-body {
-            padding: 24px;
+            padding: 2.5rem;
         }
 
-        /* External Link Warning Modal */
+        /* Warning Modal */
         .warning-icon {
             text-align: center;
-            font-size: 48px;
+            font-size: 4rem;
             color: var(--warning);
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
         }
 
         .warning-content {
@@ -960,1779 +870,1297 @@
         }
 
         .warning-content h3 {
-            font-size: 20px;
-            margin-bottom: 12px;
-            color: var(--text-primary);
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+            font-weight: 800;
         }
 
         .warning-content p {
             color: var(--text-secondary);
-            margin-bottom: 24px;
-            line-height: 1.6;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
         }
 
         .external-link {
             display: block;
-            background: var(--bg-color);
-            border: 1px solid var(--border);
-            padding: 12px;
-            margin: 16px 0;
+            background: var(--secondary);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1.5rem 0;
             word-break: break-all;
-            font-size: 14px;
+            font-size: 0.95rem;
             color: var(--primary);
+            font-weight: 600;
         }
 
         .warning-buttons {
             display: flex;
-            gap: 12px;
-            margin-top: 24px;
+            gap: 1rem;
+            margin-top: 2rem;
         }
 
         .warning-btn {
             flex: 1;
-            padding: 12px;
+            padding: 1rem;
             border: none;
-            font-weight: 600;
+            border-radius: 12px;
+            font-weight: 700;
             cursor: pointer;
-            transition: var(--transition);
-            font-size: 14px;
+            transition: all 0.3s;
+            font-size: 1.05rem;
         }
 
         .warning-btn.cancel {
             background: var(--surface);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
+            color: var(--text);
+            border: 2px solid var(--border);
         }
 
         .warning-btn.cancel:hover {
-            background: var(--hover-light);
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--danger);
         }
 
         .warning-btn.proceed {
-            background: var(--gradient);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
         }
 
         .warning-btn.proceed:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
         }
 
         /* Share Modal */
         .share-buttons {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-top: 20px;
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
 
         .share-btn {
-            padding: 12px;
-            border: 1px solid var(--border);
+            padding: 1.25rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
             background: var(--surface);
-            color: var(--text-primary);
+            color: var(--text);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 0.75rem;
             cursor: pointer;
-            transition: var(--transition);
-            font-size: 14px;
+            transition: all 0.3s;
+            font-size: 1.05rem;
+            font-weight: 700;
         }
 
         .share-btn:hover {
-            background: var(--hover-light);
+            background: rgba(99, 102, 241, 0.1);
             border-color: var(--primary);
+            transform: translateY(-2px);
         }
 
-        .share-btn.whatsapp {
-            color: #25D366;
+        .share-btn.whatsapp { color: #25D366; }
+        .share-btn.facebook { color: #1877F2; }
+        .share-btn.twitter { color: #1DA1F2; }
+        .share-btn.instagram { color: #E4405F; }
+        .share-btn.copy { color: var(--primary); }
+
+        /* Donation Page */
+        .donation-section {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 24px;
+            padding: 4rem;
+            text-align: center;
+            max-width: 700px;
+            margin: 2rem auto;
+            box-shadow: var(--shadow-lg);
         }
 
-        .share-btn.facebook {
-            color: #1877F2;
+        .donation-section h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .share-btn.twitter {
-            color: #1DA1F2;
+        .donation-section p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
         }
 
-        .share-btn.instagram {
-            color: #E4405F;
-        }
-
-        .share-btn.copy {
-            color: var(--primary);
-        }
-
-        /* Mod Detail Modal */
-        .mod-detail-image {
+        .donation-qr {
+            max-width: 300px;
             width: 100%;
-            max-height: 300px;
-            object-fit: cover;
-            border: 1px solid var(--border);
-            margin-bottom: 20px;
+            border: 3px solid var(--border);
+            border-radius: 16px;
+            margin: 2rem auto;
+            box-shadow: var(--shadow-lg);
         }
 
-        .mod-detail-meta {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
+        /* About & Policy Pages */
+        .about-content, .policy-content {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 1000px;
+            margin: 2rem auto;
+            box-shadow: var(--shadow-lg);
         }
 
-        .mod-meta-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 12px;
-            background-color: var(--bg-color);
-            border: 1px solid var(--border);
-            font-size: 13px;
+        .about-section {
+            margin-bottom: 3rem;
         }
 
-        .mod-meta-item i {
-            color: var(--primary);
+        .about-section:last-child {
+            margin-bottom: 0;
         }
 
-        .mod-detail-section {
-            margin-bottom: 24px;
-        }
-
-        .mod-detail-section h3 {
-            font-size: 18px;
-            margin-bottom: 12px;
-            color: var(--text-primary);
+        .about-section h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1.25rem;
+            color: var(--text);
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-weight: 600;
+            gap: 0.75rem;
+            font-weight: 800;
         }
 
-        .mod-detail-section h3 i {
+        .about-section h3 i {
             color: var(--primary);
+            font-size: 1.5rem;
         }
 
-        .mod-detail-section p {
+        .about-section p {
             color: var(--text-secondary);
-            line-height: 1.6;
-            font-size: 14px;
+            line-height: 1.8;
+            font-size: 1.05rem;
         }
 
-        .mod-detail-section ul {
-            margin-left: 20px;
+        .policy-content {
+            max-height: 70vh;
+            overflow-y: auto;
         }
 
-        .mod-detail-section li {
+        .policy-content h3 {
+            font-size: 1.75rem;
+            margin: 2rem 0 1rem;
+            color: var(--text);
+            font-weight: 800;
+        }
+
+        .policy-content h4 {
+            font-size: 1.35rem;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .policy-content p {
             color: var(--text-secondary);
-            margin-bottom: 6px;
-            line-height: 1.5;
-            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            font-size: 1rem;
         }
 
-        .download-options {
-            background-color: var(--bg-color);
-            border: 1px solid var(--border);
-            padding: 20px;
-            margin-top: 24px;
+        .policy-date {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            font-style: italic;
         }
 
-        .download-options h3 {
-            font-size: 18px;
-            margin-bottom: 16px;
-            color: var(--text-primary);
-            font-weight: 600;
+        /* Load More & Pagination */
+        .load-more-section {
+            text-align: center;
+            margin: 3rem 0;
         }
 
-        .download-buttons {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .download-btn {
-            padding: 12px 20px;
-            border: none;
-            font-weight: 600;
+        .load-more-btn {
+            padding: 1.25rem 3rem;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            color: var(--text);
+            font-weight: 700;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s;
+            font-size: 1.05rem;
+        }
+
+        .load-more-btn:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 100;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
         }
 
-        .download-btn.primary {
-            background: var(--gradient);
-            color: white;
-            border: none;
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
         }
 
-        .download-btn.primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        .back-to-top:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.6);
         }
 
-        .download-btn.secondary {
-            background-color: var(--surface);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
+        /* Footer */
+        footer {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 3rem 2rem;
+            margin-top: 5rem;
         }
 
-        .download-btn.secondary:hover {
-            background-color: var(--hover-light);
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
         }
 
-        .share-section {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-        }
-
-        /* Version Selector */
-        .version-selector {
-            margin-top: 20px;
-        }
-
-        .version-selector h4 {
-            margin-bottom: 12px;
-            font-size: 15px;
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .version-buttons {
+        .footer-links {
             display: flex;
-            gap: 8px;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
         }
 
-        .version-btn {
-            padding: 8px 16px;
-            border: 1px solid var(--border);
-            background-color: var(--surface);
+        .footer-links a {
             color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 13px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
         }
 
-        .version-btn:hover {
-            background-color: var(--hover-light);
-            color: var(--text-primary);
+        .footer-links a:hover {
+            color: var(--primary);
         }
 
-        .version-btn.active {
-            background: var(--gradient);
-            color: white;
-            border-color: transparent;
-        }
-
-        /* 404 Page */
-        .not-found {
-            text-align: center;
-            padding: 80px 20px;
-        }
-
-        .not-found h1 {
-            font-size: 120px;
-            font-weight: 900;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            line-height: 1;
-            margin-bottom: 20px;
-        }
-
-        .not-found h2 {
-            font-size: 32px;
-            margin-bottom: 16px;
-            color: var(--text-primary);
-        }
-
-        .not-found p {
-            color: var(--text-secondary);
-            margin-bottom: 32px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Utility Classes */
-        .empty-state {
-            text-align: center;
-            padding: 48px 16px;
-            color: var(--text-secondary);
-            background: var(--surface);
-            border: 1px solid var(--border);
-        }
-
-        .empty-state i {
-            font-size: 48px;
-            margin-bottom: 16px;
+        .footer-content p {
             color: var(--text-muted);
-            opacity: 0.5;
+            font-size: 0.95rem;
         }
 
-        .empty-state h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: var(--text-primary);
+        /* Page System */
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 5rem;
+            color: var(--text-muted);
+            font-size: 1.25rem;
+        }
+
+        /* Hidden */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Mods Header */
+        .mods-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .mod-count {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+
+        .sort-select {
+            padding: 0.9rem 1.25rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background-color: var(--secondary);
+            color: var(--text);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 180px;
             font-weight: 600;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+        .sort-select:focus {
+            outline: none;
+            border-color: var(--primary);
         }
 
-        ::-webkit-scrollbar-track {
-            background: var(--bg-color);
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .mod-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: var(--border);
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--border-light);
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: column;
-                height: auto;
-                gap: 12px;
-                padding: 16px 0;
+                gap: 1rem;
             }
-            
+
             nav {
                 width: 100%;
                 justify-content: center;
                 flex-wrap: wrap;
             }
-            
-            .theme-toggle {
-                margin-left: 0;
+
+            .hero h2 {
+                font-size: 2rem;
             }
-            
-            .hero-section {
-                padding: 48px 20px;
+
+            .hero p {
+                font-size: 1.1rem;
             }
-            
-            .hero-section h2 {
-                font-size: 32px;
-            }
-            
-            .hero-section p {
-                font-size: 16px;
-            }
-            
-            .page-title {
-                font-size: 28px;
-            }
-            
-            .section-title {
-                font-size: 24px;
-            }
-            
+
             .mod-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .filter-container {
-                flex-direction: column;
+
+            .mod-detail-title {
+                font-size: 2rem;
             }
-            
-            .filter-select, .sort-select {
-                width: 100%;
-                min-width: auto;
+
+            .mod-detail-content {
+                padding: 2rem;
             }
-            
-            .download-buttons, .warning-buttons {
-                flex-direction: column;
+
+            .donation-section {
+                padding: 2rem;
             }
-            
-            .share-buttons {
-                grid-template-columns: 1fr;
-            }
-            
-            .banner-slider {
-                height: 150px;
-            }
-            
-            .running-mod-content {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-            
-            .about-content, .policy-content, .donation-section {
-                padding: 24px 16px;
-            }
-            
-            .edition-selector {
-                flex-direction: column;
-            }
-            
-            .edition-btn {
-                width: 100%;
-                justify-content: center;
+
+            .about-content, .policy-content {
+                padding: 2rem;
             }
         }
 
         @media (max-width: 480px) {
-            .hero-section h2 {
-                font-size: 28px;
+            .container {
+                padding: 0 1rem;
             }
-            
-            .page-title {
-                font-size: 24px;
+
+            .hero {
+                padding: 2rem 1rem;
             }
-            
-            .mod-detail-meta {
-                flex-direction: column;
-                align-items: flex-start;
+
+            .hero h2 {
+                font-size: 1.75rem;
             }
-            
-            .version-buttons {
-                flex-direction: column;
+
+            .cta-button {
+                padding: 1rem 2rem;
+                font-size: 1rem;
             }
-            
-            .version-btn {
-                width: 100%;
-                text-align: center;
+
+            .banner-slider {
+                height: 200px;
             }
-            
-            .modal-body {
-                padding: 20px;
+
+            .mod-card-content {
+                padding: 1.25rem;
             }
-            
-            .not-found h1 {
-                font-size: 80px;
-            }
-            
-            .not-found h2 {
-                font-size: 24px;
+
+            .share-buttons {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <div class="header-container">
-                <div class="logo-section">
-                    <img src="https://res.cloudinary.com/dqrmhcdl6/image/upload/v1764750192/Screenshot_2025-11-27_193418_flfnou.png" alt="ReinForge Logo" class="logo-img">
-                    <div class="logo-text">
-                        <h1>ReinForge</h1>
-                        <p>Reshaping Your Reality</p>
-                    </div>
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="https://res.cloudinary.com/dqrmhcdl6/image/upload/v1764750192/Screenshot_2025-11-27_193418_flfnou.png" alt="ReinForge">
+                <div class="logo-text">
+                    <h1>ReinForge</h1>
+                    <p>Reshaping Reality</p>
                 </div>
-                <nav>
-                    <a href="#" onclick="showPage('home')" class="active"><i class="fas fa-home"></i> Home</a>
-                    <a href="#" onclick="showPage('mods')"><i class="fas fa-cube"></i> Mods</a>
-                    <a href="#" onclick="showPage('donation')"><i class="fas fa-heart"></i> Donate</a>
-                    <a href="#" onclick="showPage('about')"><i class="fas fa-info-circle"></i> About</a>
-                    <a href="#" onclick="showPage('tos')"><i class="fas fa-file-contract"></i> Terms</a>
-                    <a href="#" onclick="showPage('privacy')"><i class="fas fa-shield-alt"></i> Privacy</a>
-                    <button class="theme-toggle" id="themeToggle">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                </nav>
-            </div>
+            </a>
+            <nav>
+                <a href="/" class="nav-link">Home</a>
+                <a href="/mods">Mods</a>
+                <a href="/about">About</a>
+                <a href="/donation">Donation</a>
+                <a href="/privacy">Privacy</a>
+                <a href="/terms">Terms</a>
+            </nav>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i>
+            </button>
         </div>
     </header>
 
-    <main>
-        <div class="container">
-            <!-- Home Page -->
-            <div id="home" class="page active">
-                <div class="hero-section">
-                    <div class="hero-content">
-                        <h2>Reshape Your Minecraft Reality</h2>
-                        <p>Discover premium Minecraft modifications that transform your gameplay experience. Our team creates high-quality mods that push the boundaries of what's possible in Minecraft.</p>
-                        <a href="#" onclick="showPage('mods')" class="cta-button">Explore Mods</a>
-                    </div>
-                </div>
-
-                <!-- AdSense Banner 1 -->
-                <div class="adsense-container">
-                    <div style="width: 100%;">
-                        <div class="adsense-label">Advertisement</div>
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="ca-pub-4572281277105896"
-                             data-ad-slot="1234567890"
-                             data-ad-format="auto"
-                             data-full-width-responsive="true"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
-                </div>
-
-                <!-- Banner Slider -->
-                <div class="banner-slider">
-                    <div class="banner-slide active" onclick="handleBannerClick(0)">
-                        <img src="https://res.cloudinary.com/dqrmhcdl6/image/upload/v1764746999/Special_Guest_g7zjys.png" alt="Special Guest">
-                    </div>
-                    <div class="banner-slide" onclick="handleBannerClick(1)">
-                        <img src="https://res.cloudinary.com/dqrmhcdl6/image/upload/v1764085827/Donation_mprzqf.png" alt="Donation">
-                    </div>
-                    <div class="banner-slide" onclick="handleBannerClick(2)">
-                        <img src="https://res.cloudinary.com/dqrmhcdl6/image/upload/v1764073854/OMeMods_1_xiluqi.png" alt="OMeMods">
-                    </div>
-                    <div class="banner-dots">
-                        <div class="banner-dot active" onclick="currentSlide(0)"></div>
-                        <div class="banner-dot" onclick="currentSlide(1)"></div>
-                        <div class="banner-dot" onclick="currentSlide(2)"></div>
-                    </div>
-                </div>
-
-                <!-- Running Mods -->
-                <div class="running-mods">
-                    <h2 class="section-title">Currently Running Mods</h2>
-                    <div class="running-mod" onclick="showRunningModDetail(1)">
-                        <div class="running-mod-content">
-                            <i class="fas fa-sword running-mod-icon"></i>
-                            <div class="running-mod-text">
-                                <h4>Long Sword Mod</h4>
-                                <p>Currently active on 1,250+ servers - Click for details</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="running-mod" onclick="showRunningModDetail(2)">
-                        <div class="running-mod-content">
-                            <i class="fas fa-mask running-mod-icon"></i>
-                            <div class="running-mod-text">
-                                <h4>Clown Mask Mod</h4>
-                                <p>Currently active on 2,300+ servers - Click for details</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Featured Mods -->
-                <div class="featured-mods">
-                    <h2 class="section-title">Featured Mods</h2>
-                    <div class="mod-grid" id="featuredModsGrid">
-                        <!-- Featured mods will be generated here -->
-                    </div>
-                </div>
-
-                <!-- AdSense Banner 2 -->
-                <div class="adsense-container">
-                    <div style="width: 100%;">
-                        <div class="adsense-label">Advertisement</div>
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="ca-pub-4572281277105896"
-                             data-ad-slot="0987654321"
-                             data-ad-format="auto"
-                             data-full-width-responsive="true"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mods Page -->
-            <div id="mods" class="page">
-                <h2 class="page-title">Our Mod Collection</h2>
-                
-                <!-- AdSense Banner 3 -->
-                <div class="adsense-container">
-                    <div style="width: 100%;">
-                        <div class="adsense-label">Advertisement</div>
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="ca-pub-4572281277105896"
-                             data-ad-slot="1122334455"
-                             data-ad-format="auto"
-                             data-full-width-responsive="true"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
-                </div>
-                
-                <!-- Edition Selector -->
-                <div class="edition-selector">
-                    <button class="edition-btn active" onclick="setEdition('java')">
-                        <i class="fab fa-java"></i> Java Edition
-                    </button>
-                    <button class="edition-btn" onclick="setEdition('bedrock')">
-                        <i class="fas fa-cube"></i> Bedrock Edition
-                    </button>
-                </div>
-                
-                <div class="search-filter-section">
-                    <div class="search-container">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" class="search-input" id="searchInput" placeholder="Search mods...">
-                    </div>
-                    
-                    <div class="filter-container">
-                        <select class="filter-select" id="versionFilter">
-                            <option value="all">All Minecraft Versions</option>
-                        </select>
-                        
-                        <select class="filter-select" id="categoryFilter">
-                            <option value="all">All Categories</option>
-                            <option value="texture">Texture Packs</option>
-                            <option value="gameplay">Gameplay Mods</option>
-                            <option value="utility">Utility Tools</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="mods-header">
-                    <div class="mod-count" id="modCount">0 mods found</div>
-                    <select class="sort-select" id="sortSelect">
-                        <option value="name">Sort by Name</option>
-                        <option value="newest">Newest First</option>
-                        <option value="popular">Most Popular</option>
-                        <option value="downloads">Most Downloads</option>
-                    </select>
-                </div>
-                
-                <div class="mod-grid" id="modGrid">
-                    <!-- Mods will be generated here -->
-                </div>
-                
-                <!-- Load More Button -->
-                <div class="load-more-section">
-                    <button class="load-more-btn" onclick="loadMoreMods()" id="loadMoreBtn">
-                        <i class="fas fa-plus"></i> Load More Mods
-                    </button>
-                </div>
-
-                <!-- AdSense Banner 4 -->
-                <div class="adsense-container">
-                    <div style="width: 100%;">
-                        <div class="adsense-label">Advertisement</div>
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="ca-pub-4572281277105896"
-                             data-ad-slot="5566778899"
-                             data-ad-format="auto"
-                             data-full-width-responsive="true"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Donation Page -->
-            <div id="donation" class="page">
-                <h2 class="page-title">Support Our Work</h2>
-                
-                <!-- AdSense Banner 5 -->
-                <div class="adsense-container">
-                    <div style="width: 100%;">
-                        <div class="adsense-label">Advertisement</div>
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="ca-pub-4572281277105896"
-                             data-ad-slot="6677889900"
-                             data-ad-format="auto"
-                             data-full-width-responsive="true"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
-                </div>
-                
-                <div class="donation-section">
-                    <p>Your support enables us to continue creating amazing mods for the Minecraft community. Every contribution helps us dedicate more time to development, create new features, and improve existing mods.</p>
-                    <img src="https://res.cloudinary.com/dqrmhcdl6/image/upload/v1764081719/Screenshot_2025-11-25_214132_wrna27.png" alt="Donation QR Code" class="donation-qr">
-                    <br>
-                    <button onclick="openExternalLink('https://saweria.co/omedonation')" class="donation-button">
-                        <i class="fas fa-donate"></i> Support on Saweria
-                    </button>
-                    <p style="margin-top: 24px; font-size: 14px; color: var(--text-muted);">
-                        Thank you for being part of our community!
-                    </p>
-                </div>
-            </div>
-
-            <!-- About Page -->
-            <div id="about" class="page">
-                <h2 class="page-title">About ReinForge</h2>
-                
-                <!-- AdSense Banner 6 -->
-                <div class="adsense-container">
-                    <div style="width: 100%;">
-                        <div class="adsense-label">Advertisement</div>
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="ca-pub-4572281277105896"
-                             data-ad-slot="7788990011"
-                             data-ad-format="auto"
-                             data-full-width-responsive="true"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
-                </div>
-                
-                <div class="about-content">
-                    <div class="about-section">
-                        <h3><i class="fas fa-users"></i> Who We Are</h3>
-                        <p>ReinForge is a dedicated team of Minecraft enthusiasts and professional developers committed to creating high-quality modifications that transform the Minecraft experience.</p>
-                    </div>
-                    
-                    <div class="about-section">
-                        <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
-                        <p>To reshape Minecraft realities by introducing innovative gameplay mechanics, stunning visual enhancements, and quality-of-life improvements.</p>
-                    </div>
-                    
-                    <div class="about-section">
-                        <h3><i class="fas fa-eye"></i> Our Vision</h3>
-                        <p>To become the leading force in Minecraft modification development, recognized for quality, innovation, and community engagement.</p>
-                    </div>
-                    
-                    <div class="about-section">
-                        <h3><i class="fas fa-history"></i> Our Journey</h3>
-                        <p>Founded in 2023, ReinForge started as a passion project among friends who shared a love for Minecraft modding.</p>
-                    </div>
-                    
-                    <div class="about-section">
-                        <h3><i class="fas fa-envelope"></i> Get In Touch</h3>
-                        <p>We value your feedback and suggestions. Your input helps us create better mods for everyone.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Terms of Service Page -->
-            <div id="tos" class="page">
-                <h2 class="page-title">Terms of Service</h2>
-                
-                <!-- AdSense Banner 7 -->
-                <div class="adsense-container">
-                    <div style="width: 100%;">
-                        <div class="adsense-label">Advertisement</div>
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="ca-pub-4572281277105896"
-                             data-ad-slot="8899001122"
-                             data-ad-format="auto"
-                             data-full-width-responsive="true"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
-                </div>
-                
-                <div class="policy-content">
-                    <p class="policy-date">Last Updated: November 26, 2025</p>
-                    
-                    <h3>1. Acceptance of Terms</h3>
-                    <p>By accessing and using the ReinForge website and downloading our mods, you agree to be bound by these Terms of Service and all applicable laws and regulations.</p>
-
-                    <h3>2. Use License</h3>
-                    <p>Permission is granted to temporarily download one copy of the mods on ReinForge's website for personal, non-commercial transitory viewing only.</p>
-
-                    <h3>3. Modifications</h3>
-                    <p>We reserve the right to revise these terms of service at any time without notice. By using this website, you are agreeing to be bound by the then-current version of these Terms of Service.</p>
-
-                    <h3>4. Disclaimer</h3>
-                    <p>The mods on ReinForge's website are provided on an 'as is' basis. ReinForge makes no warranties, expressed or implied.</p>
-
-                    <h3>5. Limitations</h3>
-                    <p>In no event shall ReinForge or its suppliers be liable for any damages arising out of the use or inability to use the mods on ReinForge's website.</p>
-
-                    <h3>6. Governing Law</h3>
-                    <p>These terms and conditions are governed by and construed in accordance with the laws.</p>
-                </div>
-            </div>
-
-            <!-- Privacy Policy Page -->
-            <div id="privacy" class="page">
-                <h2 class="page-title">Privacy Policy</h2>
-                
-                <!-- AdSense Banner 8 -->
-                <div class="adsense-container">
-                    <div style="width: 100%;">
-                        <div class="adsense-label">Advertisement</div>
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="ca-pub-4572281277105896"
-                             data-ad-slot="9900112233"
-                             data-ad-format="auto"
-                             data-full-width-responsive="true"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
-                </div>
-                
-                <div class="policy-content">
-                    <p class="policy-date">Last Updated: November 26, 2025</p>
-                    
-                    <h3>1. Information We Collect</h3>
-                    <p>We collect information that your browser sends whenever you visit our website. This may include information such as your computer's Internet Protocol address, browser type, browser version.</p>
-
-                    <h3>2. Use of Information</h3>
-                    <p>We use the collected information for various purposes: to provide and maintain our website, to notify you about changes to our website.</p>
-
-                    <h3>3. Cookies</h3>
-                    <p>Cookies are files with small amount of data that is commonly used as an anonymous unique identifier.</p>
-
-                    <h3>4. Third-Party Services</h3>
-                    <p>We may employ third-party companies and individuals to facilitate our website, to provide the website on our behalf.</p>
-
-                    <h3>5. Security</h3>
-                    <p>The security of your information is important to us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure.</p>
-
-                    <h3>6. Changes to This Privacy Policy</h3>
-                    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
-                </div>
-            </div>
-
-            <!-- 404 Page -->
-            <div id="notfound" class="page">
-                <div class="not-found">
-                    <h1>404</h1>
-                    <h2>Page Not Found</h2>
-                    <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
-                    <button class="cta-button" onclick="showPage('home')">
-                        <i class="fas fa-home"></i> Back to Home
-                    </button>
-                </div>
-            </div>
-        </div>
+    <main id="app">
+        <!-- Content will be loaded here -->
     </main>
 
-    <footer>
-        <div class="container">
-            <!-- AdSense Footer Banner -->
-            <div class="adsense-container" style="margin: 24px 0;">
-                <div style="width: 100%;">
-                    <div class="adsense-label">Advertisement</div>
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-client="ca-pub-4572281277105896"
-                         data-ad-slot="1231231231"
-                         data-ad-format="auto"
-                         data-full-width-responsive="true"></ins>
-                    <script>
-                         (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                </div>
-            </div>
-            
-            <div class="footer-content">
-                <p>&copy; 2025 ReinForge. All rights reserved. Reshaping Your Reality.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="backToTop">
+    <button class="back-to-top" onclick="scrollToTop()">
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- Mod Detail Modal -->
-    <div id="modDetailModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modDetailTitle">Mod Details</h2>
-                <button class="close-btn" onclick="closeModDetail()">
-                    <i class="fas fa-times"></i>
-                </button>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/about">About</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/donation">Support Us</a>
             </div>
-            <div class="modal-body" id="modDetailBody">
-                <!-- Content will be generated by JavaScript -->
-            </div>
+            <p>&copy; 2024 ReinForge. All rights reserved. Reshaping Your Reality.</p>
         </div>
-    </div>
-
-    <!-- External Link Warning Modal -->
-    <div id="externalLinkModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">External Link Warning</h2>
-                <button class="close-btn" onclick="closeExternalLinkModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="warning-icon">
-                    <i class="fas fa-external-link-alt"></i>
-                </div>
-                <div class="warning-content">
-                    <h3>You are leaving ReinForge</h3>
-                    <p>You are about to be redirected to an external website. Please note that we are not responsible for the content or privacy practices of external sites.</p>
-                    <div class="external-link" id="externalLinkUrl"></div>
-                    <div class="warning-buttons">
-                        <button class="warning-btn cancel" onclick="closeExternalLinkModal()">Cancel</button>
-                        <button class="warning-btn proceed" onclick="proceedToExternalLink()">I Understand</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Share Modal -->
-    <div id="shareModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Share Mod</h2>
-                <button class="close-btn" onclick="closeShareModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="warning-content">
-                    <h3>Share this mod with others</h3>
-                    <p>Select a platform to share or copy the link:</p>
-                    <div class="external-link" id="shareLinkUrl"></div>
-                    <div class="share-buttons">
-                        <button class="share-btn copy" onclick="copyShareLink()">
-                            <i class="fas fa-copy"></i> Copy Link
-                        </button>
-                        <button class="share-btn whatsapp" onclick="shareOnWhatsApp()">
-                            <i class="fab fa-whatsapp"></i> WhatsApp
-                        </button>
-                        <button class="share-btn facebook" onclick="shareOnFacebook()">
-                            <i class="fab fa-facebook"></i> Facebook
-                        </button>
-                        <button class="share-btn twitter" onclick="shareOnTwitter()">
-                            <i class="fab fa-twitter"></i> Twitter
-                        </button>
-                        <button class="share-btn instagram" onclick="shareOnInstagram()">
-                            <i class="fab fa-instagram"></i> Instagram
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Thank You Modal -->
-    <div id="thankYouModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Thank You!</h2>
-                <button class="close-btn" onclick="closeModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body" style="text-align: center;">
-                <i class="fas fa-check-circle" style="font-size: 48px; color: var(--success); margin-bottom: 20px;"></i>
-                <h3 style="margin-bottom: 16px;">Download Started</h3>
-                <p style="margin-bottom: 24px; color: var(--text-secondary);">Your download should begin automatically. If it doesn't start, please click the retry button below.</p>
-                <div style="display: flex; gap: 12px; justify-content: center;">
-                    <button class="download-btn primary" onclick="retryDownload()">
-                        <i class="fas fa-redo"></i> Retry Download
-                    </button>
-                    <button class="download-btn secondary" onclick="closeModal()">
-                        Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    </footer>
 
     <script>
-        // Mod data - expanded with more mods for better filtering
+        // Sample mods data - LENGKAP dengan banyak mods
         const modsData = [
             {
-                id: 1,
-                name: "Long Sword (Beta Version)",
-                version: "1.20.1",
-                image: "https://imglink.io/i/ba1a8254-0370-4384-92f6-15407e1f8830.png",
-                shortDescription: "Transform your diamond sword with an extended and redesigned visual appearance.",
-                fullDescription: "Long Sword introduces a meticulously crafted fictional long sword designed for intense combat scenarios. This weapon features serrated edges for maximum damage output and a visually striking design that stands out in any battle. Perfect for players seeking both aesthetic appeal and functional superiority in their weaponry.",
-                authors: ["Rozaq", "Vicko", "Nathan", "ReinForge Team"],
-                downloadUrl: "https://drive.google.com/uc?id=1UQPU49H3Jx9u081pllwLdvM7NUlVAV8n",
-                curseforgeUrl: "https://www.curseforge.com/minecraft/texture-packs/ls",
-                curseforgeAvailable: true,
-                category: "texture",
-                edition: "java",
-                downloads: 1250,
-                lastUpdated: "2025-11-20",
-                featured: true,
-                running: true,
-                shareUrl: "https://reinforge.com/mods/long-sword",
-                versions: [
-                    { version: "1.20.1", downloadUrl: "https://drive.google.com/uc?id=1UQPU49H3Jx9u081pllwLdvM7NUlVAV8n" }
-                ],
-                features: [
-                    "Complete visual overhaul for Diamond Sword",
-                    "Anvil compatibility system",
-                    "Enhanced texture resolution",
-                    "Compatible with shader packs"
-                ],
-                installation: [
-                    "Install Minecraft Optifine for version 1.20.1",
-                    "Download the Long Sword mod package",
-                    "Navigate to your Minecraft resource packs folder",
-                    "Place the downloaded .zip file in the resource packs folder",
-                    "Launch Minecraft and access Options > Resource Packs",
-                    "Activate the Long Sword resource pack",
-                    "Experience enhanced sword visuals in your gameplay!"
-                ]
+                id: 'lucky-block',
+                name: 'Lucky Block',
+                version: 'v1.2.0',
+                description: 'Add excitement to your Minecraft world with random surprises from lucky blocks!',
+                author: 'ReinDev',
+                downloads: '15.2K',
+                category: 'Fun',
+                edition: 'bedrock',
+                image: 'https://via.placeholder.com/400x200/6366f1/ffffff?text=Lucky+Block',
+                fullDescription: 'Lucky Block mod adds a new block to Minecraft that gives you random items, mobs, or events when broken. Each block is a surprise! Perfect for multiplayer servers and adventure maps.',
+                features: ['Random rewards system', 'Custom drop configuration', 'Multiplayer support', 'Over 100 different outcomes', 'Configurable spawn rates'],
+                downloadLink: 'https://example.com/download/lucky-block'
             },
             {
-                id: 2,
-                name: "Clown Mask (Beta Version)",
-                version: "1.20.1",
-                image: "https://imglink.io/t/e37545e5-f281-4df2-b1de-3c2af5de1a8b.png",
-                shortDescription: "Replace your pumpkin with a creepy smiling clown mask texture.",
-                fullDescription: "Clown Mask transforms ordinary carved pumpkins into terrifying clown masks. This texture pack brings a new level of horror and excitement to your Minecraft experience, perfect for creating spooky environments or adding a unique twist to your character's appearance.",
-                authors: ["Rozaq", "Vicko", "Nathan", "ReinForge Team"],
-                downloadUrl: "https://drive.google.com/uc?id=1xYsFknQdZ3F1kv-RT07KPH8npVhDns1y",
-                curseforgeUrl: "https://www.curseforge.com/minecraft/texture-packs/ls",
-                curseforgeAvailable: false,
-                category: "texture",
-                edition: "java",
-                downloads: 2300,
-                lastUpdated: "2025-11-20",
-                featured: true,
-                running: true,
-                shareUrl: "https://reinforge.com/mods/clown-mask",
-                versions: [
-                    { version: "1.20.1", downloadUrl: "https://drive.google.com/uc?id=1xYsFknQdZ3F1kv-RT07KPH8npVhDns1y" }
-                ],
-                features: [
-                    "Complete pumpkin mask transformation",
-                    "Anvil system compatibility",
-                    "Multiple clown variations",
-                    "High-resolution textures"
-                ],
-                installation: [
-                    "Ensure you have Minecraft Optifine installed",
-                    "Download the Clown Mask texture pack",
-                    "Locate your Minecraft resource packs directory",
-                    "Move the downloaded file to the resource packs folder",
-                    "Open Minecraft and go to Options > Resource Packs",
-                    "Enable the Clown Mask pack",
-                    "Enjoy your new terrifying clown masks!"
-                ]
+                id: 'better-tools',
+                name: 'Better Tools',
+                version: 'v2.1.5',
+                description: 'Enhanced tools with special abilities and improved durability for better gameplay.',
+                author: 'ToolMaster',
+                downloads: '23.8K',
+                category: 'Tools',
+                edition: 'bedrock',
+                image: 'https://via.placeholder.com/400x200/22d3ee/ffffff?text=Better+Tools',
+                fullDescription: 'Better Tools mod enhances your mining and crafting experience with improved tools that last longer and have special abilities. Each tool tier has unique powers!',
+                features: ['Enhanced durability (3x longer)', 'Special abilities per tool', 'Custom crafting recipes', 'Enchantment compatibility', 'Balanced for survival'],
+                downloadLink: 'https://example.com/download/better-tools'
+            },
+            {
+                id: 'magic-spells',
+                name: 'Magic Spells',
+                version: 'v1.0.3',
+                description: 'Cast powerful spells and become a wizard in Minecraft with this magic mod.',
+                author: 'WizardCraft',
+                downloads: '31.5K',
+                category: 'Magic',
+                edition: 'bedrock',
+                image: 'https://via.placeholder.com/400x200/10b981/ffffff?text=Magic+Spells',
+                fullDescription: 'Magic Spells brings a complete magic system to Minecraft with over 50 unique spells to cast. Learn spells, manage mana, and become the ultimate wizard!',
+                features: ['50+ unique spells', 'Mana system', 'Spell books and scrolls', 'Wand crafting', 'Magic skill progression'],
+                downloadLink: 'https://example.com/download/magic-spells'
+            },
+            {
+                id: 'furniture-mod',
+                name: 'Furniture Mod',
+                version: 'v3.2.1',
+                description: 'Decorate your home with hundreds of new furniture pieces and decorations.',
+                author: 'HomeDesign',
+                downloads: '42.1K',
+                category: 'Decoration',
+                edition: 'bedrock',
+                image: 'https://via.placeholder.com/400x200/ef4444/ffffff?text=Furniture+Mod',
+                fullDescription: 'Furniture Mod adds hundreds of new furniture items to make your Minecraft home look amazing. From modern to medieval styles, we have it all!',
+                features: ['200+ furniture items', 'Multiple style themes', 'Custom textures', 'Easy placement system', 'Functional furniture'],
+                downloadLink: 'https://example.com/download/furniture-mod'
+            },
+            {
+                id: 'tech-machines',
+                name: 'Tech Machines',
+                version: 'v1.5.0',
+                description: 'Industrial machines and automation for advanced Minecraft gameplay.',
+                author: 'TechCraft',
+                downloads: '28.9K',
+                category: 'Technology',
+                edition: 'bedrock',
+                image: 'https://via.placeholder.com/400x200/f59e0b/ffffff?text=Tech+Machines',
+                fullDescription: 'Tech Machines brings industrial revolution to Minecraft with automated machines and power systems. Build factories and automate everything!',
+                features: ['Automated machines', 'Power generation systems', 'Resource processing', 'Conveyor belts', 'Advanced crafting'],
+                downloadLink: 'https://example.com/download/tech-machines'
+            },
+            {
+                id: 'adventure-plus',
+                name: 'Adventure Plus',
+                version: 'v2.0.0',
+                description: 'New dimensions, bosses, and adventures await in this epic mod.',
+                author: 'AdventureTeam',
+                downloads: '19.7K',
+                category: 'Adventure',
+                edition: 'bedrock',
+                image: 'https://via.placeholder.com/400x200/8b5cf6/ffffff?text=Adventure+Plus',
+                fullDescription: 'Adventure Plus adds new dimensions to explore, epic bosses to fight, and countless adventures. Discover new biomes, structures, and challenges!',
+                features: ['3 new dimensions', '10+ epic bosses', 'Custom quest system', 'New biomes', 'Unique loot and rewards'],
+                downloadLink: 'https://example.com/download/adventure-plus'
+            },
+            {
+                id: 'realistic-weather',
+                name: 'Realistic Weather',
+                version: 'v1.3.2',
+                description: 'Experience dynamic weather systems with realistic effects and seasons.',
+                author: 'WeatherPro',
+                downloads: '17.3K',
+                category: 'Environment',
+                edition: 'bedrock',
+                image: 'https://via.placeholder.com/400x200/06b6d4/ffffff?text=Realistic+Weather',
+                fullDescription: 'Realistic Weather mod transforms Minecraft weather with dynamic systems, seasonal changes, and realistic effects that affect gameplay.',
+                features: ['Dynamic weather patterns', 'Four seasons', 'Temperature system', 'Weather-based events', 'Configurable settings'],
+                downloadLink: 'https://example.com/download/realistic-weather'
+            },
+            {
+                id: 'pets-plus',
+                name: 'Pets Plus',
+                version: 'v2.4.1',
+                description: 'Adopt and train amazing pets with unique abilities and personalities.',
+                author: 'PetLover',
+                downloads: '35.6K',
+                category: 'Animals',
+                edition: 'bedrock',
+                image: 'https://via.placeholder.com/400x200/ec4899/ffffff?text=Pets+Plus',
+                fullDescription: 'Pets Plus adds dozens of new pets you can adopt, train, and adventure with. Each pet has unique abilities and can level up!',
+                features: ['30+ unique pets', 'Pet leveling system', 'Special abilities', 'Pet accessories', 'Breeding system'],
+                downloadLink: 'https://example.com/download/pets-plus'
             }
         ];
 
-        // Banner data with links
-        const banners = [
-            {
-                image: "https://res.cloudinary.com/dqrmhcdl6/image/upload/v1764746999/Special_Guest_g7zjys.png",
-                link: false,
-                alt: "NewRelease"
-            },
-            {
-                image: "https://res.cloudinary.com/dqrmhcdl6/image/upload/v1764085827/Donation_mprzqf.png",
-                link: false, // No link
-                alt: "Donation"
-            },
-            {
-                image: "https://res.cloudinary.com/dqrmhcdl6/image/upload/v1764073854/OMeMods_1_xiluqi.png",
-                link: "https://omemods.com",
-                alt: "OMeMods"
-            }
+        // Running mods data
+        const runningMods = [
+            { icon: 'fa-fire', title: 'Trending Now', description: 'Lucky Block - Most downloaded this week!', link: '/mods/lucky-block' },
+            { icon: 'fa-star', title: 'Featured Mod', description: 'Magic Spells - Cast amazing spells!', link: '/mods/magic-spells' },
+            { icon: 'fa-crown', title: 'Top Rated', description: 'Furniture Mod - Perfect for builders!', link: '/mods/furniture-mod' }
         ];
 
-        // State variables
-        let currentDownloadUrl = '';
-        let currentModName = '';
-        let currentFilter = 'all';
-        let currentCategory = 'all';
-        let currentSearchTerm = '';
-        let currentSort = 'name';
-        let currentModId = null;
-        let selectedVersionIndex = 0;
+        // Banner slides data
+        const bannerSlides = [
+            { image: 'https://via.placeholder.com/1400x300/6366f1/ffffff?text=Welcome+to+ReinForge', link: '/' },
+            { image: 'https://via.placeholder.com/1400x300/22d3ee/ffffff?text=Discover+Amazing+Mods', link: '/mods' },
+            { image: 'https://via.placeholder.com/1400x300/10b981/ffffff?text=Support+Our+Work', link: '/donation' }
+        ];
+
+        let currentSlide = 0;
         let currentTheme = 'dark';
-        let currentEdition = 'java';
-        let currentPage = 1;
-        const modsPerPage = 4;
-        let currentExternalLink = '';
-        let currentShareLink = '';
-        let bannerInterval;
-        let currentBannerIndex = 0;
+        let filteredMods = [...modsData];
 
-        // Initialize the page
-        function init() {
-            generateFilters();
-            renderMods();
-            renderFeaturedMods();
-            setupEventListeners();
-            setupTheme();
-            setupBannerSlider();
-            setupBackToTop();
-            
-            // Check for 404 page
-            checkFor404();
-            
-            // Initialize AdSense
-            initializeAdSense();
-        }
-
-        // Check for 404 page
-        function checkFor404() {
-            const path = window.location.pathname;
-            if (path.includes('404') || path.includes('not-found')) {
-                showPage('notfound');
+        // Router
+        class Router {
+            constructor() {
+                this.routes = {};
+                this.currentPath = '';
+                
+                window.addEventListener('popstate', () => this.handleRoute());
+                document.addEventListener('click', (e) => {
+                    if (e.target.matches('a[href^="/"]') || e.target.closest('a[href^="/"]')) {
+                        const link = e.target.matches('a[href^="/"]') ? e.target : e.target.closest('a[href^="/"]');
+                        e.preventDefault();
+                        this.navigate(link.getAttribute('href'));
+                    }
+                });
             }
-        }
 
-        // Initialize AdSense
-        function initializeAdSense() {
-            console.log('AdSense initialized for ReinForge');
-        }
-
-        // Setup banner slider
-        function setupBannerSlider() {
-            // Start auto rotation
-            bannerInterval = setInterval(() => {
-                nextSlide();
-            }, 5000);
-        }
-
-        // Banner slider functions
-        function nextSlide() {
-            const slides = document.querySelectorAll('.banner-slide');
-            const dots = document.querySelectorAll('.banner-dot');
-            
-            slides[currentBannerIndex].classList.remove('active');
-            dots[currentBannerIndex].classList.remove('active');
-            
-            currentBannerIndex = (currentBannerIndex + 1) % slides.length;
-            
-            slides[currentBannerIndex].classList.add('active');
-            dots[currentBannerIndex].classList.add('active');
-        }
-
-        function currentSlide(index) {
-            const slides = document.querySelectorAll('.banner-slide');
-            const dots = document.querySelectorAll('.banner-dot');
-            
-            slides[currentBannerIndex].classList.remove('active');
-            dots[currentBannerIndex].classList.remove('active');
-            
-            currentBannerIndex = index;
-            
-            slides[currentBannerIndex].classList.add('active');
-            dots[currentBannerIndex].classList.add('active');
-            
-            // Reset interval
-            clearInterval(bannerInterval);
-            bannerInterval = setInterval(() => {
-                nextSlide();
-            }, 5000);
-        }
-
-        function handleBannerClick(index) {
-            const banner = banners[index];
-            if (banner.link && banner.link !== false) {
-                openExternalLink(banner.link);
+            addRoute(path, handler) {
+                this.routes[path] = handler;
             }
-        }
 
-        // Setup back to top button
-        function setupBackToTop() {
-            const backToTopBtn = document.getElementById('backToTop');
-            
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    backToTopBtn.classList.add('visible');
+            navigate(path) {
+                window.history.pushState({}, '', path);
+                this.handleRoute();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            handleRoute() {
+                const path = window.location.pathname;
+                this.currentPath = path;
+
+                // Update active nav link
+                document.querySelectorAll('nav a').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === path) {
+                        link.classList.add('active');
+                    }
+                });
+
+                // Handle routes
+                if (path === '/' || path === '') {
+                    this.routes['/']();
+                } else if (path.startsWith('/mods/')) {
+                    const modId = path.split('/mods/')[1];
+                    this.routes['/mods/:id'](modId);
+                } else if (this.routes[path]) {
+                    this.routes[path]();
                 } else {
-                    backToTopBtn.classList.remove('visible');
+                    this.routes['/404']();
                 }
-            });
+            }
+        }
+
+        // Initialize router
+        const router = new Router();
+
+        // Home page
+        router.addRoute('/', () => {
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="hero">
+                    <div class="hero-content">
+                        <h2>Discover Amazing Mods</h2>
+                        <p>Transform your Minecraft experience with our curated collection of the best mods</p>
+                        <a href="/mods" class="cta-button">
+                            <i class="fas fa-rocket"></i>
+                            Explore Mods
+                        </a>
+                    </div>
+                </div>
+
+                <div class="banner-slider" id="bannerSlider">
+                    ${bannerSlides.map((slide, index) => `
+                        <div class="banner-slide ${index === 0 ? 'active' : ''}" onclick="router.navigate('${slide.link}')">
+                            <img src="${slide.image}" alt="Banner ${index + 1}">
+                        </div>
+                    `).join('')}
+                    <div class="banner-dots">
+                        ${bannerSlides.map((_, index) => `
+                            <div class="banner-dot ${index === 0 ? 'active' : ''}" onclick="changeBannerSlide(${index})"></div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="running-mods">
+                    <div class="container">
+                        <h2 class="section-title">What's Hot</h2>
+                        ${runningMods.map(mod => `
+                            <div class="running-mod" onclick="router.navigate('${mod.link}')">
+                                <div class="running-mod-content">
+                                    <div class="running-mod-icon">
+                                        <i class="fas ${mod.icon}"></i>
+                                    </div>
+                                    <div class="running-mod-text">
+                                        <h4>${mod.title}</h4>
+                                        <p>${mod.description}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="container">
+                    <h2 class="section-title">Featured Mods</h2>
+                    <div class="mod-grid" id="featuredMods"></div>
+                </div>
+            `;
+
+            renderMods(modsData.slice(0, 6), 'featuredMods');
+            startBannerSlider();
+        });
+
+        // Mods page
+        router.addRoute('/mods', () => {
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="container">
+                    <h2 class="section-title" style="margin-top: 2rem;">All Mods</h2>
+                    
+                    <div class="search-filter-section">
+                        <div class="search-container">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" class="search-input" placeholder="Search mods..." id="searchInput">
+                        </div>
+                        <div class="filter-container">
+                            <select class="filter-select" id="categoryFilter">
+                                <option value="all">All Categories</option>
+                                <option value="Fun">Fun</option>
+                                <option value="Tools">Tools</option>
+                                <option value="Magic">Magic</option>
+                                <option value="Decoration">Decoration</option>
+                                <option value="Technology">Technology</option>
+                                <option value="Adventure">Adventure</option>
+                                <option value="Environment">Environment</option>
+                                <option value="Animals">Animals</option>
+                            </select>
+                            <select class="filter-select" id="sortFilter">
+                                <option value="popular">Most Popular</option>
+                                <option value="newest">Newest First</option>
+                                <option value="name">Name (A-Z)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="edition-selector">
+                        <button class="edition-btn active" data-edition="all">
+                            <i class="fas fa-th"></i>
+                            All Editions
+                        </button>
+                        <button class="edition-btn" data-edition="bedrock">
+                            <i class="fas fa-mobile-alt"></i>
+                            Bedrock Edition
+                        </button>
+                        <button class="edition-btn" data-edition="java">
+                            <i class="fas fa-desktop"></i>
+                            Java Edition
+                        </button>
+                    </div>
+
+                    <div class="mods-header">
+                        <div class="mod-count" id="modCount">${modsData.length} mods found</div>
+                    </div>
+
+                    <div class="mod-grid" id="modsGrid"></div>
+
+                    <div class="load-more-section">
+                        <button class="load-more-btn" onclick="loadMoreMods()">
+                            <i class="fas fa-plus-circle"></i> Load More
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            renderMods(modsData, 'modsGrid');
+            setupFilters();
+        });
+
+        // Mod detail page
+        router.addRoute('/mods/:id', (modId) => {
+            const mod = modsData.find(m => m.id === modId);
             
-            backToTopBtn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
+            if (!mod) {
+                router.routes['/404']();
+                return;
+            }
+
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="container">
+                    <a href="/mods" class="back-btn">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Mods
+                    </a>
+                    <div class="mod-detail">
+                        <img src="${mod.image}" alt="${mod.name}" class="mod-detail-image">
+                        <div class="mod-detail-content">
+                            <div class="mod-detail-header">
+                                <div>
+                                    <h2 class="mod-detail-title">${mod.name}</h2>
+                                    <div class="mod-detail-meta">
+                                        <div class="meta-item">
+                                            <i class="fas fa-tag"></i>
+                                            <span>${mod.version}</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-user"></i>
+                                            <span>${mod.author}</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-download"></i>
+                                            <span>${mod.downloads} downloads</span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-folder"></i>
+                                            <span>${mod.category}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <a href="${mod.downloadLink}" class="download-btn" onclick="showExternalLinkWarning(event, '${mod.downloadLink}')">
+                                <i class="fas fa-download"></i> Download Now
+                            </a>
+                            
+                            <button class="download-btn" style="margin-left: 1rem; background: linear-gradient(135deg, #22d3ee, #06b6d4);" onclick="shareModal('${mod.name}', '/mods/${mod.id}')">
+                                <i class="fas fa-share-alt"></i> Share
+                            </button>
+                            
+                            <div class="section">
+                                <h3><i class="fas fa-info-circle"></i> Description</h3>
+                                <p>${mod.fullDescription}</p>
+                            </div>
+                            
+                            <div class="section">
+                                <h3><i class="fas fa-star"></i> Features</h3>
+                                <ul>
+                                    ${mod.features.map(f => `<li>${f}</li>`).join('')}
+                                </ul>
+                            </div>
+
+                            <div class="section">
+                                <h3><i class="fas fa-book"></i> Installation Guide</h3>
+                                <p>1. Download the mod file from the button above</p>
+                                <p>2. Open Minecraft and navigate to Settings > Storage > Import</p>
+                                <p>3. Select the downloaded .mcpack or .mcaddon file</p>
+                                <p>4. The mod will be automatically installed</p>
+                                <p>5. Create a new world or edit existing world settings to enable the mod</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        // About page
+        router.addRoute('/about', () => {
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="container">
+                    <h2 class="section-title" style="margin-top: 2rem; text-align: center;">About ReinForge</h2>
+                    <div class="about-content">
+                        <div class="about-section">
+                            <h3><i class="fas fa-users"></i> Who We Are</h3>
+                            <p>ReinForge is a community-driven platform dedicated to bringing the best Minecraft mods to players worldwide. We carefully curate and test each mod to ensure quality, compatibility, and safety for all users.</p>
+                        </div>
+                        <div class="about-section">
+                            <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+                            <p>To make Minecraft modding accessible to everyone by providing a simple, clean, and user-friendly platform for discovering and downloading mods. We believe in reshaping your Minecraft reality with amazing content.</p>
+                        </div>
+                        <div class="about-section">
+                            <h3><i class="fas fa-heart"></i> Our Values</h3>
+                            <p>Quality, Safety, Community, and Innovation. We prioritize user experience and ensure every mod meets our high standards before being featured on our platform.</p>
+                        </div>
+                        <div class="about-section">
+                            <h3><i class="fas fa-envelope"></i> Contact Us</h3>
+                            <p>Have questions or suggestions? We'd love to hear from you! Reach out to us through our social media channels or support page.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Donation page
+        router.addRoute('/donation', () => {
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="container">
+                    <div class="donation-section">
+                        <h2>Support ReinForge</h2>
+                        <p>Help us keep ReinForge running and continue providing amazing mods to the community. Your support means everything to us!</p>
+                        <img src="https://via.placeholder.com/300x300/6366f1/ffffff?text=QR+Code" alt="Donation QR" class="donation-qr">
+                        <p>Scan the QR code above or click the button below to support us</p>
+                        <a href="#" class="download-btn" onclick="alert('Thank you for your support!')">
+                            <i class="fas fa-heart"></i> Donate Now
+                        </a>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Privacy page
+        router.addRoute('/privacy', () => {
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="container">
+                    <h2 class="section-title" style="margin-top: 2rem; text-align: center;">Privacy Policy</h2>
+                    <div class="policy-content">
+                        <p class="policy-date">Last updated: December 2024</p>
+                        
+                        <h3>1. Information We Collect</h3>
+                        <p>We collect minimal information necessary to provide our services. This may include usage data, device information, and preferences.</p>
+                        
+                        <h3>2. How We Use Your Information</h3>
+                        <p>Your information is used solely to improve our services and provide you with the best mod browsing experience.</p>
+                        
+                        <h3>3. Data Security</h3>
+                        <p>We implement industry-standard security measures to protect your data and ensure your privacy.</p>
+                        
+                        <h3>4. Third-Party Services</h3>
+                        <p>We may use third-party services for analytics and hosting. These services have their own privacy policies.</p>
+                        
+                        <h3>5. Your Rights</h3>
+                        <p>You have the right to access, modify, or delete your data at any time. Contact us for assistance.</p>
+                        
+                        <h3>6. Changes to This Policy</h3>
+                        <p>We may update this policy from time to time. Continued use of our services constitutes acceptance of any changes.</p>
+                        
+                        <h3>7. Contact Information</h3>
+                        <p>If you have questions about this privacy policy, please contact us through our support channels.</p>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Terms page
+        router.addRoute('/terms', () => {
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="container">
+                    <h2 class="section-title" style="margin-top: 2rem; text-align: center;">Terms of Service</h2>
+                    <div class="policy-content">
+                        <p class="policy-date">Last updated: December 2024</p>
+                        
+                        <h3>1. Acceptance of Terms</h3>
+                        <p>By accessing and using ReinForge, you accept and agree to be bound by these Terms of Service.</p>
+                        
+                        <h3>2. Use of Service</h3>
+                        <p>You agree to use our service only for lawful purposes and in accordance with these terms.</p>
+                        
+                        <h3>3. Mod Downloads</h3>
+                        <p>Mods are provided as-is. We strive to ensure quality but cannot guarantee compatibility with all devices or game versions.</p>
+                        
+                        <h3>4. Intellectual Property</h3>
+                        <p>All content on ReinForge is protected by copyright and intellectual property laws. Respect mod creators' rights.</p>
+                        
+                        <h3>5. User Conduct</h3>
+                        <p>Users must not engage in harmful activities, distribute malware, or violate any laws while using our service.</p>
+                        
+                        <h3>6. Disclaimer</h3>
+                        <p>ReinForge is not affiliated with Mojang or Microsoft. Minecraft is a trademark of Mojang AB.</p>
+                        
+                        <h3>7. Limitation of Liability</h3>
+                        <p>We are not liable for any damages arising from the use of mods downloaded from our platform.</p>
+                        
+                        <h3>8. Changes to Terms</h3>
+                        <p>We reserve the right to modify these terms at any time. Continued use constitutes acceptance of changes.</p>
+                    </div>
+                </div>
+            `;
+        });
+
+        // 404 page
+        router.addRoute('/404', () => {
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="container">
+                    <div class="hero">
+                        <div class="hero-content">
+                            <h2>404 - Page Not Found</h2>
+                            <p>The page you're looking for doesn't exist or has been moved</p>
+                            <a href="/" class="cta-button">
+                                <i class="fas fa-home"></i>
+                                Go Home
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Render mods function
+        function renderMods(mods, containerId = 'modsGrid') {
+            const grid = document.getElementById(containerId);
+            if (!grid) return;
+
+            if (mods.length === 0) {
+                grid.innerHTML = '<div class="loading">No mods found matching your criteria</div>';
+                return;
+            }
+
+            grid.innerHTML = mods.map(mod => `
+                <div class="mod-card" onclick="router.navigate('/mods/${mod.id}')">
+                    <img src="${mod.image}" alt="${mod.name}" class="mod-card-image">
+                    <div class="mod-card-content">
+                        <div class="mod-card-header">
+                            <h3 class="mod-card-title">${mod.name}</h3>
+                            <span class="mod-card-version">${mod.version}</span>
+                        </div>
+                        <p class="mod-card-description">${mod.description}</p>
+                        <div class="mod-card-footer">
+                            <div class="mod-card-author">
+                                <i class="fas fa-user"></i>
+                                <span>${mod.author}</span>
+                            </div>
+                            <div class="mod-card-downloads">
+                                <i class="fas fa-download"></i>
+                                <span>${mod.downloads}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Setup filters
+        function setupFilters() {
+            const searchInput = document.getElementById('searchInput');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const sortFilter = document.getElementById('sortFilter');
+            const editionBtns = document.querySelectorAll('.edition-btn');
+
+            if (searchInput) {
+                searchInput.addEventListener('input', applyFilters);
+            }
+
+            if (categoryFilter) {
+                categoryFilter.addEventListener('change', applyFilters);
+            }
+
+            if (sortFilter) {
+                sortFilter.addEventListener('change', applyFilters);
+            }
+
+            editionBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    editionBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    applyFilters();
                 });
             });
         }
 
-        // Theme setup
-        function setupTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            setTheme(savedTheme);
-            
-            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-        }
+        // Apply filters
+        function applyFilters() {
+            const searchQuery = document.getElementById('searchInput')?.value.toLowerCase() || '';
+            const category = document.getElementById('categoryFilter')?.value || 'all';
+            const sortBy = document.getElementById('sortFilter')?.value || 'popular';
+            const edition = document.querySelector('.edition-btn.active')?.dataset.edition || 'all';
 
-        function toggleTheme() {
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            setTheme(newTheme);
-        }
-
-        function setTheme(theme) {
-            currentTheme = theme;
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-            
-            const themeIcon = document.querySelector('#themeToggle i');
-            themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
-        }
-
-        // Set Minecraft edition
-        function setEdition(edition) {
-            currentEdition = edition;
-            
-            // Update button states
-            const editionBtns = document.querySelectorAll('.edition-btn');
-            editionBtns.forEach(btn => {
-                if (btn.onclick.toString().includes(edition)) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-            
-            // Re-render mods
-            renderMods();
-        }
-
-        // Generate filter options
-        function generateFilters() {
-            const versions = [...new Set(modsData.map(mod => mod.version))];
-            const versionFilter = document.getElementById('versionFilter');
-            
-            // Clear existing options except the first one
-            while (versionFilter.children.length > 1) {
-                versionFilter.removeChild(versionFilter.lastChild);
-            }
-            
-            versions.forEach(version => {
-                const option = document.createElement('option');
-                option.value = version;
-                option.textContent = version;
-                versionFilter.appendChild(option);
-            });
-        }
-
-        // Setup event listeners
-        function setupEventListeners() {
-            // Search input
-            document.getElementById('searchInput').addEventListener('input', function() {
-                currentSearchTerm = this.value.toLowerCase().trim();
-                currentPage = 1; // Reset to first page
-                renderMods();
-            });
-            
-            // Version filter
-            document.getElementById('versionFilter').addEventListener('change', function() {
-                currentFilter = this.value;
-                currentPage = 1; // Reset to first page
-                renderMods();
-            });
-            
-            // Category filter
-            document.getElementById('categoryFilter').addEventListener('change', function() {
-                currentCategory = this.value;
-                currentPage = 1; // Reset to first page
-                renderMods();
-            });
-            
-            // Sort select
-            document.getElementById('sortSelect').addEventListener('change', function() {
-                currentSort = this.value;
-                renderMods();
-            });
-        }
-
-        // Get paginated mods
-        function getPaginatedMods(mods) {
-            const startIndex = (currentPage - 1) * modsPerPage;
-            const endIndex = startIndex + modsPerPage;
-            return mods.slice(0, endIndex);
-        }
-
-        // Render mods based on current filters
-        function renderMods() {
-            const modGrid = document.getElementById('modGrid');
-            const modCount = document.getElementById('modCount');
-            const loadMoreBtn = document.getElementById('loadMoreBtn');
-            
-            let filteredMods = modsData.filter(mod => {
-                // Edition filter
-                if (mod.edition !== currentEdition) {
-                    return false;
-                }
+            // Filter mods
+            filteredMods = modsData.filter(mod => {
+                const matchesSearch = mod.name.toLowerCase().includes(searchQuery) || 
+                                    mod.description.toLowerCase().includes(searchQuery);
+                const matchesCategory = category === 'all' || mod.category === category;
+                const matchesEdition = edition === 'all' || mod.edition === edition;
                 
-                // Version filter
-                if (currentFilter !== 'all' && mod.version !== currentFilter) {
-                    return false;
-                }
-                
-                // Category filter
-                if (currentCategory !== 'all' && mod.category !== currentCategory) {
-                    return false;
-                }
-                
-                // Search filter
-                if (currentSearchTerm) {
-                    const searchFields = [
-                        mod.name,
-                        mod.shortDescription,
-                        mod.fullDescription,
-                        ...mod.authors
-                    ];
-                    
-                    const matches = searchFields.some(field => 
-                        field.toLowerCase().includes(currentSearchTerm)
-                    );
-                    
-                    if (!matches) return false;
-                }
-                
-                return true;
+                return matchesSearch && matchesCategory && matchesEdition;
             });
-            
+
             // Sort mods
-            filteredMods.sort((a, b) => {
-                switch(currentSort) {
-                    case 'name':
-                        return a.name.localeCompare(b.name);
-                    case 'newest':
-                        return new Date(b.lastUpdated) - new Date(a.lastUpdated);
-                    case 'popular':
-                        return b.downloads - a.downloads;
-                    default:
-                        return 0;
-                }
+            if (sortBy === 'popular') {
+                filteredMods.sort((a, b) => {
+                    const aDownloads = parseFloat(a.downloads.replace('K', '')) * 1000;
+                    const bDownloads = parseFloat(b.downloads.replace('K', '')) * 1000;
+                    return bDownloads - aDownloads;
+                });
+            } else if (sortBy === 'newest') {
+                filteredMods.sort((a, b) => b.version.localeCompare(a.version));
+            } else if (sortBy === 'name') {
+                filteredMods.sort((a, b) => a.name.localeCompare(b.name));
+            }
+
+            // Update count
+            const modCount = document.getElementById('modCount');
+            if (modCount) {
+                modCount.textContent = `${filteredMods.length} mods found`;
+            }
+
+            // Render filtered mods
+            renderMods(filteredMods, 'modsGrid');
+        }
+
+        // Banner slider
+        function startBannerSlider() {
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % bannerSlides.length;
+                updateBannerSlide();
+            }, 5000);
+        }
+
+        function changeBannerSlide(index) {
+            currentSlide = index;
+            updateBannerSlide();
+        }
+
+        function updateBannerSlide() {
+            const slides = document.querySelectorAll('.banner-slide');
+            const dots = document.querySelectorAll('.banner-dot');
+            
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
             });
             
-            // Get paginated mods
-            const paginatedMods = getPaginatedMods(filteredMods);
-            
-            // Update mod count
-            modCount.textContent = `${filteredMods.length} mod${filteredMods.length !== 1 ? 's' : ''} found`;
-            
-            // Show/hide load more button
-            if (paginatedMods.length >= filteredMods.length) {
-                loadMoreBtn.style.display = 'none';
-            } else {
-                loadMoreBtn.style.display = 'inline-block';
-            }
-            
-            // Render mod cards
-            if (paginatedMods.length === 0) {
-                modGrid.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-search"></i>
-                        <h3>No mods found</h3>
-                        <p>Try adjusting your search terms or filters</p>
-                    </div>
-                `;
-                loadMoreBtn.style.display = 'none';
-                return;
-            }
-            
-            modGrid.innerHTML = '';
-            
-            paginatedMods.forEach(mod => {
-                const modCard = document.createElement('div');
-                modCard.className = 'mod-card';
-                modCard.onclick = () => showModDetail(mod.id);
-                
-                modCard.innerHTML = `
-                    <img src="${mod.image}" alt="${mod.name}" class="mod-card-image">
-                    <div class="mod-card-content">
-                        <div class="mod-card-header">
-                            <h3 class="mod-card-title">${mod.name}</h3>
-                            <span class="mod-card-version">${mod.version}</span>
-                        </div>
-                        <p class="mod-card-description">${mod.shortDescription}</p>
-                        <div class="mod-card-footer">
-                            <div class="mod-card-author">
-                                <i class="fas fa-user"></i> ${mod.authors[0]}${mod.authors.length > 1 ? ' +' + (mod.authors.length - 1) : ''}
-                            </div>
-                            <div class="mod-card-downloads">
-                                <i class="fas fa-download"></i> ${formatNumber(mod.downloads)}
-                            </div>
-                        </div>
-                    </div>
-                `;
-                modGrid.appendChild(modCard);
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
             });
         }
 
-        // Load more mods
+        // Theme toggle
+        function toggleTheme() {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', currentTheme);
+            
+            const icon = document.querySelector('.theme-toggle i');
+            if (icon) {
+                icon.className = currentTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            }
+            
+            localStorage.setItem('theme', currentTheme);
+        }
+
+        // Load saved theme
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            currentTheme = savedTheme;
+            document.body.setAttribute('data-theme', savedTheme);
+            
+            const icon = document.querySelector('.theme-toggle i');
+            if (icon) {
+                icon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            }
+        }
+
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show/hide back to top button
+        window.addEventListener('scroll', () => {
+            const backToTop = document.querySelector('.back-to-top');
+            if (backToTop) {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            }
+        });
+
+        // Load more mods (placeholder)
         function loadMoreMods() {
-            currentPage++;
-            renderMods();
-            
-            // Scroll to newly loaded mods
-            const modGrid = document.getElementById('modGrid');
-            const lastMod = modGrid.lastElementChild;
-            if (lastMod) {
-                lastMod.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
+            alert('Loading more mods... (This is a demo feature)');
         }
 
-        // Render featured mods on home page
-        function renderFeaturedMods() {
-            const featuredGrid = document.getElementById('featuredModsGrid');
-            const featuredMods = modsData.filter(mod => mod.featured);
+        // External link warning modal
+        function showExternalLinkWarning(event, url) {
+            event.preventDefault();
             
-            if (featuredMods.length === 0) {
-                featuredGrid.innerHTML = '<p>No featured mods available.</p>';
-                return;
-            }
-            
-            featuredGrid.innerHTML = '';
-            
-            featuredMods.forEach(mod => {
-                const modCard = document.createElement('div');
-                modCard.className = 'mod-card';
-                modCard.onclick = () => showModDetail(mod.id);
-                
-                modCard.innerHTML = `
-                    <img src="${mod.image}" alt="${mod.name}" class="mod-card-image">
-                    <div class="mod-card-content">
-                        <div class="mod-card-header">
-                            <h3 class="mod-card-title">${mod.name}</h3>
-                            <span class="mod-card-version">${mod.version}</span>
-                        </div>
-                        <p class="mod-card-description">${mod.shortDescription}</p>
-                        <div class="mod-card-footer">
-                            <div class="mod-card-author">
-                                <i class="fas fa-user"></i> ${mod.authors[0]}${mod.authors.length > 1 ? ' +' + (mod.authors.length - 1) : ''}
-                            </div>
-                            <div class="mod-card-downloads">
-                                <i class="fas fa-download"></i> ${formatNumber(mod.downloads)}
-                            </div>
-                        </div>
+            const modal = document.createElement('div');
+            modal.className = 'modal active';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">External Link Warning</h3>
+                        <button class="close-btn" onclick="this.closest('.modal').remove()">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
-                `;
-                featuredGrid.appendChild(modCard);
-            });
-        }
-
-        // Show running mod detail
-        function showRunningModDetail(modId) {
-            showModDetail(modId);
-        }
-
-        // Show mod detail
-        function showModDetail(modId) {
-            const mod = modsData.find(m => m.id === modId);
-            if (!mod) return;
-            
-            currentModId = modId;
-            selectedVersionIndex = 0; // Reset to first version
-            
-            const modalTitle = document.getElementById('modDetailTitle');
-            const modalBody = document.getElementById('modDetailBody');
-            
-            modalTitle.textContent = mod.name;
-            
-            // Generate version selector if multiple versions available
-            let versionSelector = '';
-            if (mod.versions && mod.versions.length > 1) {
-                versionSelector = `
-                    <div class="version-selector">
-                        <h4>Select Version:</h4>
-                        <div class="version-buttons">
-                            ${mod.versions.map((version, index) => `
-                                <button class="version-btn ${index === 0 ? 'active' : ''}" 
-                                        onclick="selectVersion(${index})">
-                                    ${version.version}
+                    <div class="modal-body">
+                        <div class="warning-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="warning-content">
+                            <h3>You are leaving ReinForge</h3>
+                            <p>You are about to visit an external website. Please ensure you trust the source before downloading any files.</p>
+                            <div class="external-link">${url}</div>
+                            <div class="warning-buttons">
+                                <button class="warning-btn cancel" onclick="this.closest('.modal').remove()">
+                                    Cancel
                                 </button>
-                            `).join('')}
+                                <button class="warning-btn proceed" onclick="window.open('${url}', '_blank'); this.closest('.modal').remove();">
+                                    Proceed
+                                </button>
+                            </div>
                         </div>
                     </div>
-                `;
-            }
-            
-            // Generate download buttons
-            let downloadButtons = '';
-            if (mod.curseforgeAvailable) {
-                downloadButtons = `
-                    <div class="download-options">
-                        <h3>Download Options:</h3>
-                        <div class="download-buttons">
-                            <button class="download-btn primary" onclick="downloadMod('${mod.versions[selectedVersionIndex].downloadUrl}', '${mod.name}')">
-                                <i class="fas fa-download"></i> Direct Download
-                            </button>
-                            <button class="download-btn secondary" onclick="openExternalLink('${mod.curseforgeUrl}')">
-                                <i class="fas fa-external-link-alt"></i> CurseForge
-                            </button>
-                        </div>
-                    </div>
-                `;
-            } else {
-                downloadButtons = `
-                    <div class="download-options">
-                        <h3>Download:</h3>
-                        <div class="download-buttons">
-                            <button class="download-btn primary" onclick="downloadMod('${mod.versions[selectedVersionIndex].downloadUrl}', '${mod.name}')">
-                                <i class="fas fa-download"></i> Download ${mod.name}
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }
-            
-            // Share section
-            const shareSection = `
-                <div class="share-section">
-                    <h3><i class="fas fa-share-alt"></i> Share this Mod</h3>
-                    <button class="download-btn secondary" onclick="openShareModal('${mod.shareUrl}', '${mod.name}')" style="width: 100%; margin-top: 12px;">
-                        <i class="fas fa-share"></i> Share with Friends
-                    </button>
                 </div>
             `;
             
-            modalBody.innerHTML = `
-                <img src="${mod.image}" alt="${mod.name}" class="mod-detail-image">
-                
-                <div class="mod-detail-meta">
-                    <div class="mod-meta-item">
-                        <i class="fas fa-tag"></i>
-                        <span>Version: ${mod.versions[selectedVersionIndex].version}</span>
+            document.body.appendChild(modal);
+        }
+
+        // Share modal
+        function shareModal(modName, modUrl) {
+            const fullUrl = window.location.origin + modUrl;
+            
+            const modal = document.createElement('div');
+            modal.className = 'modal active';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Share ${modName}</h3>
+                        <button class="close-btn" onclick="this.closest('.modal').remove()">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
-                    <div class="mod-meta-item">
-                        <i class="fas fa-users"></i>
-                        <span>Authors: ${mod.authors.join(', ')}</span>
-                    </div>
-                    <div class="mod-meta-item">
-                        <i class="fas fa-download"></i>
-                        <span>Downloads: ${formatNumber(mod.downloads)}</span>
-                    </div>
-                    <div class="mod-meta-item">
-                        <i class="fas fa-calendar"></i>
-                        <span>Updated: ${formatDate(mod.lastUpdated)}</span>
+                    <div class="modal-body">
+                        <div class="share-buttons">
+                            <button class="share-btn whatsapp" onclick="shareToWhatsApp('${modName}', '${fullUrl}')">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </button>
+                            <button class="share-btn facebook" onclick="shareToFacebook('${fullUrl}')">
+                                <i class="fab fa-facebook"></i> Facebook
+                            </button>
+                            <button class="share-btn twitter" onclick="shareToTwitter('${modName}', '${fullUrl}')">
+                                <i class="fab fa-twitter"></i> Twitter
+                            </button>
+                            <button class="share-btn copy" onclick="copyToClipboard('${fullUrl}')">
+                                <i class="fas fa-copy"></i> Copy Link
+                            </button>
+                        </div>
                     </div>
                 </div>
-                
-                ${versionSelector}
-                
-                <div class="mod-detail-section">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>${mod.fullDescription}</p>
-                </div>
-                
-                <div class="mod-detail-section">
-                    <h3><i class="fas fa-star"></i> Features</h3>
-                    <ul>
-                        ${mod.features.map(feature => `<li>${feature}</li>`).join('')}
-                    </ul>
-                </div>
-                
-                <div class="mod-detail-section">
-                    <h3><i class="fas fa-wrench"></i> Installation Guide</h3>
-                    <ul>
-                        ${mod.installation.map((step, index) => `<li>${step}</li>`).join('')}
-                    </ul>
-                </div>
-                
-                ${downloadButtons}
-                ${shareSection}
             `;
             
-            document.getElementById('modDetailModal').classList.add('active');
+            document.body.appendChild(modal);
         }
 
-        // Select version in mod detail
-        function selectVersion(index) {
-            selectedVersionIndex = index;
-            
-            // Update active button
-            const versionButtons = document.querySelectorAll('.version-btn');
-            versionButtons.forEach((btn, i) => {
-                if (i === index) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-            
-            // Update download URL in buttons
-            const mod = modsData.find(m => m.id === currentModId);
-            if (!mod) return;
-            
-            const downloadButtons = document.querySelectorAll('.download-btn.primary');
-            downloadButtons.forEach(btn => {
-                btn.setAttribute('onclick', `downloadMod('${mod.versions[index].downloadUrl}', '${mod.name}')`);
-            });
-            
-            // Update version in meta
-            const versionElement = document.querySelector('.mod-meta-item:first-child span');
-            if (versionElement) {
-                versionElement.textContent = `Version: ${mod.versions[index].version}`;
-            }
+        function shareToWhatsApp(title, url) {
+            window.open(`https://wa.me/?text=${encodeURIComponent(title + ' - ' + url)}`, '_blank');
         }
 
-        // Close mod detail
-        function closeModDetail() {
-            document.getElementById('modDetailModal').classList.remove('active');
-            currentModId = null;
+        function shareToFacebook(url) {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
         }
 
-        // Show page
-        function showPage(pageName) {
-            // Update active nav link
-            const navLinks = document.querySelectorAll('nav a');
-            navLinks.forEach(link => {
-                if (link.getAttribute('onclick')?.includes(pageName)) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
-            
-            // Show page
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-            document.getElementById(pageName).classList.add('active');
-            
-            // If showing mods page, refresh the list
-            if (pageName === 'mods') {
-                renderMods();
-            }
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
+        function shareToTwitter(title, url) {
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`, '_blank');
         }
 
-        // Open external link with warning
-        function openExternalLink(url) {
-            if (!url || url === '#') return;
-            
-            currentExternalLink = url;
-            document.getElementById('externalLinkUrl').textContent = url;
-            document.getElementById('externalLinkModal').classList.add('active');
-        }
-
-        function closeExternalLinkModal() {
-            document.getElementById('externalLinkModal').classList.remove('active');
-            currentExternalLink = '';
-        }
-
-        function proceedToExternalLink() {
-            if (currentExternalLink) {
-                window.open(currentExternalLink, '_blank');
-                closeExternalLinkModal();
-            }
-        }
-
-        // Open share modal
-        function openShareModal(url, modName) {
-            currentShareLink = url;
-            document.getElementById('shareLinkUrl').textContent = url;
-            document.getElementById('shareModal').classList.add('active');
-        }
-
-        function closeShareModal() {
-            document.getElementById('shareModal').classList.remove('active');
-            currentShareLink = '';
-        }
-
-        // Share functions
-        function copyShareLink() {
-            navigator.clipboard.writeText(currentShareLink).then(() => {
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
                 alert('Link copied to clipboard!');
-                closeShareModal();
             });
         }
 
-        function shareOnWhatsApp() {
-            const url = `https://wa.me/?text=Check out this awesome Minecraft mod: ${currentShareLink}`;
-            window.open(url, '_blank');
-            closeShareModal();
-        }
-
-        function shareOnFacebook() {
-            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentShareLink)}`;
-            window.open(url, '_blank');
-            closeShareModal();
-        }
-
-        function shareOnTwitter() {
-            const url = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentShareLink)}&text=Check out this awesome Minecraft mod!`;
-            window.open(url, '_blank');
-            closeShareModal();
-        }
-
-        function shareOnInstagram() {
-            // Instagram doesn't support direct sharing, open link
-            window.open(currentShareLink, '_blank');
-            closeShareModal();
-        }
-
-        // Download mod
-        function downloadMod(url, modName) {
-            if (!url || url === '#') {
-                alert('Download link not available at the moment.');
-                return;
-            }
-            
-            currentDownloadUrl = url;
-            currentModName = modName;
-            
-            // Create a temporary link and trigger download
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = modName || 'mod';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            // Show thank you modal
-            setTimeout(() => {
-                document.getElementById('thankYouModal').classList.add('active');
-            }, 500);
-        }
-
-        // Retry download
-        function retryDownload() {
-            if (currentDownloadUrl) {
-                const link = document.createElement('a');
-                link.href = currentDownloadUrl;
-                link.download = currentModName || 'mod';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-        }
-
-        // Close modal
-        function closeModal() {
-            document.getElementById('thankYouModal').classList.remove('active');
-        }
-
-        // Utility functions
-        function formatNumber(num) {
-            if (num >= 1000000) {
-                return (num / 1000000).toFixed(1) + 'M';
-            } else if (num >= 1000) {
-                return (num / 1000).toFixed(1) + 'K';
-            }
-            return num.toString();
-        }
-
-        function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'short', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString(undefined, options);
-        }
-
-        // Initialize when page loads
-        window.onload = init;
+        // Initialize app
+        loadTheme();
+        router.handleRoute();
     </script>
 </body>
 </html>
